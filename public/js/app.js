@@ -19388,6 +19388,7 @@ var prodUrl = "https://varfid.herokuapp.com";
 var localUrl = "http://localhost:8000";
 var ENV = "local" || 0;
 var apiUrl = ENV === 'local' ? localUrl : prodUrl;
+console.log(ENV);
 console.log(apiUrl);
 
 
