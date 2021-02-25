@@ -1,5 +1,4 @@
 import axios from 'axios'
-import route from '../library/route'
 import { apiUrl } from '../url.js'
 
 /**
@@ -27,10 +26,8 @@ const authenticate = () => {
 const profile = {
     id: 0,
     firstname: null,
-    // middlename: null,
+    middlename: null,
     lastname: null,
-    // email: null,
-    // photo: null
     token: null,
 }
 
@@ -62,7 +59,7 @@ const actions = {
             const { data } = await login(payload)
             dispatch('LOGIN_SUCCESS', data)
         } catch (error) {
-            // console.log(Object.keys(error));
+            console.log(Object.keys(error));
             const { response } = error
             dispatch('LOGIN_ERROR', response)
         }
@@ -70,7 +67,7 @@ const actions = {
     LOGIN_SUCCESS({commit}, payload) {
         const { data } = payload
         commit('PROFILE',data)
-        window.open('home','_self')
+        window.open('#/','_self')
     },
     LOGIN_ERROR({commit}, payload) {
         /**
@@ -94,7 +91,7 @@ const actions = {
         }
     },
     LOGOUT_SUCCESS() {
-        window.open('home#/admin','_self')
+        window.open('#/login','_self')
     },
     LOGOUT_ERROR() {
 

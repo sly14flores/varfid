@@ -26,6 +26,8 @@ import AppFooter from './AppFooter.vue';
 
 import menu from './menu.js';
 
+require('./http.js');
+
 export default {
   props: ['pageComponent'],
   components: {

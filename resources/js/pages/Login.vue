@@ -6,10 +6,10 @@
                     <div class="card p-fluid">
                         <div class="p-grid p-jc-center">
                             <div class="p-col-6">
-                                <center><img alt="logo" src="img/varfid-login-logo.png" class="varfid-logo"></center>
+                                <img alt="logo" src="img/varfid-login-logo.png" class="varfid-logo">
                             </div>
                         </div>
-                        <h5 class=""><center>Sign in to start your session</center></h5> <hr />
+                        <h5 class="center">Sign in to start your session</h5> <hr />
                         <div class="p-field">
                             <label for="username">Username</label>
                             <span class="p-input-icon-right">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="footer">
-            <span class="footer-text"><center>&copy; 2021 Vehicle Automation RFID</center></span>
+            <span class="footer-text">&copy; 2021 Vehicle Automation RFID</span>
         </div>
     </div>
 </template>
@@ -85,6 +85,7 @@ export default {
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .card {
@@ -104,5 +105,11 @@ export default {
   width: 100%;
   text-align: center;
   line-height: 30px;
+  text-align: center;
 }
+
+.center {
+    text-align: center;
+}
+
 </style>

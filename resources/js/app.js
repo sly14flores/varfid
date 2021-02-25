@@ -17,8 +17,6 @@ import 'primeflex/primeflex.css'
 import Ripple from 'primevue/ripple';
 import Tooltip from 'primevue/tooltip';
 
-require('./http.js');
-
 const app = createApp(App);
 
 app.config.globalProperties.$appState = reactive({ inputStyle: 'outlined' });
