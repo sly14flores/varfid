@@ -6,8 +6,8 @@
 		<title>{{ config('app.name', 'Vehicle Automation RFID') }}</title>
         <style type="text/css">
         
-            *, html {
-                margin: 0;
+            html, body {
+                margin: 0!important;
             }
 
         </style>
