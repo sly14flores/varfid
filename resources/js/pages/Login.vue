@@ -1,19 +1,15 @@
 <template>
-    <div>
-        <div class="navbar">
-            <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
-            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
-        </div>
-        <div class="p-grid p-jc-center p-mt-4">
+    <div class="wrapper p-p-0 p-m-0">
+        <div class="p-grid p-jc-center p-p-0 p-mt-4 p-mr-0 p-mb-0 p-ml-0">
             <div class="p-lg-4 p-md-12 p-sm-12 p-xs-12">
                 <form @submit.prevent="login">
                     <div class="card p-fluid">
                         <div class="p-grid p-jc-center">
-                            <div class="p-lg-5 p-sm-5 p-xs-5">
-                                <img alt="logo" src="img/Rugian.png" class="rugian">
+                            <div class="p-col-6">
+                                <center><img alt="logo" src="img/varfid-login-logo.png" class="varfid-logo"></center>
                             </div>
                         </div>
-                        <h5 class="p-mt-2"><center>Sign in to start your session</center></h5> <hr />
+                        <h5 class=""><center>Sign in to start your session</center></h5> <hr />
                         <div class="p-field">
                             <label for="username">Username</label>
                             <span class="p-input-icon-right">
@@ -42,6 +38,9 @@
                 </form>
             </div>
         </div>
+        <div class="footer">
+            <span class="footer-text"><center>&copy; 2021 Vehicle Automation RFID</center></span>
+        </div>
     </div>
 </template>
 
@@ -53,7 +52,7 @@ import InputText from 'primevue/inputtext/sfc';
 export default {
     components: {
         Button,
-        InputText
+        InputText,
     },
     data() {
         return {
@@ -80,33 +79,30 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-        overflow: hidden;
-        background-color: #215266;
-        position: relative;
-        top: 0;
-        height: 55px;
-        width: 100%;
-    }
-    .navbar a {
-        float: left;
-        display: block;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 1px 4px;
-        text-decoration: none;
-        font-size: 19px;
-    }
-    .lu-logo {
-        height: 50px;
-    }
-    .p-label-white {
-        color: white;
-    }
-    .rugian {
-        width: 200px;
-    }
-    .card {
-        border-top: 4px solid #215266;
-    }
+
+.varfid-logo {
+    width: 200px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    border-top: 4px solid #215266;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 30px;
+}
 </style>
