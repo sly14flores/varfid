@@ -32,6 +32,8 @@
     "/img/user6-128x128.jpg": "/img/user6-128x128.jpg",
     "/img/user7-128x128.jpg": "/img/user7-128x128.jpg",
     "/img/user8-128x128.jpg": "/img/user8-128x128.jpg",
+    "/img/varfid-login-logo.png": "/img/varfid-login-logo.png",
+    "/img/varfid-logo.png": "/img/varfid-logo.png",
     "/assets/images/avatar_1.png": "/assets/images/avatar_1.png",
     "/assets/images/avatar_2.png": "/assets/images/avatar_2.png",
     "/assets/images/avatar_3.png": "/assets/images/avatar_3.png",
@@ -45,7 +47,5 @@
     "/assets/images/logo@2x.png": "/assets/images/logo@2x.png",
     "/assets/images/preloader.gif": "/assets/images/preloader.gif",
     "/assets/images/profile.png": "/assets/images/profile.png",
-    "/assets/images/usercard.png": "/assets/images/usercard.png",
-    "/img/varfid-logo.png": "/img/varfid-logo.png",
-    "/img/varfid-login-logo.png": "/img/varfid-login-logo.png"
+    "/assets/images/usercard.png": "/assets/images/usercard.png"
 }
