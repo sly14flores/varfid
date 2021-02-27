@@ -31,7 +31,9 @@
                         </div>                        
                         <div class="p-grid p-jc-center">
                             <div class="p-lg-4 p-sm-12 p-xs-12">
-                                <Button label="Sign In" class="p-button-raised p-button-primary" type="submit" />
+                                <MyButton :show="loading" classes="p-button-raised p-button-primary" type="submit">
+                                    Sign In
+                                </MyButton>
                             </div>
                         </div>
                     </div>
@@ -48,11 +50,13 @@
 
 import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
+import MyButton from '../components/MyButton'
 
 export default {
     components: {
         Button,
         InputText,
+        MyButton
     },
     data() {
         return {
@@ -68,6 +72,9 @@ export default {
         },
         unauthenticated() {
             return this.$store.state.unauthenticated === true
+        },
+        loading() {
+            return this.$store.state.loading
         }
     },
     methods: {

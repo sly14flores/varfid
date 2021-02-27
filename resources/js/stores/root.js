@@ -31,11 +31,14 @@ const profile = {
     token: null,
 }
 
+const loading = false
+
 const state = () => {
     return {
         profile,
         unauthenticated: null,
-        validations: {}
+        validations: {},
+        loading,
     }
 }
 
@@ -48,6 +51,9 @@ const mutations = {
     },
     VALIDATIONS(state, payload) {
         state.validations = payload
+    },
+    LOADING(state, payload) {
+        state.loading = payload
     }
 }
 
@@ -55,6 +61,7 @@ const actions = {
     async LOGIN({commit, dispatch}, payload) {
         commit('UNAUTHENTICATED', false)
         commit('VALIDATIONS', {})
+        commit('LOADING',true)
         try {
             const { data } = await login(payload)
             dispatch('LOGIN_SUCCESS', data)
@@ -65,11 +72,13 @@ const actions = {
         }
     },
     LOGIN_SUCCESS({commit}, payload) {
+        commit('LOADING',false)
         const { data } = payload
         commit('PROFILE',data)
         window.open('#/','_self')
     },
     LOGIN_ERROR({commit}, payload) {
+        commit('LOADING',false)
         /**
          * 422 Invalidated
          * 401 Unauthenticated
