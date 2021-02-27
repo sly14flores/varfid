@@ -19481,9 +19481,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var prodUrl = "https://varfid.herokuapp.com";
 var localUrl = "http://localhost:8000";
-var ENV = "local" || 0; // const apiUrl = (ENV==='local')?localUrl:prodUrl
+var ENV = "local" || 0;
+var apiUrl = ENV === 'local' ? localUrl : prodUrl; // const apiUrl = prodUrl
 
-var apiUrl = prodUrl;
 console.log(ENV);
 console.log(apiUrl);
 
