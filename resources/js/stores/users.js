@@ -1,6 +1,8 @@
 import route from '../library/route'
 import { apiUrl } from '../url.js'
 
+import Swal from 'sweetalert2'
+
 /**
  * APIs
  */
@@ -42,13 +44,14 @@ const user = {
     firstname: null,
     middlename: null,
     lastname: null,
-    email: null,
     username: null,
     password: null
 }
 const saving = false
 const users = []
 const pagination = {}
+const fetchingList = false
+const fetchingData = false
 
 const state = () => {
     return {
@@ -56,7 +59,9 @@ const state = () => {
         writeOn: false,
         user,
         users,
-        pagination
+        pagination,
+        fetchingList,
+        fetchingData
     }
 }
 
@@ -79,6 +84,12 @@ const mutations = {
     },
     TOGGLE_WRITE(state,payload) {
         state.writeOn = payload
+    },
+    FETCHING_LIST(state,payload) {
+        state.fetchingList = payload
+    },
+    FETCHING_DATA(state,payload) {
+        state.fetchingData = payload
     }
 }
 
@@ -92,7 +103,7 @@ const actions = {
     async CREATE_USER({commit, dispatch}, payload) {
         commit('SAVING',true)        
         try {
-            const { data: { data } } = await createUser(payload)
+            const { data } = await createUser(payload)
             dispatch('CREATE_USER_SUCCESS', data)
             return true
         } catch(error) {
@@ -103,7 +114,12 @@ const actions = {
     },
     CREATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
-        console.log(payload)
+        const { message } = payload
+        Swal.fire({
+            text: message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        })  
     },
     CREATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false) 
@@ -113,7 +129,7 @@ const actions = {
         commit('SAVING',true)
         commit('TOGGLE_WRITE', true)
         try {
-            const { data: { data } } = await updateUser(payload)
+            const { data } = await updateUser(payload)
             dispatch('UPDATE_USER_SUCCESS', data)
             return true
         } catch (error) {
@@ -125,6 +141,12 @@ const actions = {
     UPDATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
+        const { message } = payload
+        Swal.fire({
+            text: message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        })        
     },
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
@@ -134,21 +156,27 @@ const actions = {
     async DELETE_USER({dispatch}, payload) {
         const { id } = payload
         try {
-            const { data: { data } } = await deleteUser({id})
+            const { data } = await deleteUser({id})
             dispatch('DELETE_USER_SUCCESS', data)
         } catch (error) {
             const { response } = error
             dispatch('DELETE_USER_ERROR', response)
         }
     },
-    DELETE_USER_SUCCESS({commit, dispatch}, payload) {
-        console.log(payload)
+    DELETE_USER_SUCCESS({dispatch}, payload) {
+        const { message } = payload
+        Swal.fire({
+            text: message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        })
         dispatch('GET_USERS', { page: 0 })
     },
     DELETE_USER_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_USER({dispatch}, payload) {
+    async GET_USER({commit,dispatch}, payload) {
+        commit('FETCHING_DATA', true)
         const { id } = payload
         try {
             const { data: { data } } = await getUser({id})
@@ -160,11 +188,14 @@ const actions = {
     },
     GET_USER_SUCCESS({commit}, payload) {
         commit('USER', payload)
+        commit('FETCHING_DATA', false)
     },
     GET_USER_ERROR({commit}, payload) {
+        commit('FETCHING_DATA', false)
         console.log(payload)
     },
-    async GET_USERS({dispatch}, payload) {
+    async GET_USERS({commit,dispatch}, payload) {
+        commit('FETCHING_LIST',true)
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getUsers({ page })
@@ -178,9 +209,11 @@ const actions = {
         const { data, pagination } = payload
         commit('USERS',data)
         commit('PAGINATION',pagination)
+        commit('FETCHING_LIST',false)
     },
     GET_USERS_ERROR({commit}, payload) {
         console.log(payload)
+        commit('FETCHING_LIST',false)
     }
 }
 

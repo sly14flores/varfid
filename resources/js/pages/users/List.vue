@@ -1,12 +1,21 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />        
-        <div class="p-grid">
-            <div class="p-col-12 p-mt-2">
-                <div class="card p-fluid">
-                    <h5>List</h5>
-                    <hr />
+            <div class="card p-fluid">
+                <h5>List</h5>
+                <hr />
+                <BlockUI :blocked="blockedPanel">
                     <DataTable :value="users" dataKey="id">
+                        <template #header>
+                            <div class="p-d-flex p-p-2 card">
+                                <div class='p-ml-auto'>
+                                    <span class="p-input-icon-left">
+                                        <i class="pi pi-search" />
+                                        <InputText v-model="search" placeholder="Search" />
+                                    </span>
+                                </div>                         
+                            </div>
+                        </template>                        
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
@@ -18,9 +27,8 @@
                         </Column>
                     </DataTable>
                     <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchUsers($event)"></Paginator>
-                </div>
+                </BlockUI>
             </div>
-        </div>
         <ConfirmDialog group="confirmDelete"></ConfirmDialog>
     </div>
 </template>
@@ -32,6 +40,8 @@ import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Paginator from 'primevue/paginator/sfc';
+import InputText from 'primevue/inputtext/sfc';
+import BlockUI from 'primevue/blockui/sfc';
 
 export default {
     setup() {
@@ -43,20 +53,34 @@ export default {
         Paginator,
         Column,
         Button,
-        ConfirmDialog
+        ConfirmDialog,
+        InputText,
+        BlockUI
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/users'},
-            items: []
+            items: [],
+            search: ""
         }
     },
     computed: {
         users() {
-            return this.$store.state.users.users
+            
+            return this.$store.state.users.users.filter(user => {
+            
+                return user.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
+                        user.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
+                        user.username.toLowerCase().includes(this.search.toLowerCase())
+            
+            })
+
         },
         pagination() {
             return this.$store.state.users.pagination
+        },
+        blockedPanel() {
+            return this.$store.state.users.fetchingList
         }
     },
     methods: {

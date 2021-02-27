@@ -1,4 +1,5 @@
 import { createWebHashHistory, createRouter } from "vue-router";
+import store from './store'
 
 import PageWrapper from './PageWrapper';
 import Login from "./pages/Login";
@@ -93,5 +94,19 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+router.beforeEach((to, from) => {
+  
+  const { dispatch } = store
+  dispatch('TRANSITIONING', true)
+
+})
+
+router.afterEach((to, from) => {
+
+  const { dispatch } = store
+  dispatch('TRANSITIONING', false)
+
+})
 
 export default router;
