@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,17 @@ use App\Http\Controllers\Api\LoginController;
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
+
+/**
+ * Users
+ */
+Route::apiResources([
+    'users' => UserController::class,
+],[
+    'only' => ['index']
+]);
+Route::apiResources([
+    'user' => UserController::class,
+],[
+    'except' => ['index']
+]);

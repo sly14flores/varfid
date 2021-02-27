@@ -3,51 +3,55 @@
         <MyBreadcrumb :home="home" :items="items" />
          <div class="p-grid">
             <div class="p-col-12 p-mt-2">
-            <form @submit="onSubmit">
-                <div class="card p-fluid">
-                    <h5><i class="pi pi-user"></i> User Information</h5>
-                    <hr />
-                    <div class="p-grid">
-                        <div class="p-col-1 p-offset-11">
-                            <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                <BlockUI :blocked="blockedPanel">
+                    <form @submit="onSubmit">
+                        <div class="card p-fluid">
+                            <h5><i class="pi pi-user"></i> User Information</h5>
+                            <hr />
+                            <div class="p-grid">
+                                <div class="p-col-1 p-offset-11">
+                                    <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                                </div>
+                            </div>
+                            <div class="p-grid">
+                                <div class="p-field p-lg-4 p-md-12">
+                                    <label for="firstname">First Name</label>
+                                    <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
+                                    <small class="p-error">{{ firstnameError }}</small>                       
+                                </div>
+                                <div class="p-field p-lg-4 p-md-12">
+                                    <label for="middlename">Middle Name</label>
+                                    <InputText id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
+                                </div>
+                                <div class="p-field p-lg-4 p-md-12">
+                                    <label for="lastname">Last Name</label>
+                                    <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
+                                    <small class="p-error">{{ lastnameError }}</small>                        
+                                </div>
+                            </div>
+                            <h5><i class="pi pi-lock"></i> Login Credentials</h5>
+                            <hr />
+                            <div class="p-grid">
+                                <div class="p-field p-lg-6 p-md-12">
+                                    <label for="username">Username</label>
+                                    <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
+                                    <small class="p-error">{{ usernameError }}</small>                     
+                                </div>
+                                <div class="p-field p-lg-6 p-md-12" v-if="!editMode">
+                                    <label for="password">Password</label>
+                                    <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
+                                    <small class="p-error">{{ passwordError }}</small>                        
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="p-grid">
-                        <div class="p-field p-lg-4 p-md-12">
-                            <label for="firstname">First Name</label>
-                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
-                            <small class="p-error">{{ firstnameError }}</small>                       
+                        <div class="p-d-flex">
+                            <ActionButton :show="saving" raised="true" serverity="primary" type="submit" :disabled="!writeOn && editMode">
+                                &nbsp;{{(editMode)?'Update':'Save'}}
+                            </ActionButton>
+                            <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
                         </div>
-                        <div class="p-field p-lg-4 p-md-12">
-                            <label for="middlename">Middle Name</label>
-                            <InputText id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
-                        </div>
-                        <div class="p-field p-lg-4 p-md-12">
-                            <label for="lastname">Last Name</label>
-                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
-                            <small class="p-error">{{ lastnameError }}</small>                        
-                        </div>
-                    </div>
-                    <h5><i class="pi pi-lock"></i> Login Credentials</h5>
-                    <hr />
-                    <div class="p-grid">
-                        <div class="p-field p-lg-6 p-md-12">
-                            <label for="username">Username</label>
-                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
-                            <small class="p-error">{{ usernameError }}</small>                     
-                        </div>
-                        <div class="p-field p-lg-6 p-md-12">
-                            <label for="password">Password</label>
-                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
-                            <small class="p-error">{{ passwordError }}</small>                        
-                        </div>
-                    </div>
-                </div>
-                <div class="p-d-flex">
-                    <Button type="submit" class="p-button-primary" :disabled="!writeOn && editMode"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;{{(editMode)?'Update':'Save'}}</Button>
-                    <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
-                </div>
-            </form>
+                    </form>
+                </BlockUI>
             </div>
         </div>
     </div>
@@ -59,6 +63,7 @@ import InputText from 'primevue/inputtext/sfc';
 import Button from 'primevue/button/sfc';
 import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
+import BlockUI from 'primevue/blockui/sfc';
 
 import { user } from '../../stores/users.js'
 import { useStore } from 'vuex'
@@ -66,6 +71,8 @@ import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
+
+import ActionButton from '../../components/ActionButton'
 
 export default {
     props: ['editOn'],
@@ -187,7 +194,9 @@ export default {
         InputText,
         Button,
         Divider,
-        ToggleButton
+        ToggleButton,
+        ActionButton,
+        BlockUI
     },
     computed: {
         saving() {
@@ -200,7 +209,10 @@ export default {
             get() {
                 return this.$store.state.users.writeOn
             }
-        }
+        },
+        blockedPanel() {
+            return this.$store.state.users.fetchingData
+        }        
     },
     methods: {
         close() {

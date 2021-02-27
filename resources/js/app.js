@@ -22,11 +22,11 @@ const app = createApp(App);
 app.config.globalProperties.$appState = reactive({ inputStyle: 'outlined' });
 app.config.globalProperties.$primevue = reactive({ ripple: true });
 
+app.use(store);
 app.use(router);
 app.use(PrimeVue);
 app.use(ConfirmationService);
 app.use(ToastService);
-app.use(store);
 app.directive('ripple', Ripple);
 app.directive('tooltip', Tooltip);
 app.mount('#app');

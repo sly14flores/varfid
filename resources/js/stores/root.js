@@ -32,6 +32,7 @@ const profile = {
 }
 
 const loading = false
+const transitioning = false
 
 const state = () => {
     return {
@@ -39,6 +40,7 @@ const state = () => {
         unauthenticated: null,
         validations: {},
         loading,
+        transitioning
     }
 }
 
@@ -54,6 +56,9 @@ const mutations = {
     },
     LOADING(state, payload) {
         state.loading = payload
+    },
+    TRANSITIONING(state, payload) {
+        state.transitioning = payload
     }
 }
 
@@ -111,7 +116,10 @@ const actions = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+    TRANSITIONING({commit}, payload) {
+        commit('TRANSITIONING', payload)
+    }    
 }
 
 const getters = {
