@@ -27,7 +27,7 @@
                             <small class="p-error">{{ validations.password && validations.password[0] }}</small>
                         </div>
                         <div class="p-field">
-                            <small class="p-error" v-show="unauthenticated">Your email or password is incorrect</small>
+                            <small class="p-error" v-show="unauthenticated">Your username or password is incorrect</small>
                         </div>                        
                         <div class="p-grid p-jc-center">
                             <div class="p-lg-4 p-sm-12 p-xs-12">

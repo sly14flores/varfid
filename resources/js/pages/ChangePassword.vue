@@ -37,6 +37,13 @@
 import MyBreadcrumb from '../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
 import ActionButton from '../components/ActionButton'
+import { reactive } from 'vue'
+
+const passwordInfo = {
+    currentPassword: null,
+    newPassword: null,
+    confirmNewPassword: null,    
+}
 
 export default {
     components: {
@@ -46,18 +53,21 @@ export default {
     },
     setup() {
 
+        const info = reactive({
+            ...passwordInfo     
+        })
+
+        return {
+            info
+        }
+
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/'},
             items: [
                 {label: 'Change Password', to: `${this.$route.fullPath}`}               
-            ],
-            info: {
-                currentPassword: null,
-                newPassword: null,
-                confirmNewPassword: null,
-            }
+            ]
         }
     },
     computed: {

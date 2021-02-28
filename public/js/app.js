@@ -16724,16 +16724,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
 /* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
 /* harmony import */ var _components_ActionButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ActionButton */ "./resources/js/components/ActionButton.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
+
+
+var passwordInfo = {
+  currentPassword: null,
+  newPassword: null,
+  confirmNewPassword: null
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     InputText: primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_1__.default,
     ActionButton: _components_ActionButton__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  setup: function setup() {},
+  setup: function setup() {
+    var info = (0,vue__WEBPACK_IMPORTED_MODULE_3__.reactive)(_objectSpread({}, passwordInfo));
+    return {
+      info: info
+    };
+  },
   data: function data() {
     return {
       home: {
@@ -16743,12 +16761,7 @@ __webpack_require__.r(__webpack_exports__);
       items: [{
         label: 'Change Password',
         to: "".concat(this.$route.fullPath)
-      }],
-      info: {
-        currentPassword: null,
-        newPassword: null,
-        confirmNewPassword: null
-      }
+      }]
     };
   },
   computed: {
@@ -18051,9 +18064,9 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* PROPS */
   , ["home", "items"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
     type: "password",
-    modelValue: $data.info.currentPassword,
+    modelValue: $setup.info.currentPassword,
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.info.currentPassword = $event;
+      return $setup.info.currentPassword = $event;
     }),
     "class": {
       'p-invalid': $options.validations.currentPassword && $options.validations.currentPassword[0]
@@ -18064,9 +18077,9 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
     type: "password",
-    modelValue: $data.info.newPassword,
+    modelValue: $setup.info.newPassword,
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.info.newPassword = $event;
+      return $setup.info.newPassword = $event;
     }),
     "class": {
       'p-invalid': $options.validations.newPassword && $options.validations.newPassword[0]
@@ -18077,9 +18090,9 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
     type: "password",
-    modelValue: $data.info.confirmNewPassword,
+    modelValue: $setup.info.confirmNewPassword,
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.info.confirmNewPassword = $event;
+      return $setup.info.confirmNewPassword = $event;
     }),
     "class": {
       'p-invalid': $options.validations.confirmNewPassword && $options.validations.confirmNewPassword[0]
@@ -18290,7 +18303,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* PROPS */
   , ["class", "modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.validations.password && $options.validations.password[0]), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_20, "Your email or password is incorrect", 512
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_20, "Your username or password is incorrect", 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $options.unauthenticated]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
     show: $options.loading,
