@@ -1,8 +1,10 @@
 import { createWebHashHistory, createRouter } from "vue-router";
 import store from './store'
 
-import PageWrapper from './PageWrapper';
+import PageWrapper from "./PageWrapper";
 import Login from "./pages/Login";
+import ChangePassword from "./pages/ChangePassword"
+
 import Dashboard from "./pages/Dashboard";
 
 /**
@@ -28,7 +30,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
-  }, 
+  },
+  {
+    path: "/change/password",
+    name: "ChangePassword",
+    component: PageWrapper,
+    props: {pageComponent: ChangePassword}
+  },  
   {
     path: "/",
     name: "Dashboard",
@@ -95,18 +103,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
+// router.beforeEach((to, from) => {
   
-  const { dispatch } = store
-  dispatch('TRANSITIONING', true)
+//   const { dispatch } = store
+//   dispatch('TRANSITIONING', true)
 
-})
+// })
 
-router.afterEach((to, from) => {
+// router.afterEach((to, from) => {
 
-  const { dispatch } = store
-  dispatch('TRANSITIONING', false)
+//   const { dispatch } = store
+//   dispatch('TRANSITIONING', false)
 
-})
+// })
 
 export default router;

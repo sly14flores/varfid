@@ -30,15 +30,26 @@ export default {
 	},
 	data() {
 		return {
-			menu: [{
-				label: "Logout",
-				icon: "pi pi-power-off",
-				command: () => {
-					
-					this.logout()
+			menu: [
+				{
+					label: "Logout",
+					icon: "pi pi-power-off",
+					command: () => {
+						
+						this.logout()
 
+					}
+				},
+				{
+					label: "Change Password",
+					icon: "pi pi-key",
+					command: () => {
+
+						this.password()
+
+					}
 				}
-			}],
+			],
 		}
 	},
     methods: {
@@ -60,7 +71,12 @@ export default {
 					//callback to execute when user rejects the action
 				}
 			});
-		}			
+		},
+		password() {
+			
+			this.$router.push('/change/password')
+
+		}		
     }
 }
 </script>
