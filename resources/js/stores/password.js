@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { apiUrl } from '../url.js'
 
+import Swal from 'sweetalert2'
+
 /**
  * API
  */
@@ -43,7 +45,14 @@ const actions = {
     },
     CHANGE_PASSWORD_SUCCESS({commit},payload) {
         commit('UPDATING',false)
-        const { data } = payload
+        const { message } = payload
+        Swal.fire({
+            text: message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        }).then(res => {
+            window.open('#/login','_self')
+        });
     },
     CHANGE_PASSWORD_ERROR({commit},payload) {
         commit('UPDATING',false)
