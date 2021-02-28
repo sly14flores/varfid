@@ -32,15 +32,6 @@ export default {
 		return {
 			menu: [
 				{
-					label: "Logout",
-					icon: "pi pi-power-off",
-					command: () => {
-						
-						this.logout()
-
-					}
-				},
-				{
 					label: "Change Password",
 					icon: "pi pi-key",
 					command: () => {
@@ -48,7 +39,16 @@ export default {
 						this.password()
 
 					}
-				}
+				},
+				{
+					label: "Logout",
+					icon: "pi pi-power-off",
+					command: () => {
+						
+						this.logout()
+
+					}
+				},				
 			],
 		}
 	},

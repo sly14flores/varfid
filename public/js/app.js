@@ -16482,16 +16482,16 @@ __webpack_require__.r(__webpack_exports__);
 
     return {
       menu: [{
-        label: "Logout",
-        icon: "pi pi-power-off",
-        command: function command() {
-          _this.logout();
-        }
-      }, {
         label: "Change Password",
         icon: "pi pi-key",
         command: function command() {
           _this.password();
+        }
+      }, {
+        label: "Logout",
+        icon: "pi pi-power-off",
+        command: function command() {
+          _this.logout();
         }
       }]
     };
@@ -16754,6 +16754,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     updating: function updating() {
       return this.$store.state.password.updating;
+    },
+    validations: function validations() {
+      return this.$store.state.password.validations;
     }
   },
   methods: {
@@ -17999,29 +18002,38 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_6 = {
+  "class": "p-error"
+};
+var _hoisted_7 = {
   "class": "p-field"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "New password", -1
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "New password", -1
 /* HOISTED */
 );
 
-var _hoisted_8 = {
-  "class": "p-field"
+var _hoisted_9 = {
+  "class": "p-error"
 };
-
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Confirm password", -1
-/* HOISTED */
-);
-
 var _hoisted_10 = {
+  "class": "p-field"
+};
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Confirm password", -1
+/* HOISTED */
+);
+
+var _hoisted_12 = {
+  "class": "p-error"
+};
+var _hoisted_13 = {
   "class": "p-grid"
 };
-var _hoisted_11 = {
+var _hoisted_14 = {
   "class": "p-col-3 p-offset-9"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Update ");
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Update ");
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -18038,12 +18050,45 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   }, null, 8
   /* PROPS */
   , ["home", "items"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-    type: "text"
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-    type: "text"
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-    type: "text"
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
+    type: "password",
+    modelValue: $data.info.currentPassword,
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.info.currentPassword = $event;
+    }),
+    "class": {
+      'p-invalid': $options.validations.currentPassword && $options.validations.currentPassword[0]
+    }
+  }, null, 8
+  /* PROPS */
+  , ["modelValue", "class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.validations.currentPassword && $options.validations.currentPassword[0]), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+    type: "password",
+    modelValue: $data.info.newPassword,
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.info.newPassword = $event;
+    }),
+    "class": {
+      'p-invalid': $options.validations.newPassword && $options.validations.newPassword[0]
+    }
+  }, null, 8
+  /* PROPS */
+  , ["modelValue", "class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.validations.newPassword && $options.validations.newPassword[0]), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+    type: "password",
+    modelValue: $data.info.confirmNewPassword,
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.info.confirmNewPassword = $event;
+    }),
+    "class": {
+      'p-invalid': $options.validations.confirmNewPassword && $options.validations.confirmNewPassword[0]
+    }
+  }, null, 8
+  /* PROPS */
+  , ["modelValue", "class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.validations.confirmNewPassword && $options.validations.confirmNewPassword[0]), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
     show: $options.updating,
     raised: "true",
     serverity: "primary",
@@ -18051,7 +18096,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     onClick: $options.update
   }, {
     "default": _withId(function () {
-      return [_hoisted_12];
+      return [_hoisted_15];
     }),
     _: 1
     /* STABLE */
@@ -19255,11 +19300,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../url.js */ "./resources/js/url.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -19332,7 +19380,14 @@ var actions = {
   CHANGE_PASSWORD_SUCCESS: function CHANGE_PASSWORD_SUCCESS(_ref2, payload) {
     var commit = _ref2.commit;
     commit('UPDATING', false);
-    var data = payload.data;
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    }).then(function (res) {
+      window.open('#/login', '_self');
+    });
   },
   CHANGE_PASSWORD_ERROR: function CHANGE_PASSWORD_ERROR(_ref3, payload) {
     var commit = _ref3.commit;

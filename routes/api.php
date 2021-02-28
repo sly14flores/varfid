@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ChangePassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,8 @@ Route::apiResources([
 ],[
     'except' => ['index']
 ]);
+
+/**
+ * Change password
+ */
+Route::post('change/password', ChangePassword::class);

@@ -6,15 +6,18 @@
                 <div class="card p-fluid">
                     <div class="p-field">
                         <label>Current password</label>
-                        <InputText type="text" />
+                        <InputText type="password" v-model="info.currentPassword" :class="{'p-invalid': validations.currentPassword && validations.currentPassword[0]}" />
+                        <small class="p-error">{{ validations.currentPassword && validations.currentPassword[0] }}</small>
                     </div>
                     <div class="p-field">
                         <label>New password</label>
-                        <InputText type="text" />
+                        <InputText type="password" v-model="info.newPassword" :class="{'p-invalid': validations.newPassword && validations.newPassword[0]}" />
+                        <small class="p-error">{{ validations.newPassword && validations.newPassword[0] }}</small>
                     </div> 
                     <div class="p-field">
                         <label>Confirm password</label>
-                        <InputText type="text" />
+                        <InputText type="password" v-model="info.confirmNewPassword" :class="{'p-invalid': validations.confirmNewPassword && validations.confirmNewPassword[0]}" />
+                        <small class="p-error">{{ validations.confirmNewPassword && validations.confirmNewPassword[0] }}</small>
                     </div>
                     <div class="p-grid">
                         <div class="p-col-3 p-offset-9">
@@ -60,7 +63,10 @@ export default {
     computed: {
         updating() {
             return this.$store.state.password.updating
-        }
+        },
+        validations() {
+            return this.$store.state.password.validations
+        },        
     },
     methods: {
         update() {

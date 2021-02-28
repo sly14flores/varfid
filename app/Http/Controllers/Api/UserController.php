@@ -74,6 +74,10 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
+
         /** Get validated data */
         $data = $validator->valid();
 
@@ -149,7 +153,11 @@ class UserController extends Controller
             'username' => 'string',
         ];
 
-        $validator = Validator::make($request->all(), $rules);        
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
 
         /** Get validated data */
         $data = $validator->valid();        
