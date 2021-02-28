@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="footer">
-            <span class="footer-text">&copy; 2021 Vehicle Automation RFID</span>
+            <span class="footer-text">&copy; 2021 Vehicle Authentication RFID</span>
         </div>
     </div>
 </template>

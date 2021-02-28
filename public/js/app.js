@@ -17463,7 +17463,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
   style: {
     "margin-left": "5px"
   }
-}, "Vehicle Automation RFID", -1
+}, "Vehicle Authentication RFID", -1
 /* HOISTED */
 );
 
@@ -18204,7 +18204,7 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
   "class": "footer"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "footer-text"
-}, "© 2021 Vehicle Automation RFID")], -1
+}, "© 2021 Vehicle Authentication RFID")], -1
 /* HOISTED */
 );
 
