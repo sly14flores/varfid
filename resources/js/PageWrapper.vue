@@ -5,7 +5,7 @@
       <div :class="sidebarClass" @click="onSidebarClick" v-show="isSidebarVisible()">
           <div class="layout-logo">
               <router-link to="/">
-                  <!-- <img alt="Logo" :src="logo" /> -->
+                  <img alt="Logo" :src="logo" />
               </router-link>
           </div>
           <AppProfile />
@@ -65,7 +65,7 @@ export default {
         }];
     },
     logo() {
-        return (this.layoutColorMode === 'dark') ? "/img/logo-banner.png" : "/img/logo.png";
+        return "/img/varfid-login-logo.png"
     }    
   },
   methods: {
