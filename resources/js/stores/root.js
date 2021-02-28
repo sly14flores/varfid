@@ -26,9 +26,9 @@ const authenticate = () => {
 const profile = {
     id: 0,
     firstname: null,
-    middlename: null,
     lastname: null,
     token: null,
+    groupName: null,
 }
 
 const loading = false
