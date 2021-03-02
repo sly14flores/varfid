@@ -45,7 +45,8 @@ const user = {
     middlename: null,
     lastname: null,
     username: null,
-    password: null
+    password: null,
+    group: null,
 }
 const saving = false
 const users = []

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ChangePassword;
+use App\Http\Controllers\Api\UserSelections;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,12 @@ Route::apiResources([
  * Change password
  */
 Route::post('change/password', ChangePassword::class);
+
+/**
+ * Selections
+ */
+Route::prefix('selections')->group(function() {
+
+    Route::get('user/groups', [UserSelections::class, 'userGroups']);
+
+});
