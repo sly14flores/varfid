@@ -19,11 +19,11 @@ import UserEdit from './pages/users/Edit';
  * Maintenance
  */
 import Maintenance from "./pages/maintenance/Maintenance"
-// Vehicles
-import Vehicles from "./pages/maintenance/vehicles/Vehicles"
-import VehiclesList from "./pages/maintenance/vehicles/List"
-import VehicleNew from "./pages/maintenance/vehicles/New"
-import VehicleEdit from "./pages/maintenance/vehicles/Edit"
+// Brands
+import Brands from "./pages/maintenance/brands/Brands"
+import BrandsList from "./pages/maintenance/brands/List"
+import BrandNew from "./pages/maintenance/brands/New"
+import BrandEdit from "./pages/maintenance/brands/Edit"
 
 const routes = [
   {
@@ -42,7 +42,7 @@ const routes = [
     name: "Dashboard",
     component: PageWrapper,
     props: {pageComponent: Dashboard}
-  }, 
+  },
   {
     path: "/users",
     name: "Users",
@@ -60,7 +60,7 @@ const routes = [
         component: UserNew
       },
       {
-        path: 'user/:id',
+        path: 'show/:id',
         name: 'ShowUser',
         component: UserEdit
       }
@@ -73,24 +73,24 @@ const routes = [
     props: {pageComponent: Maintenance},
     children: [
       {
-        path: 'vehicles',
-        name: 'Vehicles',
-        component: Vehicles,
+        path: 'brands',
+        name: 'Brands',
+        component: Brands,
         children: [
           {
             path: '',
-            name: 'VehiclesList',
-            component: VehiclesList,
+            name: 'BrandsList',
+            component: BrandsList,
           },
           {
             path: 'add',
-            name: 'NewVehicle',
-            component: VehicleNew
+            name: 'NewBrand',
+            component: BrandNew
           },
           {
-            path: 'vehicle/:id',
-            name: 'ShowVehicle',
-            component: VehicleEdit
+            path: 'show/:id',
+            name: 'ShowBrand',
+            component: BrandEdit
           }          
         ]
       },      

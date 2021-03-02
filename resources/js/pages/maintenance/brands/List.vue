@@ -1,11 +1,11 @@
 <template>
     <div>
-        <MyBreadcrumb :home="home" :items="items" />        
+        <MyBreadcrumb :home="home" :items="items" />
             <div class="card p-fluid">
                 <h5>List</h5>
                 <hr />
                 <BlockUI :blocked="blockedPanel">
-                    <DataTable :value="users" dataKey="id">
+                    <DataTable :value="brands" dataKey="id">
                         <template #header>
                             <div class="p-d-flex p-p-2 card">
                                 <div class='p-ml-auto'>
@@ -16,26 +16,25 @@
                                 </div>                         
                             </div>
                         </template>                        
-                        <Column field="firstname" header="First Name"></Column>
-                        <Column field="lastname" header="Last Name"></Column>
-                        <Column field="username" header="Username"></Column>
-                        <Column field="group" header="Group"></Column>
+                        <Column field="name" header="Name"></Column>
+                        <Column field="description" header="Description"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <router-link :to="`/users/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
-                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteUser(slotProps.data.id)" />
+                                <router-link :to="`/brands/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
+                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteBrand(slotProps.data.id)" />
                             </template>
                         </Column>
                     </DataTable>
-                    <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchUsers($event)"></Paginator>
+                    <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchBrands($event)"></Paginator>
                 </BlockUI>
             </div>
-        <ConfirmDialog group="confirmDelete"></ConfirmDialog>
+        <ConfirmDialog group="confirmDelete"></ConfirmDialog>                
     </div>
 </template>
 
 <script>
-import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
+
+import MyBreadcrumb from '../../../components/MyBreadcrumb.vue';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
@@ -56,51 +55,52 @@ export default {
         Button,
         ConfirmDialog,
         InputText,
-        BlockUI
+        BlockUI        
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/users'},
-            items: [],
+            home: {icon: 'pi pi-home', to: '/maintenance'},
+            items: [
+                {label: 'Brands', to: '/maintenance/brands'}
+            ],
             search: ""
         }
     },
     computed: {
-        users() {
+        brands() {
             
-            return this.$store.state.users.users.filter(user => {
+            return this.$store.state.brands.brands.filter(brand => {
             
-                return user.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
-                        user.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
-                        user.username.toLowerCase().includes(this.search.toLowerCase())
+                return brand.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                        brand.description.toLowerCase().includes(this.search.toLowerCase())
             
             })
 
         },
         pagination() {
-            return this.$store.state.users.pagination
+            return this.$store.state.brands.pagination
         },
         blockedPanel() {
-            return this.$store.state.users.fetchingList
+            return this.$store.state.brands.fetchingList
         }
     },
     methods: {
-        fetchUsers(event) {
+        fetchBrands(event) {
             // event.page: New page number
             // event.first: Index of first record
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('users/GET_USERS', { page })
+            this.$store.dispatch('brands/GET_BRANDS', { page })
         },
-        deleteUser(id) {
+        deleteBrand(id) {
             this.$confirm.require({
                 key: 'confirmDelete',
-                message: 'Are you sure you want to delete this user?',
+                message: 'Are you sure you want to delete this brand?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.$store.dispatch('users/DELETE_USER', {id})
+                    this.$store.dispatch('brands/DELETE_BRAND', {id})
                 },
                 reject: () => {
                     //callback to execute when user rejects the action
@@ -109,7 +109,8 @@ export default {
         }
     },
     mounted() {
-        this.fetchUsers({ page: 0 })
-    }
+        this.fetchBrands({ page: 0 })
+    }    
 }
+
 </script>
