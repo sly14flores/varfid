@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'middlename' => $this->middlename,
             'lastname' => $this->lastname,
             'username' => $this->username,
-            'group' => intval($this->group)
+            'group' => $this->group
         ];
     }
 }
