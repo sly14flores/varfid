@@ -19,6 +19,7 @@
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
+                        <Column field="group" header="Group"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
                                 <router-link :to="`/users/user/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            

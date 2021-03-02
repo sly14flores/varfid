@@ -32,12 +32,17 @@
                             <h5><i class="pi pi-lock"></i> Login Credentials</h5>
                             <hr />
                             <div class="p-grid">
-                                <div class="p-field p-lg-6 p-md-12">
+                                <div class="p-field p-lg-4 p-md-12">
+                                    <label for="group">Group</label>
+                                    <Dropdown v-model="group" :options="groups" optionValue="id" optionLabel="name" placeholder="Select a group" :class="{'p-invalid': groupError}" />
+                                    <small class="p-error">{{ groupError }}</small>
+                                </div>
+                                <div class="p-field p-lg-4 p-md-12">
                                     <label for="username">Username</label>
                                     <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ usernameError }}</small>                     
                                 </div>
-                                <div class="p-field p-lg-6 p-md-12" v-if="!editMode">
+                                <div class="p-field p-lg-4 p-md-12" v-if="!editMode">
                                     <label for="password">Password</label>
                                     <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
                                     <small class="p-error">{{ passwordError }}</small>                        
@@ -60,6 +65,7 @@
 <script>
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
+import Dropdown from 'primevue/dropdown/sfc';
 import Button from 'primevue/button/sfc';
 import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
@@ -69,7 +75,7 @@ import { user } from '../../stores/users.js'
 import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
-import { watch } from 'vue'
+import { watch, reactive } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
 import ActionButton from '../../components/ActionButton'
@@ -102,7 +108,7 @@ export default {
                     user: {...data}
                 })
             }
-        )
+        )       
 
         if (editMode) { // Edit
             dispatch('users/GET_USER', { id: userId })
@@ -164,6 +170,7 @@ export default {
         const { value: lastname, errorMessage: lastnameError } = useField('user.lastname',validateField);
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
+        const { value: group, errorMessage: groupError } = useField('user.group',validateField);
 
         return {
             id,
@@ -172,11 +179,13 @@ export default {
             lastname,
             username,
             password,
+            group,
             firstnameError,
             middlenameError,
             lastnameError,
             usernameError,
             passwordError,
+            groupError,
             onSubmit,
             editMode,
         }
@@ -186,12 +195,13 @@ export default {
             home: {icon: 'pi pi-home', to: '/users'},
             items: [
                 {label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}
-            ],
+            ]
         }
     },
     components: {
         MyBreadcrumb,
         InputText,
+        Dropdown,
         Button,
         Divider,
         ToggleButton,
@@ -212,7 +222,10 @@ export default {
         },
         blockedPanel() {
             return this.$store.state.users.fetchingData
-        }        
+        },
+        groups() {
+            return this.$store.state.selections.groups
+        }
     },
     methods: {
         close() {
@@ -223,5 +236,10 @@ export default {
             this.writeOn = !this.writeOn
         }
     },
+    created() {
+
+        this.$store.dispatch('selections/GET_GROUPS')
+
+    }
 }
 </script>

@@ -4,8 +4,12 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Traits\General;
+
 class UsersListResource extends JsonResource
 {
+    use General;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,6 +24,7 @@ class UsersListResource extends JsonResource
             'middlename' => $this->middlename,
             'lastname' => $this->lastname,
             'username' => $this->username,
+            'group' => $this->getGroupName($this->group),
             'date_created' => $this->created_at,
         ];
     }

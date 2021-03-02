@@ -26,7 +26,7 @@ trait General {
             return ($group['id']==$id);
         });
 
-        return $group->all()[0]['name'];
+        return ($group->first())['name'];
     }
 
 }
