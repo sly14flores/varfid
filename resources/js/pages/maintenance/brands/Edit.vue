@@ -1,15 +1,15 @@
 <template>
     <div>
-        <VehicleForm editOn="false" />
+        <BrandForm editOn="true" />
     </div>
 </template>
 
 <script>
-import VehicleForm from "./Form.vue";
+import BrandForm from "./Form.vue";
 
 export default {
     components: {
-        VehicleForm,
+        BrandForm,
     }
 }
 </script>

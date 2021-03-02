@@ -25,15 +25,15 @@ export default [
         icon:'pi pi-fw pi-cog',
         items:[
           {
-              label:'Vehicles',
+              label:'Brands',
               items: [
                   {
                       label: 'List',
-                      to: '/maintenance/vehicles'
+                      to: '/maintenance/brands'
                   },
                   {
                     label: 'Add',
-                    to: '/maintenance/vehicles/add'
+                    to: '/maintenance/brands/add'
                 },                  
               ]            
           },

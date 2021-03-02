@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="p-d-flex">
-                            <ActionButton :show="saving" raised="true" serverity="primary" type="submit" :disabled="!writeOn && editMode">
+                            <ActionButton :show="saving" raised="false" serverity="primary" type="submit" :disabled="!writeOn && editMode">
                                 &nbsp;{{(editMode)?'Update':'Save'}}
                             </ActionButton>
                             <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
@@ -71,11 +71,10 @@ import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 
-import { user } from '../../stores/users.js'
 import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
-import { watch, reactive } from 'vue'
+import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
 import ActionButton from '../../components/ActionButton'
@@ -95,7 +94,7 @@ export default {
 
         const init = {
             initialValues: {
-                user: {...user}
+                user: {...state.users.user}
             }
         }
 

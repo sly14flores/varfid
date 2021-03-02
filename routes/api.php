@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
 
@@ -39,6 +40,24 @@ Route::apiResources([
 ],[
     'except' => ['index']
 ]);
+
+/**
+ * Maintenance
+ */
+Route::prefix('maintenance')->group(function() {
+
+    Route::apiResources([
+        'brands' => BrandController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'brand' => BrandController::class,
+    ],[
+        'except' => ['index']
+    ]);
+
+});
 
 /**
  * Change password

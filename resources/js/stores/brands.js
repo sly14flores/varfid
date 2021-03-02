@@ -6,50 +6,49 @@ import Swal from 'sweetalert2'
 /**
  * APIs
  */
-const CREATE_USER = `${apiUrl}/api/user`
-const createUser = (payload) => {
-    return axios.post(CREATE_USER, payload)
+const CREATE_BRAND = `${apiUrl}/api/maintenance/brand`
+const createBrand = (payload) => {
+    return axios.post(CREATE_BRAND, payload)
 }
 
-const UPDATE_USER = `${apiUrl}/api/user/:id`
-const updateUser = (payload) => {
+const UPDATE_BRAND = `${apiUrl}/api/maintenance/brand/:id`
+const updateBrand = (payload) => {
     const { id } = payload
-    const url =  route(UPDATE_USER, { id })
+    const url =  route(UPDATE_BRAND, { id })
     return axios.put(url, payload)
 }
 
-const GET_USER = `${apiUrl}/api/user/:id`
-const getUser = (payload) => {
+const GET_BRAND = `${apiUrl}/api/maintenance/brand/:id`
+const getBrand = (payload) => {
     const { id } = payload
-    const url =  route(GET_USER, { id })
+    const url =  route(GET_BRAND, { id })
     return axios.get(url)
 }
 
-const GET_USERS = `${apiUrl}/api/users`
-const getUsers = (payload) => {
+const GET_BRANDS = `${apiUrl}/api/maintenance/brands`
+const getBrands = (payload) => {
     const { page } = payload
     const pageNo = page + 1
-    return axios.get(GET_USERS, {params: { page: pageNo } })
+    return axios.get(GET_BRANDS, {params: { page: pageNo } })
 }
 
-const DELETE_USER = `${apiUrl}/api/user/:id`
-const deleteUser = (payload) => {
+const DELETE_BRAND = `${apiUrl}/api/maintenance/brand/:id`
+const deleteBrand = (payload) => {
     const { id } = payload
-    const url =  route(DELETE_USER, { id })
+    const url =  route(DELETE_BRAND, { id })
     return axios.delete(url)
 }
 
-const user = {
+/**
+ * State
+ */
+const brand = {
     id: 0,
-    firstname: null,
-    middlename: null,
-    lastname: null,
-    username: null,
-    password: null,
-    group: null,
+    name: null,
+    description: null,
 }
 const saving = false
-const users = []
+const brands = []
 const pagination = {}
 const fetchingList = false
 const fetchingData = false
@@ -58,24 +57,27 @@ const state = () => {
     return {
         saving,
         writeOn: false,
-        user,
-        users,
+        brand,
+        brands,
         pagination,
         fetchingList,
         fetchingData
     }
 }
 
+/**
+ * Mutations
+ */
 const mutations = {
     INIT(state) {
-        state.user = user
-        state.users = users
+        state.brand = brand
+        state.brands = brands
     },
-    USER(state, payload) {
-        state.user = payload
+    BRAND(state, payload) {
+        state.brand = payload
     },
-    USERS(state, payload) {
-        state.users = payload
+    BRANDS(state, payload) {
+        state.brands = payload
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -94,6 +96,9 @@ const mutations = {
     }
 }
 
+/**
+ * Actions
+ */
 const actions = {
     INIT({commit}) {
         commit('INIT')
@@ -101,19 +106,19 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_USER({commit, dispatch}, payload) {
+    async CREATE_BRAND({commit, dispatch}, payload) {
         commit('SAVING',true)        
         try {
-            const { data } = await createUser(payload)
-            dispatch('CREATE_USER_SUCCESS', data)
+            const { data } = await createBrand(payload)
+            dispatch('CREATE_BRAND_SUCCESS', data)
             return true
         } catch(error) {
             const { response } = error
-            dispatch('CREATE_USER_ERROR', response)
+            dispatch('CREATE_BRAND_ERROR', response)
             return false
         }
     },
-    CREATE_USER_SUCCESS({commit}, payload) {
+    CREATE_BRAND_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         const { message } = payload
         Swal.fire({
@@ -122,24 +127,24 @@ const actions = {
             confirmButtonText: 'Ok'
         })  
     },
-    CREATE_USER_ERROR({commit}, payload) {
+    CREATE_BRAND_ERROR({commit}, payload) {
         commit('SAVING',false) 
         console.log(payload)
     },
-    async UPDATE_USER({commit,dispatch}, payload) {
+    async UPDATE_BRAND({commit,dispatch}, payload) {
         commit('SAVING',true)
         commit('TOGGLE_WRITE', true)
         try {
-            const { data } = await updateUser(payload)
-            dispatch('UPDATE_USER_SUCCESS', data)
+            const { data } = await updateBrand(payload)
+            dispatch('UPDATE_BRAND_SUCCESS', data)
             return true
         } catch (error) {
             const { response } = error
-            dispatch('UPDATE_USER_ERROR', response)
+            dispatch('UPDATE_BRAND_ERROR', response)
             return false
         }
     },
-    UPDATE_USER_SUCCESS({commit}, payload) {
+    UPDATE_BRAND_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
         const { message } = payload
@@ -149,81 +154,84 @@ const actions = {
             confirmButtonText: 'Ok'
         })        
     },
-    UPDATE_USER_ERROR({commit}, payload) {
+    UPDATE_BRAND_ERROR({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
         console.log(payload)
     },
-    async DELETE_USER({dispatch}, payload) {
+    async DELETE_BRAND({dispatch}, payload) {
         const { id } = payload
         try {
-            const { data } = await deleteUser({id})
-            dispatch('DELETE_USER_SUCCESS', data)
+            const { data } = await deleteBrand({id})
+            dispatch('DELETE_BRAND_SUCCESS', data)
         } catch (error) {
             const { response } = error
-            dispatch('DELETE_USER_ERROR', response)
+            dispatch('DELETE_BRAND_ERROR', response)
         }
     },
-    DELETE_USER_SUCCESS({dispatch}, payload) {
+    DELETE_BRAND_SUCCESS({dispatch}, payload) {
         const { message } = payload
         Swal.fire({
             text: message,
             icon: 'success',
             confirmButtonText: 'Ok'
         })
-        dispatch('GET_USERS', { page: 0 })
+        dispatch('GET_BRANDS', { page: 0 })
     },
-    DELETE_USER_ERROR({commit}, payload) {
+    DELETE_BRAND_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_USER({commit,dispatch}, payload) {
+    async GET_BRAND({commit,dispatch}, payload) {
         commit('FETCHING_DATA', true)
         const { id } = payload
         try {
-            const { data: { data } } = await getUser({id})
-            dispatch('GET_USER_SUCCESS', data)
+            const { data: { data } } = await getBrand({id})
+            dispatch('GET_BRAND_SUCCESS', data)
         } catch (error) {
             const { response } = error
-            dispatch('GET_USER_ERROR', response)
+            dispatch('GET_BRAND_ERROR', response)
         }
     },
-    GET_USER_SUCCESS({commit}, payload) {
-        commit('USER', payload)
+    GET_BRAND_SUCCESS({commit}, payload) {
+        commit('BRAND', payload)
         commit('FETCHING_DATA', false)
     },
-    GET_USER_ERROR({commit}, payload) {
+    GET_BRAND_ERROR({commit}, payload) {
         commit('FETCHING_DATA', false)
         console.log(payload)
     },
-    async GET_USERS({commit,dispatch}, payload) {
+    async GET_BRANDS({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
         try {
             const { page } = payload
-            const { data: { data: { data, pagination } } } = await getUsers({ page })
-            dispatch('GET_USERS_SUCCESS', { data, pagination })
+            const { data: { data: { data, pagination } } } = await getBrands({ page })
+            dispatch('GET_BRANDS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
-            dispatch('GET_USERS_ERROR', response)
+            dispatch('GET_BRANDS_ERROR', response)
         }
     },
-    GET_USERS_SUCCESS({commit}, payload) {
+    GET_BRANDS_SUCCESS({commit}, payload) {
         const { data, pagination } = payload
-        commit('USERS',data)
+        commit('BRANDS',data)
         commit('PAGINATION',pagination)
         commit('FETCHING_LIST',false)
     },
-    GET_USERS_ERROR({commit}, payload) {
+    GET_BRANDS_ERROR({commit}, payload) {
         console.log(payload)
         commit('FETCHING_LIST',false)
     }
 }
 
+/**
+ * Getters
+ */
 const getters = {
 
 }
 
 export default {
-	namespaced: true,    
+    namespaced: true,    
     state,
     mutations,
     actions,
