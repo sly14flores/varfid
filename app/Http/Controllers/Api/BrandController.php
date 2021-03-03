@@ -93,7 +93,19 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $brand = Brand::find($id);        
+
+        if (is_null($brand)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new BrandResource($brand);
+
+        return $this->jsonSuccessResponse($data, 200); 
     }
 
     /**

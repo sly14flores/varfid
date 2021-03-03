@@ -63,7 +63,9 @@
 </template>
 
 <script>
-import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
+
+import MyBreadcrumb from '../../../components/MyBreadcrumb.vue';
+import ActionButton from '../../../components/ActionButton'
 import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Button from 'primevue/button/sfc';
@@ -76,8 +78,6 @@ import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
-
-import ActionButton from '../../components/ActionButton'
 
 export default {
     props: ['editOn'],
@@ -229,7 +229,7 @@ export default {
     methods: {
         close() {
             this.$store.dispatch('users/INIT')
-            this.$router.push('/users')
+            this.$router.push('/maintenance/users')
         },
         toggleWrite() {
             this.writeOn = !this.writeOn

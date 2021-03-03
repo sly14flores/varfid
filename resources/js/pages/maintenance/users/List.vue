@@ -2,7 +2,7 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />        
             <div class="card p-fluid">
-                <h5>List</h5>
+                <h5>Users</h5>
                 <hr />
                 <BlockUI :blocked="blockedPanel">
                     <DataTable :value="users" dataKey="id">
@@ -22,7 +22,7 @@
                         <Column field="group" header="Group"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <router-link :to="`/users/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
+                                <router-link :to="`/maintenance/users/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteUser(slotProps.data.id)" />
                             </template>
                         </Column>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
+import MyBreadcrumb from '../../../components/MyBreadcrumb.vue';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
