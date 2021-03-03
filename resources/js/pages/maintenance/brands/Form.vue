@@ -21,8 +21,7 @@
                                 </div>
                                 <div class="p-field p-lg-8 p-md-12">
                                     <label for="description">Description</label>
-                                    <InputText id="description" type="text" placeholder="Enter Description" v-model="description" :class="{'p-invalid': descriptionError}" :disabled="editMode && !writeOn" />
-                                    <small class="p-error">{{ descriptionError }}</small>                       
+                                    <InputText id="description" type="text" placeholder="Enter Description" v-model="description" :disabled="editMode && !writeOn" />
                                 </div>                                                  
                             </div>                                                            
                         </div>
@@ -140,7 +139,7 @@ export default {
 
         const { value: id } = useField('brand.id',validField);
         const { value: name, errorMessage: nameError } = useField('brand.name',validateField);        
-        const { value: description, errorMessage: descriptionError } = useField('brand.description',validateField);        
+        const { value: description } = useField('brand.description',validField);        
 
         return {
             onSubmit,
@@ -149,7 +148,6 @@ export default {
             name,
             description,
             nameError,
-            descriptionError
         }
 
     },  

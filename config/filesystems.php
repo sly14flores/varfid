@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'ftp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,6 +51,20 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => 'ftp.slyflores.com',
+            'username' => 'varfid@slyflores.com',
+            'password' => 'F~l[v5GS)V6Y',
+        
+            // Optional FTP Settings...
+            // 'port' => 21,
+            // 'root' => '',
+            // 'passive' => true,
+            // 'ssl' => true,
+            // 'timeout' => 30,
+        ],        
 
     ],
 
