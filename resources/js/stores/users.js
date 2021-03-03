@@ -47,6 +47,7 @@ const user = {
     username: null,
     password: null,
     group: null,
+    picture: "/img/avatar.png"
 }
 const saving = false
 const users = []

@@ -15,6 +15,12 @@
                             </div>
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
+                                    <img :src="picture" alt="" />
+                                    <FileUpload v-if="profileUpload" mode="basic" name="profile" :customUpload="true" :auto="true" @uploader="updateProfile" :multiple="false" accept="image/*" />
+                                </div>
+                            </div>
+                            <div class="p-grid p-mt-4">
+                                <div class="p-field p-lg-4 p-md-12">
                                     <label for="firstname">First Name</label>
                                     <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ firstnameError }}</small>                       
@@ -72,15 +78,27 @@ import Button from 'primevue/button/sfc';
 import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
 import BlockUI from 'primevue/blockui/sfc';
+import FileUpload from 'primevue/fileupload';
 
 import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
 export default {
     props: ['editOn'],
+    components: {
+        MyBreadcrumb,
+        InputText,
+        Dropdown,
+        Button,
+        Divider,
+        ToggleButton,
+        ActionButton,
+        BlockUI,
+        FileUpload
+    },    
     setup(props) {
 
         const { editOn } = props
@@ -162,6 +180,7 @@ export default {
             return true;
         }
 
+
         // No need to define rules for fields
         const { value: id } = useField('user.id',validField);
         const { value: firstname, errorMessage: firstnameError } = useField('user.firstname',validateField);
@@ -170,6 +189,7 @@ export default {
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
         const { value: group, errorMessage: groupError } = useField('user.group',validateField);
+        const { value: picture} = useField('user.picture',validField);
 
         return {
             id,
@@ -187,6 +207,7 @@ export default {
             groupError,
             onSubmit,
             editMode,
+            picture,
         }
     },
     data() {
@@ -194,18 +215,9 @@ export default {
             home: {icon: 'pi pi-home', to: '/users'},
             items: [
                 {label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}
-            ]
+            ],
+            profileUpload: true
         }
-    },
-    components: {
-        MyBreadcrumb,
-        InputText,
-        Dropdown,
-        Button,
-        Divider,
-        ToggleButton,
-        ActionButton,
-        BlockUI
     },
     computed: {
         saving() {
@@ -233,6 +245,26 @@ export default {
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
+        },
+        getBase64(file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                // console.log(reader.result)
+                this.picture = reader.result
+                this.$nextTick(() => {
+                    this.profileUpload = true;
+                });                         
+            };
+            reader.onerror = error => {
+                console.log('Error: ', error);
+            };
+        },
+        updateProfile(event) {
+            // console.log(event)
+            const picture = event.files[0]
+            this.getBase64(picture)
+            this.profileUpload = false
         }
     },
     created() {
