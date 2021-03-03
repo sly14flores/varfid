@@ -8,17 +8,22 @@ import ChangePassword from "./pages/ChangePassword"
 import Dashboard from "./pages/Dashboard";
 
 /**
- * Users
+ * Vehicles
  */
-import Users from "./pages/users/Users";
-import UsersList from "./pages/users/List";
-import UserNew from './pages/users/New';
-import UserEdit from './pages/users/Edit';
+import Vehicles from "./pages/vehicles/Vehicles";
+import VehiclesList from "./pages/vehicles/List";
+import VehicleNew from './pages/vehicles/New';
+import VehicleEdit from './pages/vehicles/Edit';
 
 /**
  * Maintenance
  */
 import Maintenance from "./pages/maintenance/Maintenance"
+// Users
+import Users from "./pages/maintenance/users/Users";
+import UsersList from "./pages/maintenance/users/List";
+import UserNew from './pages/maintenance/users/New';
+import UserEdit from './pages/maintenance/users/Edit';
 // Brands
 import Brands from "./pages/maintenance/brands/Brands"
 import BrandsList from "./pages/maintenance/brands/List"
@@ -44,25 +49,25 @@ const routes = [
     props: {pageComponent: Dashboard}
   },
   {
-    path: "/users",
-    name: "Users",
+    path: "/vehicles",
+    name: "Vehicles",
     component: PageWrapper,
-    props: {pageComponent: Users},
+    props: {pageComponent: Vehicles},
     children: [
       {
         path: '',
-        name: 'UsersList',
-        component: UsersList
+        name: 'VehiclesList',
+        component: VehiclesList
       },
       {
         path: 'add',
-        name: 'NewUser',
-        component: UserNew
+        name: 'NewVehicle',
+        component: VehicleNew
       },
       {
         path: 'show/:id',
-        name: 'ShowUser',
-        component: UserEdit
+        name: 'ShowVehicle',
+        component: VehicleEdit
       }
     ]
   },
@@ -72,6 +77,28 @@ const routes = [
     component: PageWrapper,
     props: {pageComponent: Maintenance},
     children: [
+      {
+        path: "users",
+        name: "Users",
+        component: Users,
+        children: [
+          {
+            path: '',
+            name: 'UsersList',
+            component: UsersList
+          },
+          {
+            path: 'add',
+            name: 'NewUser',
+            component: UserNew
+          },
+          {
+            path: 'show/:id',
+            name: 'ShowUser',
+            component: UserEdit
+          }
+        ]
+      },      
       {
         path: 'brands',
         name: 'Brands',

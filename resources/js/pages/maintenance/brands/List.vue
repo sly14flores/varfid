@@ -2,7 +2,7 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />
             <div class="card p-fluid">
-                <h5>List</h5>
+                <h5>Brands</h5>
                 <hr />
                 <BlockUI :blocked="blockedPanel">
                     <DataTable :value="brands" dataKey="id">
@@ -20,7 +20,7 @@
                         <Column field="description" header="Description"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <router-link :to="`/brands/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
+                                <router-link :to="`/maintenance/brands/show/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteBrand(slotProps.data.id)" />
                             </template>
                         </Column>

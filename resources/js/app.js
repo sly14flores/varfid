@@ -6,6 +6,12 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from './store.js';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUserSecret)
+
 import '../css/layout/layout.scss';
 import '../css/layout/flags/flags.css';
 
@@ -18,7 +24,9 @@ import Ripple from 'primevue/ripple';
 import Tooltip from 'primevue/tooltip';
 
 const app = createApp(App);
+app.component('font-awesome-icon', FontAwesomeIcon);
 
+app.config.productionTip = false
 app.config.globalProperties.$appState = reactive({ inputStyle: 'outlined' });
 app.config.globalProperties.$primevue = reactive({ ripple: true });
 

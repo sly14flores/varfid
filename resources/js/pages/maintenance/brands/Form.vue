@@ -6,7 +6,7 @@
                 <BlockUI :blocked="blockedPanel">
                     <form @submit="onSubmit">
                         <div class="card p-fluid">
-                            <h5><i class="pi pi-user"></i> Brand Information</h5>
+                            <h5><i class="pi pi-circle-off"></i> Brand Information</h5>
                             <hr />
                             <div class="p-grid">
                                 <div class="p-col-1 p-offset-11">
@@ -19,13 +19,19 @@
                                     <InputText id="name" type="text" placeholder="Enter Name" v-model="name" :class="{'p-invalid': nameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ nameError }}</small>                       
                                 </div>
-                                <div class="p-field p-lg-4 p-md-12">
+                                <div class="p-field p-lg-8 p-md-12">
                                     <label for="description">Description</label>
                                     <InputText id="description" type="text" placeholder="Enter Description" v-model="description" :class="{'p-invalid': descriptionError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ descriptionError }}</small>                       
                                 </div>                                                  
-                            </div>                                     
+                            </div>                                                            
                         </div>
+                        <div class="p-d-flex">
+                            <ActionButton :show="saving" raised="false" serverity="primary" type="submit" :disabled="!writeOn && editMode">
+                                &nbsp;{{(editMode)?'Update':'Save'}}
+                            </ActionButton>
+                            <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
+                        </div>                        
                     </form>
                 </BlockUI>             
             </div>
