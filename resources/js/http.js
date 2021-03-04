@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -34,6 +35,11 @@ window.axios.interceptors.response.use(
     async function(error) {
         if (error.response.status === 401) {
             window.open('#/login','_self');
+            Swal.fire({
+                text: 'You have been logged out because you account was logged in from a different device',
+                icon: 'info',
+                confirmButtonText: 'Ok'
+            })            
         }
         return Promise.reject(error);
     },
