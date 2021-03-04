@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\VehicleTypeController;
@@ -32,12 +33,12 @@ Route::post('authenticate', [LoginController::class, 'authenticate']);
  * Users
  */
 Route::apiResources([
-    'users' => UserController::class,
+    'vehicles' => VehicleController::class,
 ],[
     'only' => ['index']
 ]);
 Route::apiResources([
-    'user' => UserController::class,
+    'vehicle' => VehicleController::class,
 ],[
     'except' => ['index']
 ]);
@@ -46,6 +47,18 @@ Route::apiResources([
  * Maintenance
  */
 Route::prefix('maintenance')->group(function() {
+
+    // Users
+    Route::apiResources([
+        'users' => UserController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'user' => UserController::class,
+    ],[
+        'except' => ['index']
+    ]);    
 
     // Brands
     Route::apiResources([

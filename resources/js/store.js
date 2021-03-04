@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import { state, mutations, actions, getters } from './stores/root'
 import password from './stores/password.js'
 import selections from './stores/selections.js'
+import vehicles from './stores/vehicles.js'
 import users from './stores/users.js'
 import brands from './stores/brands.js'
 import types from './stores/vehicletypes.js'
@@ -18,6 +19,7 @@ const vuexLocal = new VuexPersistence({
 export default createStore({
     modules: {
         password,
+        vehicles,
         selections,
         users,
         brands,
