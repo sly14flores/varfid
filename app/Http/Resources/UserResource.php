@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use Illuminate\Support\Facades\Storage;
+
 class UserResource extends JsonResource
 {
     /**
@@ -20,7 +22,9 @@ class UserResource extends JsonResource
             'middlename' => $this->middlename,
             'lastname' => $this->lastname,
             'username' => $this->username,
-            'group' => $this->group
+            'group' => $this->group,
+            'image' => null,
+            'picture' => (is_null($this->image))?null:config('ftp.users_url').Storage::url($this->image)
         ];
     }
 }

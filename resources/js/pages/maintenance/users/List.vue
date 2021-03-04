@@ -60,7 +60,7 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/users'},
+            home: {icon: 'pi pi-home', to: '/maintenance/users'},
             items: [],
             search: ""
         }

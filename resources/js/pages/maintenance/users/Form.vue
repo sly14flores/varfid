@@ -16,7 +16,7 @@
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
                                     <img :src="picture" alt="" />
-                                    <FileUpload v-if="profileUpload" mode="basic" name="profile" :customUpload="true" :auto="true" @uploader="updateProfile" :multiple="false" accept="image/*" />
+                                    <FileUpload v-if="profileUpload" mode="basic" name="profile" :customUpload="true" :auto="true" @uploader="updateProfile" :multiple="false" accept="image/*" :disabled="editMode && !writeOn" />
                                 </div>
                             </div>
                             <div class="p-grid p-mt-4">
@@ -40,7 +40,7 @@
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
                                     <label for="group">Group</label>
-                                    <Dropdown v-model="group" :options="groups" optionValue="id" optionLabel="name" placeholder="Select a group" :class="{'p-invalid': groupError}" />
+                                    <Dropdown v-model="group" :options="groups" optionValue="id" optionLabel="name" placeholder="Select a group" :class="{'p-invalid': groupError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ groupError }}</small>
                                 </div>
                                 <div class="p-field p-lg-4 p-md-12">
@@ -112,7 +112,7 @@ export default {
 
         const init = {
             initialValues: {
-                user: {...state.users.user}
+                user: {...state.users.values}
             }
         }
 
@@ -125,8 +125,10 @@ export default {
                     user: {...data}
                 })
             }
-        )       
+        )
 
+        dispatch('users/INIT_PICTURE')
+        dispatch('users/TOGGLE_WRITE',false)
         if (editMode) { // Edit
             dispatch('users/GET_USER', { id: userId })
         } else { // New
@@ -189,7 +191,7 @@ export default {
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
         const { value: group, errorMessage: groupError } = useField('user.group',validateField);
-        const { value: picture} = useField('user.picture',validField);
+        const { value: image} = useField('user.image',validField);
 
         return {
             id,
@@ -199,6 +201,7 @@ export default {
             username,
             password,
             group,
+            image,
             firstnameError,
             middlenameError,
             lastnameError,
@@ -207,16 +210,15 @@ export default {
             groupError,
             onSubmit,
             editMode,
-            picture,
         }
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/users'},
+            home: {icon: 'pi pi-home', to: '/maintenance/users'},
             items: [
                 {label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}
             ],
-            profileUpload: true
+            profileUpload: true,
         }
     },
     computed: {
@@ -236,6 +238,22 @@ export default {
         },
         groups() {
             return this.$store.state.selections.groups
+        },
+        picture: {
+            get() {
+                return this.$store.state.users.picture
+            },
+            set(value) {
+                this.$store.dispatch('users/SET_PICTURE',value)
+            }
+        },
+        pictureReplace: {
+            get() {
+                return this.$store.state.users.pictureReplace
+            },
+            set(value) {
+                this.$store.dispatch('users/PICTURE_REPLACE',value)
+            }
         }
     },
     methods: {
@@ -254,7 +272,8 @@ export default {
                 this.picture = reader.result
                 this.$nextTick(() => {
                     this.profileUpload = true;
-                });                         
+                    this.pictureReplace = true;
+                });            
             };
             reader.onerror = error => {
                 console.log('Error: ', error);
@@ -264,6 +283,8 @@ export default {
             // console.log(event)
             const picture = event.files[0]
             this.getBase64(picture)
+            this.image = picture
+            console.log(this.image)
             this.profileUpload = false
         }
     },
