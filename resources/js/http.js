@@ -36,7 +36,7 @@ window.axios.interceptors.response.use(
         if (error.response.status === 401) {
             window.open('#/login','_self');
             Swal.fire({
-                text: 'You have been logged out because you account was logged in from a different device',
+                text: 'You have been logged out because your account was logged in from a different device',
                 icon: 'info',
                 confirmButtonText: 'Ok'
             })            
