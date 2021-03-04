@@ -86,6 +86,13 @@ import { useRoute } from 'vue-router'
 import { watch, ref } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
+import { apiUrl } from '../../../url.js'
+
+const CHECK_USERNAME = `${apiUrl}/api/check/username`
+function checkUsername(payload) {
+    return axios.post(CHECK_USERNAME, {...payload})
+}
+
 export default {
     props: ['editOn'],
     components: {
@@ -166,6 +173,18 @@ export default {
             return true;
         }
 
+        async function validateUsername(value) {
+            if (!value) {
+                return "This field is required";
+            }
+            const { data } = await checkUsername({id: userId, username:value})
+            const { data: { available } } = data
+            if (!available) {
+                return 'Username is already taken'
+            }
+            return true;
+        }        
+
         function validatePassword(value) {
             if (!value) {
                 return "Password is required";
@@ -188,7 +207,7 @@ export default {
         const { value: firstname, errorMessage: firstnameError } = useField('user.firstname',validateField);
         const { value: middlename, errorMessage: middlenameError } = useField('user.middlename',validField);
         const { value: lastname, errorMessage: lastnameError } = useField('user.lastname',validateField);
-        const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
+        const { value: username, errorMessage: usernameError } = useField('user.username',validateUsername);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
         const { value: group, errorMessage: groupError } = useField('user.group',validateField);
         const { value: image} = useField('user.image',validField);

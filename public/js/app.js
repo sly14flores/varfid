@@ -27650,20 +27650,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
-/* harmony import */ var _components_ActionButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/ActionButton */ "./resources/js/components/ActionButton.vue");
-/* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
-/* harmony import */ var primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/dropdown/sfc */ "./node_modules/primevue/dropdown/Dropdown.vue");
-/* harmony import */ var primevue_button_sfc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/button/sfc */ "./node_modules/primevue/button/Button.vue");
-/* harmony import */ var primevue_divider_sfc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/divider/sfc */ "./node_modules/primevue/divider/Divider.vue");
-/* harmony import */ var primevue_togglebutton_sfc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/togglebutton/sfc */ "./node_modules/primevue/togglebutton/ToggleButton.vue");
-/* harmony import */ var primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/blockui/sfc */ "./node_modules/primevue/blockui/BlockUI.vue");
-/* harmony import */ var primevue_fileupload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/fileupload */ "./node_modules/primevue/fileupload/fileupload.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var primevue_useconfirm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primevue/useconfirm */ "./node_modules/primevue/useconfirm/useconfirm.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
+/* harmony import */ var _components_ActionButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/ActionButton */ "./resources/js/components/ActionButton.vue");
+/* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
+/* harmony import */ var primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/dropdown/sfc */ "./node_modules/primevue/dropdown/Dropdown.vue");
+/* harmony import */ var primevue_button_sfc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/button/sfc */ "./node_modules/primevue/button/Button.vue");
+/* harmony import */ var primevue_divider_sfc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/divider/sfc */ "./node_modules/primevue/divider/Divider.vue");
+/* harmony import */ var primevue_togglebutton_sfc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/togglebutton/sfc */ "./node_modules/primevue/togglebutton/ToggleButton.vue");
+/* harmony import */ var primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/blockui/sfc */ "./node_modules/primevue/blockui/BlockUI.vue");
+/* harmony import */ var primevue_fileupload__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/fileupload */ "./node_modules/primevue/fileupload/fileupload.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var primevue_useconfirm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primevue/useconfirm */ "./node_modules/primevue/useconfirm/useconfirm.esm.js");
+/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../url.js */ "./resources/js/url.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -27684,41 +27693,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+var CHECK_USERNAME = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_12__.apiUrl, "/api/check/username");
+
+function checkUsername(payload) {
+  return axios.post(CHECK_USERNAME, _objectSpread({}, payload));
+}
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['editOn'],
   components: {
-    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    InputText: primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_2__.default,
-    Dropdown: primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_3__.default,
-    Button: primevue_button_sfc__WEBPACK_IMPORTED_MODULE_4__.default,
-    Divider: primevue_divider_sfc__WEBPACK_IMPORTED_MODULE_5__.default,
-    ToggleButton: primevue_togglebutton_sfc__WEBPACK_IMPORTED_MODULE_6__.default,
-    ActionButton: _components_ActionButton__WEBPACK_IMPORTED_MODULE_1__.default,
-    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_7__.default,
-    FileUpload: primevue_fileupload__WEBPACK_IMPORTED_MODULE_8__.default
+    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    InputText: primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_3__.default,
+    Dropdown: primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_4__.default,
+    Button: primevue_button_sfc__WEBPACK_IMPORTED_MODULE_5__.default,
+    Divider: primevue_divider_sfc__WEBPACK_IMPORTED_MODULE_6__.default,
+    ToggleButton: primevue_togglebutton_sfc__WEBPACK_IMPORTED_MODULE_7__.default,
+    ActionButton: _components_ActionButton__WEBPACK_IMPORTED_MODULE_2__.default,
+    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_8__.default,
+    FileUpload: primevue_fileupload__WEBPACK_IMPORTED_MODULE_9__.default
   },
   setup: function setup(props) {
     var editOn = props.editOn;
     var editMode = eval(editOn);
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_11__.useRoute)();
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_13__.useRoute)();
     var params = route.params;
     var userId = params.id || null;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_12__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_14__.useStore)();
     var state = store.state,
         dispatch = store.dispatch;
-    var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_10__.useConfirm)();
+    var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_11__.useConfirm)();
     var init = {
       initialValues: {
         user: _objectSpread({}, state.users.values)
       }
     };
 
-    var _useForm = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useForm)(init),
+    var _useForm = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useForm)(init),
         setValues = _useForm.setValues,
         handleSubmit = _useForm.handleSubmit,
         resetForm = _useForm.resetForm;
 
-    (0,vue__WEBPACK_IMPORTED_MODULE_9__.watch)(function () {
+    (0,vue__WEBPACK_IMPORTED_MODULE_10__.watch)(function () {
       return state.users.user;
     }, function (data, prevData) {
       setValues({
@@ -27767,6 +27783,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return true;
     }
 
+    function validateUsername(_x) {
+      return _validateUsername.apply(this, arguments);
+    }
+
+    function _validateUsername() {
+      _validateUsername = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(value) {
+        var _yield$checkUsername, data, available;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (value) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return", "This field is required");
+
+              case 2:
+                _context.next = 4;
+                return checkUsername({
+                  id: userId,
+                  username: value
+                });
+
+              case 4:
+                _yield$checkUsername = _context.sent;
+                data = _yield$checkUsername.data;
+                available = data.data.available;
+
+                if (available) {
+                  _context.next = 9;
+                  break;
+                }
+
+                return _context.abrupt("return", 'Username is already taken');
+
+              case 9:
+                return _context.abrupt("return", true);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _validateUsername.apply(this, arguments);
+    }
+
     function validatePassword(value) {
       if (!value) {
         return "Password is required";
@@ -27784,34 +27851,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } // No need to define rules for fields
 
 
-    var _useField = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.id', validField),
+    var _useField = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.id', validField),
         id = _useField.value;
 
-    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.firstname', validateField),
+    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.firstname', validateField),
         firstname = _useField2.value,
         firstnameError = _useField2.errorMessage;
 
-    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.middlename', validField),
+    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.middlename', validField),
         middlename = _useField3.value,
         middlenameError = _useField3.errorMessage;
 
-    var _useField4 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.lastname', validateField),
+    var _useField4 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.lastname', validateField),
         lastname = _useField4.value,
         lastnameError = _useField4.errorMessage;
 
-    var _useField5 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.username', validateField),
+    var _useField5 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.username', validateUsername),
         username = _useField5.value,
         usernameError = _useField5.errorMessage;
 
-    var _useField6 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.password', editMode ? validField : validatePassword),
+    var _useField6 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.password', editMode ? validField : validatePassword),
         password = _useField6.value,
         passwordError = _useField6.errorMessage;
 
-    var _useField7 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.group', validateField),
+    var _useField7 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.group', validateField),
         group = _useField7.value,
         groupError = _useField7.errorMessage;
 
-    var _useField8 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.image', validField),
+    var _useField8 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_15__.useField)('user.image', validField),
         image = _useField8.value;
 
     return {
