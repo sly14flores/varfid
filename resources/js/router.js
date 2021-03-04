@@ -29,6 +29,11 @@ import Brands from "./pages/maintenance/brands/Brands"
 import BrandsList from "./pages/maintenance/brands/List"
 import BrandNew from "./pages/maintenance/brands/New"
 import BrandEdit from "./pages/maintenance/brands/Edit"
+// Types
+import Types from "./pages/maintenance/types/Types"
+import TypesList from "./pages/maintenance/types/List"
+import TypeNew from "./pages/maintenance/types/New"
+import TypeEdit from "./pages/maintenance/types/Edit"
 
 const routes = [
   {
@@ -118,6 +123,28 @@ const routes = [
             path: 'show/:id',
             name: 'ShowBrand',
             component: BrandEdit
+          }          
+        ]
+      },
+      {
+        path: 'types',
+        name: 'Types',
+        component: Types,
+        children: [
+          {
+            path: '',
+            name: 'TypesList',
+            component: TypesList,
+          },
+          {
+            path: 'add',
+            name: 'NewType',
+            component: TypeNew
+          },
+          {
+            path: 'show/:id',
+            name: 'ShowType',
+            component: TypeEdit
           }          
         ]
       },      

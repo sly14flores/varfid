@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\VehicleTypeController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
 
@@ -46,6 +47,7 @@ Route::apiResources([
  */
 Route::prefix('maintenance')->group(function() {
 
+    // Brands
     Route::apiResources([
         'brands' => BrandController::class,
     ],[
@@ -56,6 +58,18 @@ Route::prefix('maintenance')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+    // Types
+    Route::apiResources([
+        'types' => VehicleTypeController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'type' => VehicleTypeController::class,
+    ],[
+        'except' => ['index']
+    ]);    
 
 });
 
