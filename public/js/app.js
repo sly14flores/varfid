@@ -30481,14 +30481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_font_awesome_icon, {
-    icon: "circle"
-  });
+  return null;
 }
 
 /***/ }),
@@ -30509,9 +30503,27 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <router-view v-slot=\"{ Component }\">\r\n    <transition name=\"fade\" mode=\"out-in\">\r\n      <component :is=\"Component\" />\r\n    </transition>\r\n  </router-view> ")], 2112
-  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
-  );
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_view, null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {
+      var Component = _ref.Component;
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+        name: "fade",
+        mode: "out-in"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)((0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDynamicComponent)(Component)))];
+        }),
+        _: 2
+        /* DYNAMIC */
+
+      }, 1024
+      /* DYNAMIC_SLOTS */
+      )];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
 }
 
 /***/ }),
@@ -30575,7 +30587,7 @@ function () {
             if (error.response.status === 401) {
               window.open('#/login', '_self');
               sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-                text: 'You have been logged out because you account was logged in from a different device',
+                text: 'You have been logged out because your account was logged in from a different device',
                 icon: 'info',
                 confirmButtonText: 'Ok'
               });
@@ -30640,14 +30652,14 @@ __webpack_require__.r(__webpack_exports__);
   to: '/'
 }, {
   label: 'Vehicles',
-  icon: 'pi pi-fw pi-users',
+  icon: 'pi pi-fw pi-discord',
   items: [{
     label: 'List',
-    icon: 'pi pi-fw pi-users',
+    icon: 'pi pi-fw pi-list',
     to: '/vehicles'
   }, {
     label: 'Add',
-    icon: 'pi pi-fw pi-user-plus',
+    icon: 'pi pi-fw pi-plus',
     to: '/vehicles/add'
   }]
 }, {
@@ -30655,29 +30667,38 @@ __webpack_require__.r(__webpack_exports__);
   icon: 'pi pi-fw pi-cog',
   items: [{
     label: 'Users',
+    icon: 'pi pi-fw pi-users',
     items: [{
       label: 'List',
+      icon: 'pi pi-fw pi-list',
       to: '/maintenance/users'
     }, {
       label: 'Add',
+      icon: 'pi pi-fw pi-plus',
       to: '/maintenance/users/add'
     }]
   }, {
     label: 'Brands',
+    icon: 'pi pi-fw pi-circle-off',
     items: [{
       label: 'List',
+      icon: 'pi pi-fw pi-list',
       to: '/maintenance/brands'
     }, {
       label: 'Add',
+      icon: 'pi pi-fw pi-plus',
       to: '/maintenance/brands/add'
     }]
   }, {
     label: 'Vehicle Types',
+    icon: 'pi pi-fw pi-circle-off',
     items: [{
       label: 'List',
+      icon: 'pi pi-fw pi-list',
       to: '/maintenance/types'
     }, {
       label: 'Add',
+      icon: 'pi pi-fw pi-plus',
       to: '/maintenance/types/add'
     }]
   }]
@@ -31876,13 +31897,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * APIs
  */
 
-var CREATE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user");
+var CREATE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/maintenance/user");
 
 var createUser = function createUser(payload) {
   return axios.post(CREATE_USER, payload);
 };
 
-var UPDATE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user/:id");
+var UPDATE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/maintenance/user/:id");
 
 var updateUser = function updateUser(_ref) {
   var data = _ref.data,
@@ -31893,7 +31914,7 @@ var updateUser = function updateUser(_ref) {
   return axios.post(url, data);
 };
 
-var GET_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user/:id");
+var GET_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/maintenance/user/:id");
 
 var getUser = function getUser(payload) {
   var id = payload.id;
@@ -31903,7 +31924,7 @@ var getUser = function getUser(payload) {
   return axios.get(url);
 };
 
-var GET_USERS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/users");
+var GET_USERS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/maintenance/users");
 
 var getUsers = function getUsers(payload) {
   var page = payload.page;
@@ -31915,7 +31936,7 @@ var getUsers = function getUsers(payload) {
   });
 };
 
-var DELETE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user/:id");
+var DELETE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/maintenance/user/:id");
 
 var deleteUser = function deleteUser(payload) {
   var id = payload.id;

@@ -6,32 +6,32 @@ import Swal from 'sweetalert2'
 /**
  * APIs
  */
-const CREATE_USER = `${apiUrl}/api/user`
+const CREATE_USER = `${apiUrl}/api/maintenance/user`
 const createUser = (payload) => {
     return axios.post(CREATE_USER, payload)
 }
 
-const UPDATE_USER = `${apiUrl}/api/user/:id`
+const UPDATE_USER = `${apiUrl}/api/maintenance/user/:id`
 const updateUser = ({ data, id }) => {
     const url =  route(UPDATE_USER, { id })
     return axios.post(url, data)
 }
 
-const GET_USER = `${apiUrl}/api/user/:id`
+const GET_USER = `${apiUrl}/api/maintenance/user/:id`
 const getUser = (payload) => {
     const { id } = payload
     const url =  route(GET_USER, { id })
     return axios.get(url)
 }
 
-const GET_USERS = `${apiUrl}/api/users`
+const GET_USERS = `${apiUrl}/api/maintenance/users`
 const getUsers = (payload) => {
     const { page } = payload
     const pageNo = page + 1
     return axios.get(GET_USERS, {params: { page: pageNo } })
 }
 
-const DELETE_USER = `${apiUrl}/api/user/:id`
+const DELETE_USER = `${apiUrl}/api/maintenance/user/:id`
 const deleteUser = (payload) => {
     const { id } = payload
     const url =  route(DELETE_USER, { id })
