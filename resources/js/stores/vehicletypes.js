@@ -130,7 +130,11 @@ const actions = {
     },
     CREATE_TYPE_ERROR({commit}, payload) {
         commit('SAVING',false) 
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async UPDATE_TYPE({commit,dispatch}, payload) {
         commit('SAVING',true)
@@ -158,7 +162,11 @@ const actions = {
     UPDATE_TYPE_ERROR({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async DELETE_TYPE({dispatch}, payload) {
         const { id } = payload
@@ -180,7 +188,11 @@ const actions = {
         dispatch('GET_TYPES', { page: 0 })
     },
     DELETE_TYPE_ERROR({commit}, payload) {
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async GET_TYPE({commit,dispatch}, payload) {
         commit('FETCHING_DATA', true)
@@ -199,7 +211,11 @@ const actions = {
     },
     GET_TYPE_ERROR({commit}, payload) {
         commit('FETCHING_DATA', false)
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async GET_TYPES({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
@@ -219,8 +235,12 @@ const actions = {
         commit('FETCHING_LIST',false)
     },
     GET_TYPES_ERROR({commit}, payload) {
-        console.log(payload)
         commit('FETCHING_LIST',false)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })        
     }
 }
 

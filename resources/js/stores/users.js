@@ -165,7 +165,11 @@ const actions = {
     },
     CREATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false) 
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async UPDATE_USER({state, commit,dispatch}, payload) {
         commit('SAVING',true)
@@ -214,7 +218,11 @@ const actions = {
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE',false)
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async DELETE_USER({dispatch}, payload) {
         const { id } = payload
@@ -236,7 +244,11 @@ const actions = {
         dispatch('GET_USERS', { page: 0 })
     },
     DELETE_USER_ERROR({commit}, payload) {
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async GET_USER({commit,dispatch}, payload) {
         commit('FETCHING_DATA', true)
@@ -259,7 +271,11 @@ const actions = {
     },
     GET_USER_ERROR({commit}, payload) {
         commit('FETCHING_DATA', false)
-        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     async GET_USERS({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
@@ -279,8 +295,12 @@ const actions = {
         commit('FETCHING_LIST',false)
     },
     GET_USERS_ERROR({commit}, payload) {
-        console.log(payload)
-        commit('FETCHING_LIST',false)
+        commit('FETCHING_LIST',false)        
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
     },
     SET_PICTURE({commit},payload) {
         commit('PICTURE',payload)
