@@ -12,10 +12,9 @@ const createUser = (payload) => {
 }
 
 const UPDATE_USER = `${apiUrl}/api/user/:id`
-const updateUser = (payload) => {
-    const { id } = payload
+const updateUser = ({ data, id }) => {
     const url =  route(UPDATE_USER, { id })
-    return axios.put(url, payload)
+    return axios.post(url, data)
 }
 
 const GET_USER = `${apiUrl}/api/user/:id`
@@ -47,30 +46,42 @@ const user = {
     username: null,
     password: null,
     group: null,
-    picture: "/img/avatar.png"
+    image: "/img/avatar.png"
 }
 const saving = false
+const writeOn = false
 const users = []
 const pagination = {}
 const fetchingList = false
 const fetchingData = false
 
+const picture = "/img/avatar.png"
+const pictureReplace = false
+
 const state = () => {
     return {
         saving,
-        writeOn: false,
+        writeOn,
+        values: user,
         user,
         users,
         pagination,
         fetchingList,
-        fetchingData
+        fetchingData,
+        picture,
+        pictureReplace
     }
 }
 
 const mutations = {
     INIT(state) {
         state.user = user
-        state.users = users
+        state.users = users,
+        state.picture = picture
+        state.pictureReplace = pictureReplace
+    },
+    INIT_PICTURE(state) {
+        state.picture = picture
     },
     USER(state, payload) {
         state.user = payload
@@ -92,6 +103,12 @@ const mutations = {
     },
     FETCHING_DATA(state,payload) {
         state.fetchingData = payload
+    },
+    PICTURE(state,payload) {
+        state.picture = payload
+    },
+    PICTURE_REPLACE(state,payload) {
+        state.pictureReplace = payload
     }
 }
 
@@ -99,13 +116,35 @@ const actions = {
     INIT({commit}) {
         commit('INIT')
     },
+    INIT_PICTURE({commit}) {
+        commit('INIT_PICTURE')
+    },
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
     async CREATE_USER({commit, dispatch}, payload) {
-        commit('SAVING',true)        
+        commit('SAVING',true)
+        const {
+            id,
+            firstname,
+            middlename,
+            lastname,
+            username,
+            password,
+            group,
+            image,
+        } = payload
+        const fd = new FormData();        
+        if (id) fd.append('id',id);
+        if (firstname) fd.append('firstname',firstname);
+        if (middlename) fd.append('middlename',middlename);
+        if (lastname) fd.append('lastname',lastname);
+        if (username) fd.append('username',username);
+        if (password) fd.append('password',password);
+        if (group) fd.append('group',group);
+        if (image) fd.append('image',image);
         try {
-            const { data } = await createUser(payload)
+            const { data } = await createUser(fd)
             dispatch('CREATE_USER_SUCCESS', data)
             return true
         } catch(error) {
@@ -121,17 +160,38 @@ const actions = {
             text: message,
             icon: 'success',
             confirmButtonText: 'Ok'
-        })  
+        })
+        commit('PICTURE',picture)
     },
     CREATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false) 
         console.log(payload)
     },
-    async UPDATE_USER({commit,dispatch}, payload) {
+    async UPDATE_USER({state, commit,dispatch}, payload) {
         commit('SAVING',true)
         commit('TOGGLE_WRITE', true)
+        const {
+            id,
+            firstname,
+            middlename,
+            lastname,
+            username,
+            password,
+            group,
+            image,
+        } = payload
+        const fd = new FormData();
+        fd.append('_method','PUT')
+        if (id) fd.append('id',id);
+        if (firstname) fd.append('firstname',firstname);
+        if (middlename) fd.append('middlename',middlename);
+        if (lastname) fd.append('lastname',lastname);
+        if (username) fd.append('username',username);
+        if (password) fd.append('password',password);
+        if (group) fd.append('group',group);
+        if (image && state.pictureReplace) fd.append('image',image);
         try {
-            const { data } = await updateUser(payload)
+            const { data } = await updateUser({ data: fd, id })
             dispatch('UPDATE_USER_SUCCESS', data)
             return true
         } catch (error) {
@@ -143,6 +203,7 @@ const actions = {
     UPDATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
+        commit('PICTURE_REPLACE',false)
         const { message } = payload
         Swal.fire({
             text: message,
@@ -152,7 +213,7 @@ const actions = {
     },
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
-        commit('TOGGLE_WRITE', false)
+        commit('TOGGLE_WRITE',false)
         console.log(payload)
     },
     async DELETE_USER({dispatch}, payload) {
@@ -189,7 +250,11 @@ const actions = {
         }
     },
     GET_USER_SUCCESS({commit}, payload) {
+        const { picture } = payload
         commit('USER', payload)
+        if (picture!=null) {
+            commit('PICTURE', picture)
+        }
         commit('FETCHING_DATA', false)
     },
     GET_USER_ERROR({commit}, payload) {
@@ -216,6 +281,12 @@ const actions = {
     GET_USERS_ERROR({commit}, payload) {
         console.log(payload)
         commit('FETCHING_LIST',false)
+    },
+    SET_PICTURE({commit},payload) {
+        commit('PICTURE',payload)
+    },
+    PICTURE_REPLACE({commit},payload) {
+        commit('PICTURE_REPLACE',payload)
     }
 }
 

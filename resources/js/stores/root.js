@@ -29,6 +29,7 @@ const profile = {
     lastname: null,
     token: null,
     groupName: null,
+    picture: null,
 }
 
 const loading = false

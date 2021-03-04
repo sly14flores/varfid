@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 use App\Traits\General;
 
@@ -24,6 +25,7 @@ class LoginResource extends JsonResource
             'lastname' => $this->lastname,
             'token' => $this->api_token,
             'groupName' => $this->getGroupName($this->group),
+            'picture' => (is_null($this->image))?null:config('ftp.users_url').Storage::url($this->image),            
         ];
     }
 }

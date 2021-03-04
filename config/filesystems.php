@@ -55,8 +55,8 @@ return [
         'ftp' => [
             'driver' => 'ftp',
             'host' => 'ftp.slyflores.com',
-            'username' => 'varfid@slyflores.com',
-            'password' => 'F~l[v5GS)V6Y',
+            'username' => 'varfid@varfid.slyflores.com',
+            'password' => '-9rompp;NJ2R',
         
             // Optional FTP Settings...
             // 'port' => 21,
