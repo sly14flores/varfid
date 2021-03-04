@@ -79,6 +79,11 @@ Route::prefix('maintenance')->group(function() {
 Route::post('change/password', ChangePassword::class);
 
 /**
+ * Unique user validation
+ */
+Route::post('check/username', [UserController::class, 'uniqueUsername']);
+
+/**
  * Selections
  */
 Route::prefix('selections')->group(function() {

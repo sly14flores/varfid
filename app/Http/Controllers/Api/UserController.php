@@ -221,4 +221,23 @@ class UserController extends Controller
 
         return $this->jsonDeleteSuccessResponse(); 
     }
+
+    public function uniqueUsername(Request $request) {
+
+        $username = $request->username;
+        $id = $request->id;
+
+        $wheres = [['username',$username]];
+        if (!is_null($id)) {
+            $wheres[] = ['id','!=',$id];
+        }
+        
+        $user = User::where($wheres)->first();
+        $available = is_null($user);
+
+        return $this->jsonSuccessResponse([
+            'available'=>$available
+        ], 200);
+
+    }
 }
