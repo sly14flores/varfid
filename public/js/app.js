@@ -30899,14 +30899,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _stores_root__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stores/root */ "./resources/js/stores/root.js");
 /* harmony import */ var _stores_password_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stores/password.js */ "./resources/js/stores/password.js");
 /* harmony import */ var _stores_selections_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stores/selections.js */ "./resources/js/stores/selections.js");
-/* harmony import */ var _stores_users_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stores/users.js */ "./resources/js/stores/users.js");
-/* harmony import */ var _stores_brands_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stores/brands.js */ "./resources/js/stores/brands.js");
-/* harmony import */ var _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stores/vehicletypes.js */ "./resources/js/stores/vehicletypes.js");
-/* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
+/* harmony import */ var _stores_vehicles_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stores/vehicles.js */ "./resources/js/stores/vehicles.js");
+/* harmony import */ var _stores_users_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stores/users.js */ "./resources/js/stores/users.js");
+/* harmony import */ var _stores_brands_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stores/brands.js */ "./resources/js/stores/brands.js");
+/* harmony import */ var _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stores/vehicletypes.js */ "./resources/js/stores/vehicletypes.js");
+/* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
 
 
 
@@ -30915,7 +30916,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__.default({
+
+var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_7__.default({
   storage: window.localStorage,
   key: 'varfid',
   reducer: function reducer(state) {
@@ -30924,13 +30926,14 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_6__.default({
     };
   }
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_8__.createStore)({
   modules: {
     password: _stores_password_js__WEBPACK_IMPORTED_MODULE_1__.default,
+    vehicles: _stores_vehicles_js__WEBPACK_IMPORTED_MODULE_3__.default,
     selections: _stores_selections_js__WEBPACK_IMPORTED_MODULE_2__.default,
-    users: _stores_users_js__WEBPACK_IMPORTED_MODULE_3__.default,
-    brands: _stores_brands_js__WEBPACK_IMPORTED_MODULE_4__.default,
-    types: _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_5__.default
+    users: _stores_users_js__WEBPACK_IMPORTED_MODULE_4__.default,
+    brands: _stores_brands_js__WEBPACK_IMPORTED_MODULE_5__.default,
+    types: _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_6__.default
   },
   state: _stores_root__WEBPACK_IMPORTED_MODULE_0__.state,
   mutations: _stores_root__WEBPACK_IMPORTED_MODULE_0__.mutations,
@@ -32334,6 +32337,519 @@ var actions = {
     commit('FETCHING_LIST', false);
   },
   GET_USERS_ERROR: function GET_USERS_ERROR(_ref19, payload) {
+    var commit = _ref19.commit;
+    commit('FETCHING_LIST', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  SET_PICTURE: function SET_PICTURE(_ref20, payload) {
+    var commit = _ref20.commit;
+    commit('PICTURE', payload);
+  },
+  PICTURE_REPLACE: function PICTURE_REPLACE(_ref21, payload) {
+    var commit = _ref21.commit;
+    commit('PICTURE_REPLACE', payload);
+  }
+};
+var getters = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/stores/vehicles.js":
+/*!*****************************************!*\
+  !*** ./resources/js/stores/vehicles.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _library_route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../library/route */ "./resources/js/library/route.js");
+/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../url.js */ "./resources/js/url.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+/**
+ * APIs
+ */
+
+var CREATE_VEHICLE = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicle");
+
+var createVehicle = function createVehicle(payload) {
+  return axios.post(CREATE_VEHICLE, payload);
+};
+
+var UPDATE_VEHICLE = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicle/:id");
+
+var updateVehicle = function updateVehicle(_ref) {
+  var data = _ref.data,
+      id = _ref.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(UPDATE_VEHICLE, {
+    id: id
+  });
+  return axios.post(url, data);
+};
+
+var GET_VEHICLE = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicle/:id");
+
+var getVehicle = function getVehicle(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(GET_VEHICLE, {
+    id: id
+  });
+  return axios.get(url);
+};
+
+var GET_VEHICLES = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicles");
+
+var getVehicles = function getVehicles(payload) {
+  var page = payload.page;
+  var pageNo = page + 1;
+  return axios.get(GET_VEHICLES, {
+    params: {
+      page: pageNo
+    }
+  });
+};
+
+var DELETE_VEHICLE = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicle/:id");
+
+var deleteVehicle = function deleteVehicle(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(DELETE_VEHICLE, {
+    id: id
+  });
+  return axios["delete"](url);
+};
+
+var vehicle = {
+  id: 0,
+  type_id: null,
+  brand_id: null,
+  model: null,
+  plate_no: null,
+  rfid: null,
+  firstname: null,
+  lastname: null,
+  sex: null,
+  contact_no: null,
+  address: null,
+  image: "/img/avatar.png"
+};
+var saving = false;
+var writeOn = false;
+var vehicles = [];
+var pagination = {};
+var fetchingList = false;
+var fetchingData = false;
+var picture = "/img/avatar.png";
+var pictureReplace = false;
+
+var state = function state() {
+  return {
+    saving: saving,
+    writeOn: writeOn,
+    values: vehicle,
+    vehicle: vehicle,
+    vehicles: vehicles,
+    pagination: pagination,
+    fetchingList: fetchingList,
+    fetchingData: fetchingData,
+    picture: picture,
+    pictureReplace: pictureReplace
+  };
+};
+
+var mutations = {
+  INIT: function INIT(state) {
+    state.vehicle = vehicle;
+    state.vehicles = vehicles, state.picture = picture;
+    state.pictureReplace = pictureReplace;
+  },
+  INIT_PICTURE: function INIT_PICTURE(state) {
+    state.picture = picture;
+  },
+  VEHICLE: function VEHICLE(state, payload) {
+    state.vehicle = payload;
+  },
+  VEHICLES: function VEHICLES(state, payload) {
+    state.vehicles = payload;
+  },
+  PAGINATION: function PAGINATION(state, payload) {
+    state.pagination = _objectSpread({}, payload);
+  },
+  SAVING: function SAVING(state, payload) {
+    state.saving = payload;
+  },
+  TOGGLE_WRITE: function TOGGLE_WRITE(state, payload) {
+    state.writeOn = payload;
+  },
+  FETCHING_LIST: function FETCHING_LIST(state, payload) {
+    state.fetchingList = payload;
+  },
+  FETCHING_DATA: function FETCHING_DATA(state, payload) {
+    state.fetchingData = payload;
+  },
+  PICTURE: function PICTURE(state, payload) {
+    state.picture = payload;
+  },
+  PICTURE_REPLACE: function PICTURE_REPLACE(state, payload) {
+    state.pictureReplace = payload;
+  }
+};
+var actions = {
+  INIT: function INIT(_ref2) {
+    var commit = _ref2.commit;
+    commit('INIT');
+  },
+  INIT_PICTURE: function INIT_PICTURE(_ref3) {
+    var commit = _ref3.commit;
+    commit('INIT_PICTURE');
+  },
+  TOGGLE_WRITE: function TOGGLE_WRITE(_ref4, payload) {
+    var commit = _ref4.commit;
+    commit('TOGGLE_WRITE', payload);
+  },
+  CREATE_VEHICLE: function CREATE_VEHICLE(_ref5, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit, dispatch, id, type_id, brand_id, model, plate_no, rfid, firstname, lastname, sex, contact_no, address, image, fd, _yield$createVehicle, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref5.commit, dispatch = _ref5.dispatch;
+              commit('SAVING', true);
+              id = payload.id, type_id = payload.type_id, brand_id = payload.brand_id, model = payload.model, plate_no = payload.plate_no, rfid = payload.rfid, firstname = payload.firstname, lastname = payload.lastname, sex = payload.sex, contact_no = payload.contact_no, address = payload.address, image = payload.image;
+              fd = new FormData();
+              if (id) fd.append('id', id);
+              if (type_id) fd.append('type_id', type_id);
+              if (brand_id) fd.append('brand_id', brand_id);
+              if (model) fd.append('model', model);
+              if (plate_no) fd.append('plate_no', plate_no);
+              if (rfid) fd.append('rfid', rfid);
+              if (firstname) fd.append('firstname', firstname);
+              if (lastname) fd.append('lastname', lastname);
+              if (sex) fd.append('sex', sex);
+              if (contact_no) fd.append('contact_no', contact_no);
+              if (address) fd.append('address', address);
+              if (image) fd.append('image', image);
+              _context.prev = 16;
+              _context.next = 19;
+              return createVehicle(fd);
+
+            case 19:
+              _yield$createVehicle = _context.sent;
+              data = _yield$createVehicle.data;
+              dispatch('CREATE_VEHICLE_SUCCESS', data);
+              return _context.abrupt("return", true);
+
+            case 25:
+              _context.prev = 25;
+              _context.t0 = _context["catch"](16);
+              response = _context.t0.response;
+              dispatch('CREATE_VEHICLE_ERROR', response);
+              return _context.abrupt("return", false);
+
+            case 30:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[16, 25]]);
+    }))();
+  },
+  CREATE_VEHICLE_SUCCESS: function CREATE_VEHICLE_SUCCESS(_ref6, payload) {
+    var commit = _ref6.commit;
+    commit('SAVING', false);
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+    commit('PICTURE', picture);
+  },
+  CREATE_VEHICLE_ERROR: function CREATE_VEHICLE_ERROR(_ref7, payload) {
+    var commit = _ref7.commit;
+    commit('SAVING', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  UPDATE_VEHICLE: function UPDATE_VEHICLE(_ref8, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var state, commit, dispatch, id, type_id, brand_id, model, plate_no, rfid, firstname, lastname, sex, contact_no, address, image, fd, _yield$updateVehicle, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              state = _ref8.state, commit = _ref8.commit, dispatch = _ref8.dispatch;
+              commit('SAVING', true);
+              commit('TOGGLE_WRITE', true);
+              id = payload.id, type_id = payload.type_id, brand_id = payload.brand_id, model = payload.model, plate_no = payload.plate_no, rfid = payload.rfid, firstname = payload.firstname, lastname = payload.lastname, sex = payload.sex, contact_no = payload.contact_no, address = payload.address, image = payload.image;
+              fd = new FormData();
+              fd.append('_method', 'PUT');
+              if (id) fd.append('id', id);
+              if (type_id) fd.append('type_id', type_id);
+              if (brand_id) fd.append('brand_id', brand_id);
+              if (model) fd.append('model', model);
+              if (plate_no) fd.append('plate_no', plate_no);
+              if (rfid) fd.append('rfid', rfid);
+              if (firstname) fd.append('firstname', firstname);
+              if (lastname) fd.append('lastname', lastname);
+              if (sex) fd.append('sex', sex);
+              if (contact_no) fd.append('contact_no', contact_no);
+              if (address) fd.append('address', address);
+              if (image && state.pictureReplace) fd.append('image', image);
+              _context2.prev = 18;
+              _context2.next = 21;
+              return updateVehicle({
+                data: fd,
+                id: id
+              });
+
+            case 21:
+              _yield$updateVehicle = _context2.sent;
+              data = _yield$updateVehicle.data;
+              dispatch('UPDATE_VEHICLE_SUCCESS', data);
+              return _context2.abrupt("return", true);
+
+            case 27:
+              _context2.prev = 27;
+              _context2.t0 = _context2["catch"](18);
+              response = _context2.t0.response;
+              dispatch('UPDATE_VEHICLE_ERROR', response);
+              return _context2.abrupt("return", false);
+
+            case 32:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[18, 27]]);
+    }))();
+  },
+  UPDATE_VEHICLE_SUCCESS: function UPDATE_VEHICLE_SUCCESS(_ref9, payload) {
+    var commit = _ref9.commit;
+    commit('SAVING', false);
+    commit('TOGGLE_WRITE', false);
+    commit('PICTURE_REPLACE', false);
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+  },
+  UPDATE_VEHICLE_ERROR: function UPDATE_VEHICLE_ERROR(_ref10, payload) {
+    var commit = _ref10.commit;
+    commit('SAVING', false);
+    commit('TOGGLE_WRITE', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  DELETE_VEHICLE: function DELETE_VEHICLE(_ref11, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var dispatch, id, _yield$deleteVehicle, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch = _ref11.dispatch;
+              id = payload.id;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return deleteVehicle({
+                id: id
+              });
+
+            case 5:
+              _yield$deleteVehicle = _context3.sent;
+              data = _yield$deleteVehicle.data;
+              dispatch('DELETE_VEHICLE_SUCCESS', data);
+              _context3.next = 14;
+              break;
+
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](2);
+              response = _context3.t0.response;
+              dispatch('DELETE_VEHICLE_ERROR', response);
+
+            case 14:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 10]]);
+    }))();
+  },
+  DELETE_VEHICLE_SUCCESS: function DELETE_VEHICLE_SUCCESS(_ref12, payload) {
+    var dispatch = _ref12.dispatch;
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+    dispatch('GET_VEHICLES', {
+      page: 0
+    });
+  },
+  DELETE_VEHICLE_ERROR: function DELETE_VEHICLE_ERROR(_ref13, payload) {
+    var commit = _ref13.commit;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  GET_VEHICLE: function GET_VEHICLE(_ref14, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var commit, dispatch, id, _yield$getVehicle, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref14.commit, dispatch = _ref14.dispatch;
+              commit('FETCHING_DATA', true);
+              id = payload.id;
+              _context4.prev = 3;
+              _context4.next = 6;
+              return getVehicle({
+                id: id
+              });
+
+            case 6:
+              _yield$getVehicle = _context4.sent;
+              data = _yield$getVehicle.data.data;
+              dispatch('GET_VEHICLE_SUCCESS', data);
+              _context4.next = 15;
+              break;
+
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](3);
+              response = _context4.t0.response;
+              dispatch('GET_VEHICLE_ERROR', response);
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[3, 11]]);
+    }))();
+  },
+  GET_VEHICLE_SUCCESS: function GET_VEHICLE_SUCCESS(_ref15, payload) {
+    var commit = _ref15.commit;
+    var picture = payload.picture;
+    commit('VEHICLE', payload);
+
+    if (picture != null) {
+      commit('PICTURE', picture);
+    }
+
+    commit('FETCHING_DATA', false);
+  },
+  GET_VEHICLE_ERROR: function GET_VEHICLE_ERROR(_ref16, payload) {
+    var commit = _ref16.commit;
+    commit('FETCHING_DATA', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  GET_VEHICLES: function GET_VEHICLES(_ref17, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, dispatch, page, _yield$getVehicles, _yield$getVehicles$da, data, _pagination, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref17.commit, dispatch = _ref17.dispatch;
+              commit('FETCHING_LIST', true);
+              _context5.prev = 2;
+              page = payload.page;
+              _context5.next = 6;
+              return getVehicles({
+                page: page
+              });
+
+            case 6:
+              _yield$getVehicles = _context5.sent;
+              _yield$getVehicles$da = _yield$getVehicles.data.data;
+              data = _yield$getVehicles$da.data;
+              _pagination = _yield$getVehicles$da.pagination;
+              dispatch('GET_VEHICLES_SUCCESS', {
+                data: data,
+                pagination: _pagination
+              });
+              _context5.next = 17;
+              break;
+
+            case 13:
+              _context5.prev = 13;
+              _context5.t0 = _context5["catch"](2);
+              response = _context5.t0.response;
+              dispatch('GET_VEHICLES_ERROR', response);
+
+            case 17:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[2, 13]]);
+    }))();
+  },
+  GET_VEHICLES_SUCCESS: function GET_VEHICLES_SUCCESS(_ref18, payload) {
+    var commit = _ref18.commit;
+    var data = payload.data,
+        pagination = payload.pagination;
+    commit('VEHICLES', data);
+    commit('PAGINATION', pagination);
+    commit('FETCHING_LIST', false);
+  },
+  GET_VEHICLES_ERROR: function GET_VEHICLES_ERROR(_ref19, payload) {
     var commit = _ref19.commit;
     commit('FETCHING_LIST', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
