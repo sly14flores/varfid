@@ -31049,7 +31049,11 @@ var actions = {
   CREATE_BRAND_ERROR: function CREATE_BRAND_ERROR(_ref5, payload) {
     var commit = _ref5.commit;
     commit('SAVING', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   UPDATE_BRAND: function UPDATE_BRAND(_ref6, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -31102,7 +31106,11 @@ var actions = {
     var commit = _ref8.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   DELETE_BRAND: function DELETE_BRAND(_ref9, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -31155,7 +31163,11 @@ var actions = {
   },
   DELETE_BRAND_ERROR: function DELETE_BRAND_ERROR(_ref11, payload) {
     var commit = _ref11.commit;
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_BRAND: function GET_BRAND(_ref12, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -31203,7 +31215,11 @@ var actions = {
   GET_BRAND_ERROR: function GET_BRAND_ERROR(_ref14, payload) {
     var commit = _ref14.commit;
     commit('FETCHING_DATA', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_BRANDS: function GET_BRANDS(_ref15, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -31258,8 +31274,12 @@ var actions = {
   },
   GET_BRANDS_ERROR: function GET_BRANDS_ERROR(_ref17, payload) {
     var commit = _ref17.commit;
-    console.log(payload);
     commit('FETCHING_LIST', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   }
 };
 /**
@@ -31973,7 +31993,11 @@ var actions = {
   CREATE_USER_ERROR: function CREATE_USER_ERROR(_ref7, payload) {
     var commit = _ref7.commit;
     commit('SAVING', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   UPDATE_USER: function UPDATE_USER(_ref8, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -32041,7 +32065,11 @@ var actions = {
     var commit = _ref10.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   DELETE_USER: function DELETE_USER(_ref11, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -32094,7 +32122,11 @@ var actions = {
   },
   DELETE_USER_ERROR: function DELETE_USER_ERROR(_ref13, payload) {
     var commit = _ref13.commit;
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_USER: function GET_USER(_ref14, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -32148,7 +32180,11 @@ var actions = {
   GET_USER_ERROR: function GET_USER_ERROR(_ref16, payload) {
     var commit = _ref16.commit;
     commit('FETCHING_DATA', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_USERS: function GET_USERS(_ref17, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -32203,8 +32239,12 @@ var actions = {
   },
   GET_USERS_ERROR: function GET_USERS_ERROR(_ref19, payload) {
     var commit = _ref19.commit;
-    console.log(payload);
     commit('FETCHING_LIST', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   SET_PICTURE: function SET_PICTURE(_ref20, payload) {
     var commit = _ref20.commit;
@@ -32430,7 +32470,11 @@ var actions = {
   CREATE_TYPE_ERROR: function CREATE_TYPE_ERROR(_ref5, payload) {
     var commit = _ref5.commit;
     commit('SAVING', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   UPDATE_TYPE: function UPDATE_TYPE(_ref6, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -32483,7 +32527,11 @@ var actions = {
     var commit = _ref8.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   DELETE_TYPE: function DELETE_TYPE(_ref9, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -32536,7 +32584,11 @@ var actions = {
   },
   DELETE_TYPE_ERROR: function DELETE_TYPE_ERROR(_ref11, payload) {
     var commit = _ref11.commit;
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_TYPE: function GET_TYPE(_ref12, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -32584,7 +32636,11 @@ var actions = {
   GET_TYPE_ERROR: function GET_TYPE_ERROR(_ref14, payload) {
     var commit = _ref14.commit;
     commit('FETCHING_DATA', false);
-    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   },
   GET_TYPES: function GET_TYPES(_ref15, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -32639,8 +32695,12 @@ var actions = {
   },
   GET_TYPES_ERROR: function GET_TYPES_ERROR(_ref17, payload) {
     var commit = _ref17.commit;
-    console.log(payload);
     commit('FETCHING_LIST', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   }
 };
 /**
