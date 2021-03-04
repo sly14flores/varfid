@@ -50,6 +50,19 @@ export default [
                     },                  
                 ]            
             },
+            {
+                label:'Vehicle Types',
+                items: [
+                    {
+                        label: 'List',
+                        to: '/maintenance/types'
+                    },
+                    {
+                        label: 'Add',
+                        to: '/maintenance/types/add'
+                    },                  
+                ]            
+            },            
         ]
     }    
 ]

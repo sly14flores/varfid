@@ -38,7 +38,7 @@ class VehicleTypeController extends Controller
     {
         $types = VehicleType::paginate(10);
 
-        $data = new VehicleTypesResourceCollection($types);
+        $data = new VehicleTypesListResourceCollection($types);
 
         return $this->jsonSuccessResponse($data, 200);
     }
@@ -156,9 +156,9 @@ class VehicleTypeController extends Controller
 
         $type->save();
 
-        $data = new VehicleTypeResource($brand);
+        $data = new VehicleTypeResource($type);
 
-        return $this->jsonSuccessResponse($data, 200, 'Brand info updated successfully'); 
+        return $this->jsonSuccessResponse($data, 200, 'Vehicle type info updated successfully'); 
     }
 
     /**

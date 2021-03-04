@@ -6,49 +6,49 @@ import Swal from 'sweetalert2'
 /**
  * APIs
  */
-const CREATE_BRAND = `${apiUrl}/api/maintenance/brand`
-const createBrand = (payload) => {
-    return axios.post(CREATE_BRAND, payload)
+const CREATE_TYPE = `${apiUrl}/api/maintenance/type`
+const createType = (payload) => {
+    return axios.post(CREATE_TYPE, payload)
 }
 
-const UPDATE_BRAND = `${apiUrl}/api/maintenance/brand/:id`
-const updateBrand = (payload) => {
+const UPDATE_TYPE = `${apiUrl}/api/maintenance/type/:id`
+const updateType = (payload) => {
     const { id } = payload
-    const url =  route(UPDATE_BRAND, { id })
+    const url =  route(UPDATE_TYPE, { id })
     return axios.put(url, payload)
 }
 
-const GET_BRAND = `${apiUrl}/api/maintenance/brand/:id`
-const getBrand = (payload) => {
+const GET_TYPE = `${apiUrl}/api/maintenance/type/:id`
+const getType = (payload) => {
     const { id } = payload
-    const url =  route(GET_BRAND, { id })
+    const url =  route(GET_TYPE, { id })
     return axios.get(url)
 }
 
-const GET_BRANDS = `${apiUrl}/api/maintenance/brands`
-const getBrands = (payload) => {
+const GET_TYPES = `${apiUrl}/api/maintenance/types`
+const getTypes = (payload) => {
     const { page } = payload
     const pageNo = page + 1
-    return axios.get(GET_BRANDS, {params: { page: pageNo } })
+    return axios.get(GET_TYPES, {params: { page: pageNo } })
 }
 
-const DELETE_BRAND = `${apiUrl}/api/maintenance/brand/:id`
-const deleteBrand = (payload) => {
+const DELETE_TYPE = `${apiUrl}/api/maintenance/type/:id`
+const deleteType = (payload) => {
     const { id } = payload
-    const url =  route(DELETE_BRAND, { id })
+    const url =  route(DELETE_TYPE, { id })
     return axios.delete(url)
 }
 
 /**
  * State
  */
-const brand = {
+const type = {
     id: 0,
     name: null,
     description: null,
 }
 const saving = false
-const brands = []
+const types = []
 const pagination = {}
 const fetchingList = false
 const fetchingData = false
@@ -57,9 +57,9 @@ const state = () => {
     return {
         saving,
         writeOn: false,
-        values: brand,
-        brand,
-        brands,
+        values: type,
+        type,
+        types,
         pagination,
         fetchingList,
         fetchingData
@@ -71,14 +71,14 @@ const state = () => {
  */
 const mutations = {
     INIT(state) {
-        state.brand = brand
-        state.brands = brands
+        state.type = type
+        state.types = types
     },
-    BRAND(state, payload) {
-        state.brand = payload
+    TYPE(state, payload) {
+        state.type = payload
     },
-    BRANDS(state, payload) {
-        state.brands = payload
+    TYPES(state, payload) {
+        state.types = payload
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -107,19 +107,19 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_BRAND({commit, dispatch}, payload) {
+    async CREATE_TYPE({commit, dispatch}, payload) {
         commit('SAVING',true)        
         try {
-            const { data } = await createBrand(payload)
-            dispatch('CREATE_BRAND_SUCCESS', data)
+            const { data } = await createType(payload)
+            dispatch('CREATE_TYPE_SUCCESS', data)
             return true
         } catch(error) {
             const { response } = error
-            dispatch('CREATE_BRAND_ERROR', response)
+            dispatch('CREATE_TYPE_ERROR', response)
             return false
         }
     },
-    CREATE_BRAND_SUCCESS({commit}, payload) {
+    CREATE_TYPE_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         const { message } = payload
         Swal.fire({
@@ -128,24 +128,24 @@ const actions = {
             confirmButtonText: 'Ok'
         })  
     },
-    CREATE_BRAND_ERROR({commit}, payload) {
+    CREATE_TYPE_ERROR({commit}, payload) {
         commit('SAVING',false) 
         console.log(payload)
     },
-    async UPDATE_BRAND({commit,dispatch}, payload) {
+    async UPDATE_TYPE({commit,dispatch}, payload) {
         commit('SAVING',true)
         commit('TOGGLE_WRITE', true)
         try {
-            const { data } = await updateBrand(payload)
-            dispatch('UPDATE_BRAND_SUCCESS', data)
+            const { data } = await updateType(payload)
+            dispatch('UPDATE_TYPE_SUCCESS', data)
             return true
         } catch (error) {
             const { response } = error
-            dispatch('UPDATE_BRAND_ERROR', response)
+            dispatch('UPDATE_TYPE_ERROR', response)
             return false
         }
     },
-    UPDATE_BRAND_SUCCESS({commit}, payload) {
+    UPDATE_TYPE_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
         const { message } = payload
@@ -155,70 +155,70 @@ const actions = {
             confirmButtonText: 'Ok'
         })        
     },
-    UPDATE_BRAND_ERROR({commit}, payload) {
+    UPDATE_TYPE_ERROR({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
         console.log(payload)
     },
-    async DELETE_BRAND({dispatch}, payload) {
+    async DELETE_TYPE({dispatch}, payload) {
         const { id } = payload
         try {
-            const { data } = await deleteBrand({id})
-            dispatch('DELETE_BRAND_SUCCESS', data)
+            const { data } = await deleteType({id})
+            dispatch('DELETE_TYPE_SUCCESS', data)
         } catch (error) {
             const { response } = error
-            dispatch('DELETE_BRAND_ERROR', response)
+            dispatch('DELETE_TYPE_ERROR', response)
         }
     },
-    DELETE_BRAND_SUCCESS({dispatch}, payload) {
+    DELETE_TYPE_SUCCESS({dispatch}, payload) {
         const { message } = payload
         Swal.fire({
             text: message,
             icon: 'success',
             confirmButtonText: 'Ok'
         })
-        dispatch('GET_BRANDS', { page: 0 })
+        dispatch('GET_TYPES', { page: 0 })
     },
-    DELETE_BRAND_ERROR({commit}, payload) {
+    DELETE_TYPE_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_BRAND({commit,dispatch}, payload) {
+    async GET_TYPE({commit,dispatch}, payload) {
         commit('FETCHING_DATA', true)
         const { id } = payload
         try {
-            const { data: { data } } = await getBrand({id})
-            dispatch('GET_BRAND_SUCCESS', data)
+            const { data: { data } } = await getType({id})
+            dispatch('GET_TYPE_SUCCESS', data)
         } catch (error) {
             const { response } = error
-            dispatch('GET_BRAND_ERROR', response)
+            dispatch('GET_TYPE_ERROR', response)
         }
     },
-    GET_BRAND_SUCCESS({commit}, payload) {
-        commit('BRAND', payload)
+    GET_TYPE_SUCCESS({commit}, payload) {
+        commit('TYPE', payload)
         commit('FETCHING_DATA', false)
     },
-    GET_BRAND_ERROR({commit}, payload) {
+    GET_TYPE_ERROR({commit}, payload) {
         commit('FETCHING_DATA', false)
         console.log(payload)
     },
-    async GET_BRANDS({commit,dispatch}, payload) {
+    async GET_TYPES({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
         try {
             const { page } = payload
-            const { data: { data: { data, pagination } } } = await getBrands({ page })
-            dispatch('GET_BRANDS_SUCCESS', { data, pagination })
+            const { data: { data: { data, pagination } } } = await getTypes({ page })
+            dispatch('GET_TYPES_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
-            dispatch('GET_BRANDS_ERROR', response)
+            dispatch('GET_TYPES_ERROR', response)
         }
     },
-    GET_BRANDS_SUCCESS({commit}, payload) {
+    GET_TYPES_SUCCESS({commit}, payload) {
         const { data, pagination } = payload
-        commit('BRANDS',data)
+        commit('TYPES',data)
         commit('PAGINATION',pagination)
         commit('FETCHING_LIST',false)
     },
-    GET_BRANDS_ERROR({commit}, payload) {
+    GET_TYPES_ERROR({commit}, payload) {
         console.log(payload)
         commit('FETCHING_LIST',false)
     }

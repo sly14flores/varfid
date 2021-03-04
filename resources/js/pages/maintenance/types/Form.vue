@@ -6,7 +6,7 @@
                 <BlockUI :blocked="blockedPanel">
                     <form @submit="onSubmit">
                         <div class="card p-fluid">
-                            <h5><i class="pi pi-circle-off"></i> Brand Information</h5>
+                            <h5><i class="pi pi-circle-off"></i> Vehicle Type Information</h5>
                             <hr />
                             <div class="p-grid">
                                 <div class="p-col-1 p-offset-11">
@@ -74,31 +74,31 @@ export default {
         const editMode = eval(editOn)
         const route = useRoute()
         const { params } = route
-        const brandId = params.id || null
+        const typeId = params.id || null
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
 
         const init = {
             initialValues: {
-                brand: {...state.brands.values}
+                type: {...state.types.values}
             }
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
         watch(
-            () => state.brands.brand,
+            () => state.types.type,
             (data, prevData) => {
                 setValues({
-                    brand: {...data}
+                    type: {...data}
                 })
             }
         )       
 
-        dispatch('brands/TOGGLE_WRITE',false)
+        dispatch('types/TOGGLE_WRITE',false)
         if (editMode) { // Edit
-            dispatch('brands/GET_BRAND', { id: brandId })
+            dispatch('types/GET_TYPE', { id: typeId })
         } else { // New
             resetForm();
         }
@@ -106,7 +106,7 @@ export default {
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
-            const { brand } = values
+            const { type } = values
 
             confirm.require({
                 message: (editMode)?"Are you sure you want to add update this brand's info?":'Are you sure you want to add this new brand?',
@@ -114,9 +114,9 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     if (editMode) {
-                        dispatch('brands/UPDATE_BRAND', brand)
+                        dispatch('types/UPDATE_TYPE', type)
                     } else {
-                        dispatch('brands/CREATE_BRAND', brand)
+                        dispatch('types/CREATE_TYPE', type)
                         resetForm();
                     }
                 },
@@ -138,9 +138,9 @@ export default {
             return true;
         }
 
-        const { value: id } = useField('brand.id',validField);
-        const { value: name, errorMessage: nameError } = useField('brand.name',validateField);        
-        const { value: description } = useField('brand.description',validField);        
+        const { value: id } = useField('type.id',validField);
+        const { value: name, errorMessage: nameError } = useField('type.name',validateField);        
+        const { value: description } = useField('type.description',validField);        
 
         return {
             onSubmit,
@@ -156,21 +156,21 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/maintenance'},
             items: [
-                {label: 'Brands', to: '/maintenance/brands'},
-                {label: (this.editMode)?'Edit Brand':'New Brand', to: `${this.$route.fullPath}`}
+                {label: 'Vehicle Types', to: '/maintenance/brands'},
+                {label: (this.editMode)?'Edit Type':'New Type', to: `${this.$route.fullPath}`}
             ]            
         }
     },
     computed: {
         saving() {
-            return this.$store.state.brands.saving
+            return this.$store.state.types.saving
         },
         writeOn: {
             set(value) {
-                this.$store.dispatch('brands/TOGGLE_WRITE', value)
+                this.$store.dispatch('types/TOGGLE_WRITE', value)
             },
             get() {
-                return this.$store.state.brands.writeOn
+                return this.$store.state.types.writeOn
             }
         },
         blockedPanel() {
@@ -179,8 +179,8 @@ export default {
     },
     methods: {
         close() {
-            this.$store.dispatch('brands/INIT')
-            this.$router.push('/maintenance/brands')
+            this.$store.dispatch('types/INIT')
+            this.$router.push('/maintenance/types')
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
