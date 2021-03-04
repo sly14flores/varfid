@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-profile">
 		<div>
-			<img src="/assets/images/profile.png" alt="" />
+			<img :src="profile" alt="" />
 		</div>
 		<div class="p-link layout-profile-link profile">
 			<span class="fullname">{{ name }}</span><br><span>{{ groupName }}</span>
@@ -29,7 +29,10 @@
 			},
 			groupName() {
 				return this.$store.state.profile.groupName;
-			}			
+			},
+			profile() {
+				return (this.$store.state.profile.picture==null)?"/img/avatar.png":this.$store.state.profile.picture
+			}
 		}
 	}
 </script>

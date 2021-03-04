@@ -70,6 +70,7 @@ class UserController extends Controller
             'lastname' => 'string',	
             'username' => 'string',
             'password' => 'string',
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']    
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -79,7 +80,7 @@ class UserController extends Controller
         }        
 
         /** Get validated data */
-        $data = $validator->valid();
+        $data = $validator->valid();      
 
         $user = new User;
         $password = Hash::make($data['password']);
@@ -88,6 +89,19 @@ class UserController extends Controller
         $user->fill($data);
 
         $user->save();
+
+        /**
+         * Upload to ftp
+         */
+        if (isset($data['image'])) {
+            $folder = config('ftp.users');
+            $path = "{$folder}/{$user->id}";
+            $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs($path, $filename);
+            $image = "{$path}/{$filename}";
+            $user->image = $image;
+            $user->save();
+        }
 
         $data = new UserResource($user);
 
@@ -141,7 +155,7 @@ class UserController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $user = User::find($id);      
+        $user = User::find($id);
 
         if (is_null($user)) {
 			return $this->jsonErrorResourceNotFound();
@@ -151,6 +165,7 @@ class UserController extends Controller
             'firstname' => 'string',
             'lastname' => 'string',
             'username' => 'string',
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -165,6 +180,19 @@ class UserController extends Controller
         $user->fill($data);
 
         $user->save();
+
+        /**
+         * Upload to ftp
+         */
+        if (isset($data['image'])) {
+            $folder = config('ftp.users');
+            $path = "{$folder}/{$user->id}";
+            $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs($path, $filename);
+            $image = "{$path}/{$filename}";
+            $user->image = $image;
+            $user->save();
+        }        
 
         $data = new UserResource($user);
 
@@ -183,7 +211,7 @@ class UserController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $user = User::find($id);        
+        $user = User::find($id);
 
         if (is_null($user)) {
 			return $this->jsonErrorResourceNotFound();

@@ -26427,6 +26427,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     groupName: function groupName() {
       return this.$store.state.profile.groupName;
+    },
+    profile: function profile() {
+      return this.$store.state.profile.picture == null ? "/img/avatar.png" : this.$store.state.profile.picture;
     }
   }
 });
@@ -27352,7 +27355,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var confirm = (0,primevue_useconfirm__WEBPACK_IMPORTED_MODULE_10__.useConfirm)();
     var init = {
       initialValues: {
-        user: _objectSpread({}, state.users.user)
+        user: _objectSpread({}, state.users.values)
       }
     };
 
@@ -27368,6 +27371,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         user: _objectSpread({}, data)
       });
     });
+    dispatch('users/INIT_PICTURE');
+    dispatch('users/TOGGLE_WRITE', false);
 
     if (editMode) {
       // Edit
@@ -27452,8 +27457,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         group = _useField7.value,
         groupError = _useField7.errorMessage;
 
-    var _useField8 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.picture', validField),
-        picture = _useField8.value;
+    var _useField8 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_13__.useField)('user.image', validField),
+        image = _useField8.value;
 
     return {
       id: id,
@@ -27463,6 +27468,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       username: username,
       password: password,
       group: group,
+      image: image,
       firstnameError: firstnameError,
       middlenameError: middlenameError,
       lastnameError: lastnameError,
@@ -27470,15 +27476,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       passwordError: passwordError,
       groupError: groupError,
       onSubmit: onSubmit,
-      editMode: editMode,
-      picture: picture
+      editMode: editMode
     };
   },
   data: function data() {
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/users'
+        to: '/maintenance/users'
       },
       items: [{
         label: this.editMode ? 'Edit User' : 'New User',
@@ -27504,6 +27509,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     groups: function groups() {
       return this.$store.state.selections.groups;
+    },
+    picture: {
+      get: function get() {
+        return this.$store.state.users.picture;
+      },
+      set: function set(value) {
+        this.$store.dispatch('users/SET_PICTURE', value);
+      }
+    },
+    pictureReplace: {
+      get: function get() {
+        return this.$store.state.users.pictureReplace;
+      },
+      set: function set(value) {
+        this.$store.dispatch('users/PICTURE_REPLACE', value);
+      }
     }
   },
   methods: {
@@ -27526,6 +27547,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$nextTick(function () {
           _this.profileUpload = true;
+          _this.pictureReplace = true;
         });
       };
 
@@ -27537,6 +27559,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // console.log(event)
       var picture = event.files[0];
       this.getBase64(picture);
+      this.image = picture;
+      console.log(this.image);
       this.profileUpload = false;
     }
   },
@@ -27590,7 +27614,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/users'
+        to: '/maintenance/users'
       },
       items: [],
       search: ""
@@ -27898,31 +27922,28 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 var _hoisted_1 = {
   "class": "layout-profile"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
-  src: "/assets/images/profile.png",
-  alt: ""
-})], -1
-/* HOISTED */
-);
-
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "p-link layout-profile-link profile"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "fullname"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("br", null, null, -1
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("br", null, null, -1
 /* HOISTED */
 );
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.name), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+    src: $options.profile,
+    alt: ""
+  }, null, 8
+  /* PROPS */
+  , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.name), 1
   /* TEXT */
-  ), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.groupName), 1
+  ), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.groupName), 1
   /* TEXT */
   )])]);
 });
@@ -29289,7 +29310,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, null, 8
       /* PROPS */
       , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
-        src: $setup.picture,
+        src: $options.picture,
         alt: ""
       }, null, 8
       /* PROPS */
@@ -29301,10 +29322,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         auto: true,
         onUploader: $options.updateProfile,
         multiple: false,
-        accept: "image/*"
+        accept: "image/*",
+        disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["onUploader"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      , ["onUploader", "disabled"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "firstname",
         type: "text",
         placeholder: "Enter First Name",
@@ -29358,10 +29380,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         placeholder: "Select a group",
         "class": {
           'p-invalid': $setup.groupError
-        }
+        },
+        disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options", "class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.groupError), 1
+      , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.groupError), 1
       /* TEXT */
       )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "username",
@@ -30669,7 +30692,8 @@ var profile = {
   firstname: null,
   lastname: null,
   token: null,
-  groupName: null
+  groupName: null,
+  picture: null
 };
 var loading = false;
 var transitioning = false;
@@ -30983,12 +31007,13 @@ var createUser = function createUser(payload) {
 
 var UPDATE_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user/:id");
 
-var updateUser = function updateUser(payload) {
-  var id = payload.id;
+var updateUser = function updateUser(_ref) {
+  var data = _ref.data,
+      id = _ref.id;
   var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(UPDATE_USER, {
     id: id
   });
-  return axios.put(url, payload);
+  return axios.post(url, data);
 };
 
 var GET_USER = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/user/:id");
@@ -31031,30 +31056,40 @@ var user = {
   username: null,
   password: null,
   group: null,
-  picture: "/img/avatar.png"
+  image: "/img/avatar.png"
 };
 var saving = false;
+var writeOn = false;
 var users = [];
 var pagination = {};
 var fetchingList = false;
 var fetchingData = false;
+var picture = "/img/avatar.png";
+var pictureReplace = false;
 
 var state = function state() {
   return {
     saving: saving,
-    writeOn: false,
+    writeOn: writeOn,
+    values: user,
     user: user,
     users: users,
     pagination: pagination,
     fetchingList: fetchingList,
-    fetchingData: fetchingData
+    fetchingData: fetchingData,
+    picture: picture,
+    pictureReplace: pictureReplace
   };
 };
 
 var mutations = {
   INIT: function INIT(state) {
     state.user = user;
-    state.users = users;
+    state.users = users, state.picture = picture;
+    state.pictureReplace = pictureReplace;
+  },
+  INIT_PICTURE: function INIT_PICTURE(state) {
+    state.picture = picture;
   },
   USER: function USER(state, payload) {
     state.user = payload;
@@ -31076,54 +31111,74 @@ var mutations = {
   },
   FETCHING_DATA: function FETCHING_DATA(state, payload) {
     state.fetchingData = payload;
+  },
+  PICTURE: function PICTURE(state, payload) {
+    state.picture = payload;
+  },
+  PICTURE_REPLACE: function PICTURE_REPLACE(state, payload) {
+    state.pictureReplace = payload;
   }
 };
 var actions = {
-  INIT: function INIT(_ref) {
-    var commit = _ref.commit;
+  INIT: function INIT(_ref2) {
+    var commit = _ref2.commit;
     commit('INIT');
   },
-  TOGGLE_WRITE: function TOGGLE_WRITE(_ref2, payload) {
-    var commit = _ref2.commit;
+  INIT_PICTURE: function INIT_PICTURE(_ref3) {
+    var commit = _ref3.commit;
+    commit('INIT_PICTURE');
+  },
+  TOGGLE_WRITE: function TOGGLE_WRITE(_ref4, payload) {
+    var commit = _ref4.commit;
     commit('TOGGLE_WRITE', payload);
   },
-  CREATE_USER: function CREATE_USER(_ref3, payload) {
+  CREATE_USER: function CREATE_USER(_ref5, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var commit, dispatch, _yield$createUser, data, response;
+      var commit, dispatch, id, firstname, middlename, lastname, username, password, group, image, fd, _yield$createUser, data, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              commit = _ref3.commit, dispatch = _ref3.dispatch;
+              commit = _ref5.commit, dispatch = _ref5.dispatch;
               commit('SAVING', true);
-              _context.prev = 2;
-              _context.next = 5;
-              return createUser(payload);
+              id = payload.id, firstname = payload.firstname, middlename = payload.middlename, lastname = payload.lastname, username = payload.username, password = payload.password, group = payload.group, image = payload.image;
+              fd = new FormData();
+              if (id) fd.append('id', id);
+              if (firstname) fd.append('firstname', firstname);
+              if (middlename) fd.append('middlename', middlename);
+              if (lastname) fd.append('lastname', lastname);
+              if (username) fd.append('username', username);
+              if (password) fd.append('password', password);
+              if (group) fd.append('group', group);
+              if (image) fd.append('image', image);
+              _context.prev = 12;
+              _context.next = 15;
+              return createUser(fd);
 
-            case 5:
+            case 15:
               _yield$createUser = _context.sent;
               data = _yield$createUser.data;
               dispatch('CREATE_USER_SUCCESS', data);
               return _context.abrupt("return", true);
 
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context["catch"](2);
+            case 21:
+              _context.prev = 21;
+              _context.t0 = _context["catch"](12);
               response = _context.t0.response;
               dispatch('CREATE_USER_ERROR', response);
               return _context.abrupt("return", false);
 
-            case 16:
+            case 26:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 11]]);
+      }, _callee, null, [[12, 21]]);
     }))();
   },
-  CREATE_USER_SUCCESS: function CREATE_USER_SUCCESS(_ref4, payload) {
-    var commit = _ref4.commit;
+  CREATE_USER_SUCCESS: function CREATE_USER_SUCCESS(_ref6, payload) {
+    var commit = _ref6.commit;
     commit('SAVING', false);
     var message = payload.message;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
@@ -31131,52 +31186,68 @@ var actions = {
       icon: 'success',
       confirmButtonText: 'Ok'
     });
+    commit('PICTURE', picture);
   },
-  CREATE_USER_ERROR: function CREATE_USER_ERROR(_ref5, payload) {
-    var commit = _ref5.commit;
+  CREATE_USER_ERROR: function CREATE_USER_ERROR(_ref7, payload) {
+    var commit = _ref7.commit;
     commit('SAVING', false);
     console.log(payload);
   },
-  UPDATE_USER: function UPDATE_USER(_ref6, payload) {
+  UPDATE_USER: function UPDATE_USER(_ref8, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var commit, dispatch, _yield$updateUser, data, response;
+      var state, commit, dispatch, id, firstname, middlename, lastname, username, password, group, image, fd, _yield$updateUser, data, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref6.commit, dispatch = _ref6.dispatch;
+              state = _ref8.state, commit = _ref8.commit, dispatch = _ref8.dispatch;
               commit('SAVING', true);
               commit('TOGGLE_WRITE', true);
-              _context2.prev = 3;
-              _context2.next = 6;
-              return updateUser(payload);
+              id = payload.id, firstname = payload.firstname, middlename = payload.middlename, lastname = payload.lastname, username = payload.username, password = payload.password, group = payload.group, image = payload.image;
+              fd = new FormData();
+              fd.append('_method', 'PUT');
+              if (id) fd.append('id', id);
+              if (firstname) fd.append('firstname', firstname);
+              if (middlename) fd.append('middlename', middlename);
+              if (lastname) fd.append('lastname', lastname);
+              if (username) fd.append('username', username);
+              if (password) fd.append('password', password);
+              if (group) fd.append('group', group);
+              if (image && state.pictureReplace) fd.append('image', image);
+              _context2.prev = 14;
+              _context2.next = 17;
+              return updateUser({
+                data: fd,
+                id: id
+              });
 
-            case 6:
+            case 17:
               _yield$updateUser = _context2.sent;
               data = _yield$updateUser.data;
               dispatch('UPDATE_USER_SUCCESS', data);
               return _context2.abrupt("return", true);
 
-            case 12:
-              _context2.prev = 12;
-              _context2.t0 = _context2["catch"](3);
+            case 23:
+              _context2.prev = 23;
+              _context2.t0 = _context2["catch"](14);
               response = _context2.t0.response;
               dispatch('UPDATE_USER_ERROR', response);
               return _context2.abrupt("return", false);
 
-            case 17:
+            case 28:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[3, 12]]);
+      }, _callee2, null, [[14, 23]]);
     }))();
   },
-  UPDATE_USER_SUCCESS: function UPDATE_USER_SUCCESS(_ref7, payload) {
-    var commit = _ref7.commit;
+  UPDATE_USER_SUCCESS: function UPDATE_USER_SUCCESS(_ref9, payload) {
+    var commit = _ref9.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
+    commit('PICTURE_REPLACE', false);
     var message = payload.message;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: message,
@@ -31184,13 +31255,13 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  UPDATE_USER_ERROR: function UPDATE_USER_ERROR(_ref8, payload) {
-    var commit = _ref8.commit;
+  UPDATE_USER_ERROR: function UPDATE_USER_ERROR(_ref10, payload) {
+    var commit = _ref10.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
     console.log(payload);
   },
-  DELETE_USER: function DELETE_USER(_ref9, payload) {
+  DELETE_USER: function DELETE_USER(_ref11, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
       var dispatch, id, _yield$deleteUser, data, response;
 
@@ -31198,7 +31269,7 @@ var actions = {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              dispatch = _ref9.dispatch;
+              dispatch = _ref11.dispatch;
               id = payload.id;
               _context3.prev = 2;
               _context3.next = 5;
@@ -31227,8 +31298,8 @@ var actions = {
       }, _callee3, null, [[2, 10]]);
     }))();
   },
-  DELETE_USER_SUCCESS: function DELETE_USER_SUCCESS(_ref10, payload) {
-    var dispatch = _ref10.dispatch;
+  DELETE_USER_SUCCESS: function DELETE_USER_SUCCESS(_ref12, payload) {
+    var dispatch = _ref12.dispatch;
     var message = payload.message;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: message,
@@ -31239,11 +31310,11 @@ var actions = {
       page: 0
     });
   },
-  DELETE_USER_ERROR: function DELETE_USER_ERROR(_ref11, payload) {
-    var commit = _ref11.commit;
+  DELETE_USER_ERROR: function DELETE_USER_ERROR(_ref13, payload) {
+    var commit = _ref13.commit;
     console.log(payload);
   },
-  GET_USER: function GET_USER(_ref12, payload) {
+  GET_USER: function GET_USER(_ref14, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var commit, dispatch, id, _yield$getUser, data, response;
 
@@ -31251,7 +31322,7 @@ var actions = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref12.commit, dispatch = _ref12.dispatch;
+              commit = _ref14.commit, dispatch = _ref14.dispatch;
               commit('FETCHING_DATA', true);
               id = payload.id;
               _context4.prev = 3;
@@ -31281,17 +31352,23 @@ var actions = {
       }, _callee4, null, [[3, 11]]);
     }))();
   },
-  GET_USER_SUCCESS: function GET_USER_SUCCESS(_ref13, payload) {
-    var commit = _ref13.commit;
+  GET_USER_SUCCESS: function GET_USER_SUCCESS(_ref15, payload) {
+    var commit = _ref15.commit;
+    var picture = payload.picture;
     commit('USER', payload);
+
+    if (picture != null) {
+      commit('PICTURE', picture);
+    }
+
     commit('FETCHING_DATA', false);
   },
-  GET_USER_ERROR: function GET_USER_ERROR(_ref14, payload) {
-    var commit = _ref14.commit;
+  GET_USER_ERROR: function GET_USER_ERROR(_ref16, payload) {
+    var commit = _ref16.commit;
     commit('FETCHING_DATA', false);
     console.log(payload);
   },
-  GET_USERS: function GET_USERS(_ref15, payload) {
+  GET_USERS: function GET_USERS(_ref17, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
       var commit, dispatch, page, _yield$getUsers, _yield$getUsers$data$, data, _pagination, response;
 
@@ -31299,7 +31376,7 @@ var actions = {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref15.commit, dispatch = _ref15.dispatch;
+              commit = _ref17.commit, dispatch = _ref17.dispatch;
               commit('FETCHING_LIST', true);
               _context5.prev = 2;
               page = payload.page;
@@ -31334,18 +31411,26 @@ var actions = {
       }, _callee5, null, [[2, 13]]);
     }))();
   },
-  GET_USERS_SUCCESS: function GET_USERS_SUCCESS(_ref16, payload) {
-    var commit = _ref16.commit;
+  GET_USERS_SUCCESS: function GET_USERS_SUCCESS(_ref18, payload) {
+    var commit = _ref18.commit;
     var data = payload.data,
         pagination = payload.pagination;
     commit('USERS', data);
     commit('PAGINATION', pagination);
     commit('FETCHING_LIST', false);
   },
-  GET_USERS_ERROR: function GET_USERS_ERROR(_ref17, payload) {
-    var commit = _ref17.commit;
+  GET_USERS_ERROR: function GET_USERS_ERROR(_ref19, payload) {
+    var commit = _ref19.commit;
     console.log(payload);
     commit('FETCHING_LIST', false);
+  },
+  SET_PICTURE: function SET_PICTURE(_ref20, payload) {
+    var commit = _ref20.commit;
+    commit('PICTURE', payload);
+  },
+  PICTURE_REPLACE: function PICTURE_REPLACE(_ref21, payload) {
+    var commit = _ref21.commit;
+    commit('PICTURE_REPLACE', payload);
   }
 };
 var getters = {};
