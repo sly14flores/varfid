@@ -74,7 +74,7 @@ class VehicleController extends Controller
             'sex' => 'string',
             'contact_no' => 'string',
             'address' => 'string',
-            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
+            // 'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -160,7 +160,7 @@ class VehicleController extends Controller
             'sex' => 'string',
             'contact_no' => 'string',
             'address' => 'string',
-            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
+            // 'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
         ];
 
         $validator = Validator::make($request->all(), $rules);
