@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\VehicleLogController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
 use App\Http\Controllers\Api\VehicleSelections;
+use App\Http\Controllers\Api\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,11 @@ use App\Http\Controllers\Api\VehicleSelections;
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
+
+/**
+ * Dashboard
+ */
+Route::get('dashboard/data', [DashboardController::class, 'getData']);
 
 /**
  * Vehicles
