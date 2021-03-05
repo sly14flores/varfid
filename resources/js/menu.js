@@ -10,7 +10,7 @@ export default [
         to:'/scan'
     },
     {
-        label:'Scan',
+        label:'Logs',
         icon:'pi pi-fw pi-list',
         to:'/logs'
     },     
