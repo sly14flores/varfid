@@ -206,7 +206,7 @@ const actions = {
         }
     },
     GET_LOG_SUCCESS({commit}, payload) {
-        commit('log', payload)
+        commit('LOG', payload)
         commit('FETCHING_DATA', false)
     },
     GET_LOG_ERROR({commit}, payload) {
@@ -230,7 +230,8 @@ const actions = {
     },
     GET_LOGS_SUCCESS({commit}, payload) {
         const { data, pagination } = payload
-        commit('logS',data)
+        console.log(data)
+        commit('LOGS',data)
         commit('PAGINATION',pagination)
         commit('FETCHING_LIST',false)
     },

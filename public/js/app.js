@@ -26909,10 +26909,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
+/* harmony import */ var primevue_datatable_sfc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primevue/datatable/sfc */ "./node_modules/primevue/datatable/DataTable.vue");
+/* harmony import */ var primevue_column_sfc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/column/sfc */ "./node_modules/primevue/column/Column.vue");
+/* harmony import */ var primevue_paginator_sfc__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/paginator/sfc */ "./node_modules/primevue/paginator/Paginator.vue");
+/* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
+/* harmony import */ var primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/blockui/sfc */ "./node_modules/primevue/blockui/BlockUI.vue");
+
+
+
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    InputText: primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_4__.default,
+    DataTable: primevue_datatable_sfc__WEBPACK_IMPORTED_MODULE_1__.default,
+    Column: primevue_column_sfc__WEBPACK_IMPORTED_MODULE_2__.default,
+    Paginator: primevue_paginator_sfc__WEBPACK_IMPORTED_MODULE_3__.default,
+    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_5__.default
   },
   setup: function setup() {},
   data: function data() {
@@ -26924,11 +26939,42 @@ __webpack_require__.r(__webpack_exports__);
       items: [{
         label: 'Logs',
         to: "".concat(this.$route.fullPath)
-      }]
+      }],
+      search: ''
     };
   },
-  computed: {},
-  methods: {}
+  computed: {
+    logs: function logs() {
+      var _this = this;
+
+      return this.$store.state.logs.logs.filter(function (log) {
+        return log.rfid.toLowerCase().includes(_this.search.toLowerCase()) || log.plateNo.toLowerCase().includes(_this.search.toLowerCase()) || log.type.toLowerCase().includes(_this.search.toLowerCase()) || log.brand.toLowerCase().includes(_this.search.toLowerCase()) || log.model.toLowerCase().includes(_this.search.toLowerCase()) || log.owner.toLowerCase().includes(_this.search.toLowerCase());
+      });
+    },
+    pagination: function pagination() {
+      return this.$store.state.logs.pagination;
+    },
+    blockedPanel: function blockedPanel() {
+      return this.$store.state.logs.fetchingList;
+    }
+  },
+  methods: {
+    fetchLogs: function fetchLogs(event) {
+      // event.page: New page number
+      // event.first: Index of first record
+      // event.rows: Number of rows to display in new page
+      // event.pageCount: Total number of pages
+      var page = event.page;
+      this.$store.dispatch('logs/GET_LOGS', {
+        page: page
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.fetchLogs({
+      page: 0
+    });
+  }
 });
 
 /***/ }),
@@ -29740,13 +29786,22 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-3c2a0138");
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "p-grid p-mt-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "p-col-12"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "card p-fluid"
-})])], -1
+var _hoisted_1 = {
+  "class": "card p-fluid p-mt-4"
+};
+var _hoisted_2 = {
+  "class": "p-d-flex p-p-2 card"
+};
+var _hoisted_3 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_4 = {
+  "class": "p-input-icon-left"
+};
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "pi pi-search"
+}, null, -1
 /* HOISTED */
 );
 
@@ -29755,12 +29810,88 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
+
+  var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
+
+  var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
+
+  var _component_Paginator = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Paginator");
+
+  var _component_BlockUI = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("BlockUI");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MyBreadcrumb, {
     home: $data.home,
     items: $data.items
   }, null, 8
   /* PROPS */
-  , ["home", "items"]), _hoisted_1]);
+  , ["home", "items"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_BlockUI, {
+    blocked: $options.blockedPanel
+  }, {
+    "default": _withId(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+        value: $options.logs,
+        dataKey: "id"
+      }, {
+        header: _withId(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            modelValue: $data.search,
+            "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+              return $data.search = $event;
+            }),
+            placeholder: "Search"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])])])])];
+        }),
+        "default": _withId(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "no",
+            header: "No"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "rfid",
+            header: "RFID"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "plateNo",
+            header: "Plate No"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "type",
+            header: "Vehicle Type"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "brand",
+            header: "Brand"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "model",
+            header: "Model"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "owner",
+            header: "Owner's Name"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "dateTime",
+            header: "Date/Time"
+          })];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
+        rows: $options.pagination.per_page,
+        totalRecords: $options.pagination.total,
+        onPage: _cache[2] || (_cache[2] = function ($event) {
+          return $options.fetchLogs($event);
+        })
+      }, null, 8
+      /* PROPS */
+      , ["rows", "totalRecords"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["blocked"])])]);
 });
 
 /***/ }),
@@ -32353,7 +32484,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _stores_root__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stores/root */ "./resources/js/stores/root.js");
 /* harmony import */ var _stores_password_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stores/password.js */ "./resources/js/stores/password.js");
 /* harmony import */ var _stores_selections_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stores/selections.js */ "./resources/js/stores/selections.js");
@@ -32361,7 +32492,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_users_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stores/users.js */ "./resources/js/stores/users.js");
 /* harmony import */ var _stores_brands_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stores/brands.js */ "./resources/js/stores/brands.js");
 /* harmony import */ var _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stores/vehicletypes.js */ "./resources/js/stores/vehicletypes.js");
-/* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
+/* harmony import */ var _stores_logs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./stores/logs.js */ "./resources/js/stores/logs.js");
+/* harmony import */ var vuex_persist__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex-persist */ "./node_modules/vuex-persist/dist/esm/index.js");
 
 
 
@@ -32371,7 +32503,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_7__.default({
+
+var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_8__.default({
   storage: window.localStorage,
   key: 'varfid',
   reducer: function reducer(state) {
@@ -32380,14 +32513,15 @@ var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_7__.default({
     };
   }
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_8__.createStore)({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_9__.createStore)({
   modules: {
     password: _stores_password_js__WEBPACK_IMPORTED_MODULE_1__.default,
     vehicles: _stores_vehicles_js__WEBPACK_IMPORTED_MODULE_3__.default,
     selections: _stores_selections_js__WEBPACK_IMPORTED_MODULE_2__.default,
     users: _stores_users_js__WEBPACK_IMPORTED_MODULE_4__.default,
     brands: _stores_brands_js__WEBPACK_IMPORTED_MODULE_5__.default,
-    types: _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_6__.default
+    types: _stores_vehicletypes_js__WEBPACK_IMPORTED_MODULE_6__.default,
+    logs: _stores_logs_js__WEBPACK_IMPORTED_MODULE_7__.default
   },
   state: _stores_root__WEBPACK_IMPORTED_MODULE_0__.state,
   mutations: _stores_root__WEBPACK_IMPORTED_MODULE_0__.mutations,
@@ -32826,6 +32960,459 @@ var actions = {
     commit('FETCHING_LIST', false);
   },
   GET_BRANDS_ERROR: function GET_BRANDS_ERROR(_ref17, payload) {
+    var commit = _ref17.commit;
+    commit('FETCHING_LIST', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }
+};
+/**
+ * Getters
+ */
+
+var getters = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/stores/logs.js":
+/*!*************************************!*\
+  !*** ./resources/js/stores/logs.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _library_route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../library/route */ "./resources/js/library/route.js");
+/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../url.js */ "./resources/js/url.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+/**
+ * APIs
+ */
+
+var CREATE_LOG = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/log");
+
+var createLog = function createLog(payload) {
+  return axios.post(CREATE_LOG, payload);
+};
+
+var UPDATE_LOG = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/log/:id");
+
+var updateLog = function updateLog(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(UPDATE_LOG, {
+    id: id
+  });
+  return axios.put(url, payload);
+};
+
+var GET_LOG = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/log/:id");
+
+var getLog = function getLog(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(GET_LOG, {
+    id: id
+  });
+  return axios.get(url);
+};
+
+var GET_LOGS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/logs");
+
+var getLogs = function getLogs(payload) {
+  var page = payload.page;
+  var pageNo = page + 1;
+  return axios.get(GET_LOGS, {
+    params: {
+      page: pageNo
+    }
+  });
+};
+
+var DELETE_LOG = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/log/:id");
+
+var deleteLog = function deleteLog(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(DELETE_LOG, {
+    id: id
+  });
+  return axios["delete"](url);
+};
+/**
+ * State
+ */
+
+
+var log = {
+  id: 0,
+  name: null,
+  description: null
+};
+var saving = false;
+var logs = [];
+var pagination = {};
+var fetchingList = false;
+var fetchingData = false;
+
+var state = function state() {
+  return {
+    saving: saving,
+    writeOn: false,
+    values: log,
+    log: log,
+    logs: logs,
+    pagination: pagination,
+    fetchingList: fetchingList,
+    fetchingData: fetchingData
+  };
+};
+/**
+ * Mutations
+ */
+
+
+var mutations = {
+  INIT: function INIT(state) {
+    state.log = log;
+    state.logs = logs;
+  },
+  LOG: function LOG(state, payload) {
+    state.log = payload;
+  },
+  LOGS: function LOGS(state, payload) {
+    state.logs = payload;
+  },
+  PAGINATION: function PAGINATION(state, payload) {
+    state.pagination = _objectSpread({}, payload);
+  },
+  SAVING: function SAVING(state, payload) {
+    state.saving = payload;
+  },
+  TOGGLE_WRITE: function TOGGLE_WRITE(state, payload) {
+    state.writeOn = payload;
+  },
+  FETCHING_LIST: function FETCHING_LIST(state, payload) {
+    state.fetchingList = payload;
+  },
+  FETCHING_DATA: function FETCHING_DATA(state, payload) {
+    state.fetchingData = payload;
+  }
+};
+/**
+ * Actions
+ */
+
+var actions = {
+  INIT: function INIT(_ref) {
+    var commit = _ref.commit;
+    commit('INIT');
+  },
+  TOGGLE_WRITE: function TOGGLE_WRITE(_ref2, payload) {
+    var commit = _ref2.commit;
+    commit('TOGGLE_WRITE', payload);
+  },
+  CREATE_LOG: function CREATE_LOG(_ref3, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit, dispatch, _yield$createLog, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref3.commit, dispatch = _ref3.dispatch;
+              commit('SAVING', true);
+              _context.prev = 2;
+              _context.next = 5;
+              return createLog(payload);
+
+            case 5:
+              _yield$createLog = _context.sent;
+              data = _yield$createLog.data;
+              dispatch('CREATE_LOG_SUCCESS', data);
+              return _context.abrupt("return", true);
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](2);
+              response = _context.t0.response;
+              dispatch('CREATE_LOG_ERROR', response);
+              return _context.abrupt("return", false);
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 11]]);
+    }))();
+  },
+  CREATE_LOG_SUCCESS: function CREATE_LOG_SUCCESS(_ref4, payload) {
+    var commit = _ref4.commit;
+    commit('SAVING', false);
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+  },
+  CREATE_LOG_ERROR: function CREATE_LOG_ERROR(_ref5, payload) {
+    var commit = _ref5.commit;
+    commit('SAVING', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  UPDATE_LOG: function UPDATE_LOG(_ref6, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit, dispatch, _yield$updateLog, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref6.commit, dispatch = _ref6.dispatch;
+              commit('SAVING', true);
+              commit('TOGGLE_WRITE', true);
+              _context2.prev = 3;
+              _context2.next = 6;
+              return updateLog(payload);
+
+            case 6:
+              _yield$updateLog = _context2.sent;
+              data = _yield$updateLog.data;
+              dispatch('UPDATE_LOG_SUCCESS', data);
+              return _context2.abrupt("return", true);
+
+            case 12:
+              _context2.prev = 12;
+              _context2.t0 = _context2["catch"](3);
+              response = _context2.t0.response;
+              dispatch('UPDATE_LOG_ERROR', response);
+              return _context2.abrupt("return", false);
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[3, 12]]);
+    }))();
+  },
+  UPDATE_LOG_SUCCESS: function UPDATE_LOG_SUCCESS(_ref7, payload) {
+    var commit = _ref7.commit;
+    commit('SAVING', false);
+    commit('TOGGLE_WRITE', false);
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+  },
+  UPDATE_LOG_ERROR: function UPDATE_LOG_ERROR(_ref8, payload) {
+    var commit = _ref8.commit;
+    commit('SAVING', false);
+    commit('TOGGLE_WRITE', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  DELETE_LOG: function DELETE_LOG(_ref9, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var dispatch, id, _yield$deleteLog, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch = _ref9.dispatch;
+              id = payload.id;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return deleteLog({
+                id: id
+              });
+
+            case 5:
+              _yield$deleteLog = _context3.sent;
+              data = _yield$deleteLog.data;
+              dispatch('DELETE_LOG_SUCCESS', data);
+              _context3.next = 14;
+              break;
+
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](2);
+              response = _context3.t0.response;
+              dispatch('DELETE_LOG_ERROR', response);
+
+            case 14:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 10]]);
+    }))();
+  },
+  DELETE_LOG_SUCCESS: function DELETE_LOG_SUCCESS(_ref10, payload) {
+    var dispatch = _ref10.dispatch;
+    var message = payload.message;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    });
+    dispatch('GET_LOGS', {
+      page: 0
+    });
+  },
+  DELETE_LOG_ERROR: function DELETE_LOG_ERROR(_ref11, payload) {
+    var commit = _ref11.commit;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  GET_LOG: function GET_LOG(_ref12, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var commit, dispatch, id, _yield$getLog, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref12.commit, dispatch = _ref12.dispatch;
+              commit('FETCHING_DATA', true);
+              id = payload.id;
+              _context4.prev = 3;
+              _context4.next = 6;
+              return getLog({
+                id: id
+              });
+
+            case 6:
+              _yield$getLog = _context4.sent;
+              data = _yield$getLog.data.data;
+              dispatch('GET_LOG_SUCCESS', data);
+              _context4.next = 15;
+              break;
+
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](3);
+              response = _context4.t0.response;
+              dispatch('GET_LOG_ERROR', response);
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[3, 11]]);
+    }))();
+  },
+  GET_LOG_SUCCESS: function GET_LOG_SUCCESS(_ref13, payload) {
+    var commit = _ref13.commit;
+    commit('LOG', payload);
+    commit('FETCHING_DATA', false);
+  },
+  GET_LOG_ERROR: function GET_LOG_ERROR(_ref14, payload) {
+    var commit = _ref14.commit;
+    commit('FETCHING_DATA', false);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  },
+  GET_LOGS: function GET_LOGS(_ref15, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, dispatch, page, _yield$getLogs, _yield$getLogs$data$d, data, _pagination, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref15.commit, dispatch = _ref15.dispatch;
+              commit('FETCHING_LIST', true);
+              _context5.prev = 2;
+              page = payload.page;
+              _context5.next = 6;
+              return getLogs({
+                page: page
+              });
+
+            case 6:
+              _yield$getLogs = _context5.sent;
+              _yield$getLogs$data$d = _yield$getLogs.data.data;
+              data = _yield$getLogs$data$d.data;
+              _pagination = _yield$getLogs$data$d.pagination;
+              dispatch('GET_LOGS_SUCCESS', {
+                data: data,
+                pagination: _pagination
+              });
+              _context5.next = 17;
+              break;
+
+            case 13:
+              _context5.prev = 13;
+              _context5.t0 = _context5["catch"](2);
+              response = _context5.t0.response;
+              dispatch('GET_LOGS_ERROR', response);
+
+            case 17:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[2, 13]]);
+    }))();
+  },
+  GET_LOGS_SUCCESS: function GET_LOGS_SUCCESS(_ref16, payload) {
+    var commit = _ref16.commit;
+    var data = payload.data,
+        pagination = payload.pagination;
+    console.log(data);
+    commit('LOGS', data);
+    commit('PAGINATION', pagination);
+    commit('FETCHING_LIST', false);
+  },
+  GET_LOGS_ERROR: function GET_LOGS_ERROR(_ref17, payload) {
     var commit = _ref17.commit;
     commit('FETCHING_LIST', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({

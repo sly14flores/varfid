@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\VehicleTypeController;
+use App\Http\Controllers\Api\VehicleLogController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
 use App\Http\Controllers\Api\VehicleSelections;
@@ -43,7 +44,22 @@ Route::apiResources([
 ],[
     'except' => ['index']
 ]);
+
 Route::get('vehicle/scan/{rfid}', [VehicleController::class, 'rfid']);
+
+/**
+ * Vehicles
+ */
+Route::apiResources([
+    'logs' => VehicleLogController::class,
+],[
+    'only' => ['index']
+]);
+Route::apiResources([
+    'log' => VehicleLogController::class,
+],[
+    'except' => ['index']
+]);
 
 /**
  * Maintenance

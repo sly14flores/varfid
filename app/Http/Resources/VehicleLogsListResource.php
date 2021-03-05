@@ -20,6 +20,7 @@ class VehicleLogsListResource extends JsonResource
             'type' => $this->vehicle->type->name,
             'brand' => $this->vehicle->brand->name,
             'model' => $this->vehicle->model,
+            'plateNo' => $this->vehicle->plate_no,
             'owner' => "{$this->vehicle->firstname} {$this->vehicle->lastname}",
             'dateTime' => $this->created_at,
         ];

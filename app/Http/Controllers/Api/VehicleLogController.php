@@ -38,7 +38,7 @@ class VehicleLogController extends Controller
     {
         $logs = VehicleLog::paginate(10);
 
-        $data = new VehicleLogsListResourceCollection($brands);
+        $data = new VehicleLogsListResourceCollection($logs);
 
         return $this->jsonSuccessResponse($data, 200);
     }
