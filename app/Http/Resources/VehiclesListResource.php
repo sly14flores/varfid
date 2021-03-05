@@ -15,8 +15,9 @@ class VehiclesListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'type_id' => $this->type->name,
-            'brand_id' => $this->brand->name,
+            'id' => $this->id,
+            'type_name' => $this->type->name,
+            'brand_name' => $this->brand->name,
             'model' => $this->model,
             'plate_no' => $this->plate_no,
             'rfid' => $this->rfid,
@@ -25,6 +26,7 @@ class VehiclesListResource extends JsonResource
             'sex' => $this->sex,
             'contact_no' => $this->contact_no,
             'address' => $this->address,
+            'date_created' => $this->created_at,
         ];
     }
 }

@@ -109,7 +109,7 @@ export default {
             const { type } = values
 
             confirm.require({
-                message: (editMode)?"Are you sure you want to add update this brand's info?":'Are you sure you want to add this new brand?',
+                message: (editMode)?"Are you sure you want to add update this type's info?":'Are you sure you want to add this new type?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\VehicleTypeController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
+use App\Http\Controllers\Api\VehicleSelections;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,5 +103,7 @@ Route::post('check/username', [UserController::class, 'uniqueUsername']);
 Route::prefix('selections')->group(function() {
 
     Route::get('user/groups', [UserSelections::class, 'userGroups']);
+    Route::get('vehicle/types', [VehicleSelections::class, 'vehicleTypes']);
+    Route::get('vehicle/brands', [VehicleSelections::class, 'vehicleBrands']);
 
 });

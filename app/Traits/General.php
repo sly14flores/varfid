@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\Models\VehicleType;
+use App\Models\Brand;
+
 trait General {
 
     /**
@@ -27,6 +30,18 @@ trait General {
         });
 
         return ($group->first())['name'];
+    }
+
+    public function types() {
+
+        return VehicleType::all();
+
+    }
+
+    public function brands() {
+
+        return Brand::all();     
+
     }
 
 }
