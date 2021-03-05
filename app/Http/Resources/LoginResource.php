@@ -24,8 +24,9 @@ class LoginResource extends JsonResource
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'token' => $this->api_token,
+            'group' => $this->group,
             'groupName' => $this->getGroupName($this->group),
-            'picture' => (is_null($this->image))?null:config('ftp.users_url').Storage::url($this->image),            
+            'picture' => (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image),            
         ];
     }
 }
