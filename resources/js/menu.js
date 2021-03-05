@@ -5,6 +5,16 @@ export default [
         to:'/'
     },
     {
+        label:'Scan',
+        icon:'pi pi-fw pi-desktop',
+        to:'/scan'
+    },
+    {
+        label:'Scan',
+        icon:'pi pi-fw pi-list',
+        to:'/logs'
+    },     
+    {
         label:'Vehicles',
         icon:'pi pi-fw pi-discord',
         items:[
@@ -39,22 +49,6 @@ export default [
                         to: '/maintenance/users/add'
                     },                  
                 ]            
-            },            
-            {
-                label:'Brands',
-                icon:'pi pi-fw pi-circle-off',
-                items: [
-                    {
-                        label: 'List',
-                        icon:'pi pi-fw pi-list',
-                        to: '/maintenance/brands'
-                    },
-                    {
-                        label: 'Add',
-                        icon:'pi pi-fw pi-plus',
-                        to: '/maintenance/brands/add'
-                    },                  
-                ]            
             },
             {
                 label:'Vehicle Types',
@@ -71,7 +65,23 @@ export default [
                         to: '/maintenance/types/add'
                     },                  
                 ]            
-            },            
+            },                   
+            {
+                label:'Brands',
+                icon:'pi pi-fw pi-circle-off',
+                items: [
+                    {
+                        label: 'List',
+                        icon:'pi pi-fw pi-list',
+                        to: '/maintenance/brands'
+                    },
+                    {
+                        label: 'Add',
+                        icon:'pi pi-fw pi-plus',
+                        to: '/maintenance/brands/add'
+                    },                  
+                ]            
+            },           
         ]
     }    
 ]

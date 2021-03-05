@@ -91,10 +91,10 @@ class UserController extends Controller
         $user->save();
 
         /**
-         * Upload to ftp
+         * Upload
          */
         if (isset($data['image'])) {
-            $folder = config('ftp.users');
+            $folder = config('profile.users');
             $path = "{$folder}/{$user->id}";
             $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs($path, $filename);
@@ -182,17 +182,17 @@ class UserController extends Controller
         $user->save();
 
         /**
-         * Upload to ftp
+         * Upload
          */
         if (isset($data['image'])) {
-            $folder = config('ftp.users');
+            $folder = config('profile.users');
             $path = "{$folder}/{$user->id}";
             $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs($path, $filename);
             $image = "{$path}/{$filename}";
             $user->image = $image;
             $user->save();
-        }        
+        }
 
         $data = new UserResource($user);
 

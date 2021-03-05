@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'group' => $this->group,
             'image' => null,
-            'picture' => (is_null($this->image))?null:config('ftp.users_url').Storage::url($this->image)
+            'picture' => (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image)
         ];
     }
 }

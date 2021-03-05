@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import ChangePassword from "./pages/ChangePassword"
 
 import Dashboard from "./pages/Dashboard";
+import Scan from "./pages/Scan";
+import Logs from "./pages/Logs";
 
 /**
  * Vehicles
@@ -53,6 +55,18 @@ const routes = [
     component: PageWrapper,
     props: {pageComponent: Dashboard}
   },
+  {
+    path: "/scan",
+    name: "Scan",
+    component: PageWrapper,
+    props: {pageComponent: Scan}
+  },
+  {
+    path: "/logs",
+    name: "Logs",
+    component: PageWrapper,
+    props: {pageComponent: Logs}
+  },   
   {
     path: "/vehicles",
     name: "Vehicles",

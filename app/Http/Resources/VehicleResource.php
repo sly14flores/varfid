@@ -29,7 +29,7 @@ class VehicleResource extends JsonResource
             'contact_no' => $this->contact_no,
             'address' => $this->address,
             'image' => null,
-            // 'picture' => (is_null($this->image))?null:config('ftp.users_url').Storage::url($this->image)                        
+            'picture' => (is_null($this->image))?null:config('profile.vehicles_url').Storage::url($this->image)                        
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Models\Vehicle;
 use App\Http\Resources\VehicleResource;
@@ -74,7 +75,7 @@ class VehicleController extends Controller
             'sex' => 'string',
             'contact_no' => 'string',
             'address' => 'string',
-            // 'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -90,6 +91,19 @@ class VehicleController extends Controller
         $vehicle->fill($data);
 
         $vehicle->save();
+
+        /**
+         * Upload
+         */
+        if (isset($data['image'])) {
+            $folder = config('profile.vehicles');
+            $path = "{$folder}/{$vehicle->id}";
+            $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs($path, $filename);
+            $image = "{$path}/{$filename}";
+            $vehicle->image = $image;
+            $vehicle->save();
+        }        
 
         $data = new VehicleResource($vehicle);
 
@@ -160,7 +174,7 @@ class VehicleController extends Controller
             'sex' => 'string',
             'contact_no' => 'string',
             'address' => 'string',
-            // 'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg','max:128']
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -175,6 +189,19 @@ class VehicleController extends Controller
         $vehicle->fill($data);
 
         $vehicle->save();
+
+        /**
+         * Upload
+         */
+        if (isset($data['image'])) {
+            $folder = config('profile.vehicles');
+            $path = "{$folder}/{$vehicle->id}";
+            $filename = Str::random(20).".".$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs($path, $filename);
+            $image = "{$path}/{$filename}";
+            $vehicle->image = $image;
+            $vehicle->save();
+        }        
 
         $data = new VehicleResource($vehicle);
 
