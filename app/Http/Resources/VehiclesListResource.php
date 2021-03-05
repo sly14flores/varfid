@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use Illuminate\Support\Facades\Storage;
+
 class VehiclesListResource extends JsonResource
 {
     /**
@@ -26,6 +28,8 @@ class VehiclesListResource extends JsonResource
             'sex' => $this->sex,
             'contact_no' => $this->contact_no,
             'address' => $this->address,
+            'driver' => "{$this->firstname} {$this->lastname}",
+            'picture' => (is_null($this->image))?null:config('profile.vehicles_url').Storage::url($this->image),            
             'date_created' => $this->created_at,
         ];
     }

@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\Vehicle;
 use App\Http\Resources\VehicleResource;
 use App\Http\Resources\VehicleResourceCollection;
+use App\Http\Resources\VehiclesListResource;
 use App\Http\Resources\VehiclesListResourceCollection;
 
 use Illuminate\Support\Facades\Validator;
@@ -229,5 +230,20 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return $this->jsonDeleteSuccessResponse();
+    }
+
+    public function rfid(Request $request)
+    {
+        $rfid = $request->rfid;
+
+        $vehicle = Vehicle::where('rfid',$rfid)->first();
+
+        if (is_null($vehicle)) {
+			return $this->jsonErrorResourceNotFound();
+        }        
+
+        $data = new VehiclesListResource($vehicle);
+
+        return $data;
     }
 }

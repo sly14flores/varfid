@@ -31,7 +31,7 @@ Route::post('logout', [LoginController::class, 'logout']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
 
 /**
- * Users
+ * Vehicles
  */
 Route::apiResources([
     'vehicles' => VehicleController::class,
@@ -43,6 +43,7 @@ Route::apiResources([
 ],[
     'except' => ['index']
 ]);
+Route::get('vehicle/scan/{rfid}', [VehicleController::class, 'rfid']);
 
 /**
  * Maintenance

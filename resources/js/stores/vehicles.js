@@ -69,12 +69,17 @@ const fetchingData = false
 const picture = "/img/avatar.png"
 const pictureReplace = false
 
+const info = {
+    ...vehicle,
+    driver: null,
+}
+
 const state = () => {
     return {
         saving,
         writeOn,
         values: vehicle,
-        info: vehicle,
+        info,
         vehicle,
         vehicles,
         pagination,
