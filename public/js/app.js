@@ -33844,6 +33844,16 @@ var deleteVehicle = function deleteVehicle(payload) {
   return axios["delete"](url);
 };
 
+var SCAN_RFID = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicle/scan/:id");
+
+var scanRfid = function scanRfid(payload) {
+  var id = payload.id;
+  var url = (0,_library_route__WEBPACK_IMPORTED_MODULE_1__.default)(SCAN_RFID, {
+    id: id
+  });
+  return axios.get(url);
+};
+
 var vehicle = {
   id: 0,
   type_id: null,
@@ -33872,6 +33882,7 @@ var state = function state() {
     saving: saving,
     writeOn: writeOn,
     values: vehicle,
+    info: vehicle,
     vehicle: vehicle,
     vehicles: vehicles,
     pagination: pagination,
@@ -33917,6 +33928,9 @@ var mutations = {
   },
   PICTURE_REPLACE: function PICTURE_REPLACE(state, payload) {
     state.pictureReplace = payload;
+  },
+  INFO: function INFO(state, payload) {
+    state.info = payload;
   }
 };
 var actions = {
@@ -34259,6 +34273,55 @@ var actions = {
   PICTURE_REPLACE: function PICTURE_REPLACE(_ref21, payload) {
     var commit = _ref21.commit;
     commit('PICTURE_REPLACE', payload);
+  },
+  SCAN_RFID: function SCAN_RFID(_ref22, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+      var dispatch, id, _yield$scanRfid, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              dispatch = _ref22.dispatch;
+              id = payload.id;
+              _context6.prev = 2;
+              _context6.next = 5;
+              return scanRfid({
+                id: id
+              });
+
+            case 5:
+              _yield$scanRfid = _context6.sent;
+              data = _yield$scanRfid.data.data;
+              dispatch('SCAN_RFID_SUCCESS', data);
+              _context6.next = 14;
+              break;
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](2);
+              response = _context6.t0.response;
+              dispatch('SCAN_RFID_ERROR', response);
+
+            case 14:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[2, 10]]);
+    }))();
+  },
+  SCAN_RFID_SUCCESS: function SCAN_RFID_SUCCESS(_ref23, payload) {
+    var commit = _ref23.commit;
+    commit('INFO', payload);
+  },
+  SCAN_RFID_ERROR: function SCAN_RFID_ERROR(payload) {
+    console.log(payload);
+    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+      text: 'Something went wrong',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
   }
 };
 var getters = {};

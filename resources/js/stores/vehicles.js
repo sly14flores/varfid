@@ -38,6 +38,13 @@ const deleteVehicle = (payload) => {
     return axios.delete(url)
 }
 
+const SCAN_RFID = `${apiUrl}/api/vehicle/scan/:id`
+const scanRfid = (payload) => {
+    const { id } = payload
+    const url =  route(SCAN_RFID, { id })
+    return axios.get(url)
+}
+
 const vehicle = {
     id: 0,
     type_id: null,
@@ -67,6 +74,7 @@ const state = () => {
         saving,
         writeOn,
         values: vehicle,
+        info: vehicle,
         vehicle,
         vehicles,
         pagination,
@@ -113,7 +121,10 @@ const mutations = {
     },
     PICTURE_REPLACE(state,payload) {
         state.pictureReplace = payload
-    }
+    },
+    INFO(state, payload) {
+        state.info = payload
+    },    
 }
 
 const actions = {
@@ -327,7 +338,28 @@ const actions = {
     },
     PICTURE_REPLACE({commit},payload) {
         commit('PICTURE_REPLACE',payload)
-    }
+    },
+    async SCAN_RFID({dispatch}, payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await scanRfid({id})
+            dispatch('SCAN_RFID_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('SCAN_RFID_ERROR', response)
+        }
+    },
+    SCAN_RFID_SUCCESS({commit}, payload) {
+        commit('INFO', payload)
+    },
+    SCAN_RFID_ERROR(payload) {
+        console.log(payload)
+        Swal.fire({
+            text: 'Something went wrong',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
+    },    
 }
 
 const getters = {
