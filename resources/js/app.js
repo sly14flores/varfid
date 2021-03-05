@@ -6,6 +6,11 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import store from './store.js';
 
+window.onScan = require('onscan.js')
+
+// Enable scan events for the entire document
+onScan.attachTo(document);
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'

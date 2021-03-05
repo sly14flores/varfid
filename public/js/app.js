@@ -26946,15 +26946,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _library_route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../library/route */ "./resources/js/library/route.js");
 /* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../url.js */ "./resources/js/url.js");
-/* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/MyBreadcrumb.vue */ "./resources/js/components/MyBreadcrumb.vue");
+/* harmony import */ var primevue_button_sfc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/button/sfc */ "./node_modules/primevue/button/Button.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
-window.onScan = __webpack_require__(/*! onscan.js */ "./node_modules/onscan.js/onscan.js");
+
+
+
 var SCAN_RFID = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_1__.apiUrl, "/api/vehicle/scan/:id");
 
 var scanRfid = function scanRfid(payload) {
@@ -26967,42 +26977,72 @@ var scanRfid = function scanRfid(payload) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    MyBreadcrumb: _components_MyBreadcrumb_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    Button: primevue_button_sfc__WEBPACK_IMPORTED_MODULE_4__.default
   },
   setup: function setup() {
-    var store = vuex__WEBPACK_IMPORTED_MODULE_4__.useStore;
-    var info = (0,vue__WEBPACK_IMPORTED_MODULE_3__.reactive)({
+    var store = vuex__WEBPACK_IMPORTED_MODULE_6__.useStore;
+    var vehicle = {
       type_name: null,
       brand_name: null,
       model: null,
       plate_no: null,
       driver: null,
-      picture: '/img/avatar.png'
-    });
+      picture: '/img/avatar.png',
+      datetime: null
+    };
+
+    var restart = function restart() {
+      info.type_name = null;
+      info.brand_name = null;
+      info.model = null;
+      info.plate_no = null;
+      info.driver = null;
+      info.picture = '/img/avatar.png';
+      info.datetime = null;
+    };
+
+    var info = (0,vue__WEBPACK_IMPORTED_MODULE_5__.reactive)(_objectSpread({}, vehicle));
 
     var getInfo = function getInfo(rfid) {
+      restart();
       scanRfid({
         id: rfid
       }).then(function (response) {
-        var data = response.data.data;
-        info.type_name = data.type_name;
-        info.brand_name = data.brand_name;
-        info.model = data.model;
-        info.plate_no = data.plate_no;
-        info.driver = data.driver;
-        info.picture = data.picture;
+        var _response$data = response.data,
+            vehicle = _response$data.vehicle,
+            datetime = _response$data.datetime;
+        info.type_name = vehicle.type_name;
+        info.brand_name = vehicle.brand_name;
+        info.model = vehicle.model;
+        info.plate_no = vehicle.plate_no;
+        info.driver = vehicle.driver;
+        info.picture = vehicle.picture;
+        info.datetime = datetime;
+      })["catch"](function (e) {
+        console.log(e);
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+          text: "No vehicle record exists for RFID: ".concat(rfid),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
       });
-    }; // Enable scan events for the entire document
+    }; // Register event listener
 
-
-    onScan.attachTo(document); // Register event listener
 
     document.addEventListener('scan', function (sScancode, iQuantity) {
       var rfid = sScancode.detail.scanCode;
       getInfo(rfid);
     });
+
+    var getInfoTest = function getInfoTest() {
+      getInfo('2303285070');
+    };
+
     return {
-      info: info
+      info: info,
+      restart: restart,
+      getInfoTest: getInfoTest
     };
   },
   data: function data() {
@@ -27016,6 +27056,12 @@ var scanRfid = function scanRfid(payload) {
         to: "".concat(this.$route.fullPath)
       }]
     };
+  },
+  computed: {
+    today: function today() {
+      var date = new Date();
+      return date.toDateString();
+    }
   }
 });
 
@@ -29738,41 +29784,41 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-e3f829f4");
 
 var _hoisted_1 = {
-  "class": "p-grid p-mt-2"
+  "class": "card p-mt-2"
 };
 var _hoisted_2 = {
-  "class": "p-col-12"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_3 = {
-  "class": "card p-fluid"
+  "class": "p-grid p-mt-2"
 };
 var _hoisted_4 = {
-  "class": "p-grid"
+  "class": "p-col-12"
 };
 var _hoisted_5 = {
-  "class": "p-col-4"
+  "class": "card p-fluid"
 };
 var _hoisted_6 = {
-  "class": "p-col-6"
+  "class": "p-grid"
 };
 var _hoisted_7 = {
+  "class": "p-col-4"
+};
+var _hoisted_8 = {
+  "class": "p-col-6"
+};
+var _hoisted_9 = {
   "class": "p-grid"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "p-col-2"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Type: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Brand: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Model: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Plate No: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Driver: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "Date/Time: ")], -1
 /* HOISTED */
 );
 
-var _hoisted_9 = {
-  "class": "p-col-10"
-};
-var _hoisted_10 = {
-  "class": "p-text-bold"
-};
 var _hoisted_11 = {
-  "class": "p-text-bold"
+  "class": "p-col-10"
 };
 var _hoisted_12 = {
   "class": "p-text-bold"
@@ -29786,33 +29832,50 @@ var _hoisted_14 = {
 var _hoisted_15 = {
   "class": "p-text-bold"
 };
+var _hoisted_16 = {
+  "class": "p-text-bold"
+};
+var _hoisted_17 = {
+  "class": "p-text-bold"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MyBreadcrumb, {
     home: $data.home,
     items: $data.items
   }, null, 8
   /* PROPS */
-  , ["home", "items"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  , ["home", "items"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h5", null, "Today is " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.today), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Button type=\"Button\" icon=\"pi pi-check\" class=\"p-mr-2\" @click=\"getInfoTest\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+    type: "Button",
+    icon: "pi pi-refresh",
+    "class": "p-ml-auto p-button-help",
+    onClick: $setup.restart
+  }, null, 8
+  /* PROPS */
+  , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
     src: $setup.info.picture,
     alt: ""
   }, null, 8
   /* PROPS */
-  , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.type_name), 1
+  , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.type_name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.brand_name), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.brand_name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.model), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.model), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.plate_no), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.plate_no), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.driver), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.driver), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.info.datetime), 1
   /* TEXT */
   )])])])])])])])]);
 });
@@ -64479,6 +64542,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+window.onScan = __webpack_require__(/*! onscan.js */ "./node_modules/onscan.js/onscan.js"); // Enable scan events for the entire document
+
+onScan.attachTo(document);
 
 
 

@@ -1,7 +1,14 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="p-grid p-mt-2">
+        <div class="card p-mt-2">
+            <h5>Today is {{ today }}</h5>
+        </div>        
+        <div class="p-d-flex p-p-2">
+            <!-- <Button type="Button" icon="pi pi-check" class="p-mr-2" @click="getInfoTest" /> -->
+            <Button type="Button" icon="pi pi-refresh" class="p-ml-auto p-button-help" @click="restart" />
+        </div>          
+        <div class="p-grid p-mt-2">          
             <div class="p-col-12">
                 <div class="card p-fluid">
                     <div class="p-grid">
@@ -24,7 +31,7 @@
                                     <p class="p-text-bold">{{ info.model }}</p>
                                     <p class="p-text-bold">{{ info.plate_no }}</p>
                                     <p class="p-text-bold">{{ info.driver }}</p>
-                                    <p class="p-text-bold">{{ }}</p>                                     
+                                    <p class="p-text-bold">{{ info.datetime }}</p>                                     
                                 </div>
                             </div>
                         </div>
@@ -40,11 +47,12 @@
 import route from '../library/route'
 import { apiUrl } from '../url.js'
 
+import Swal from 'sweetalert2'
+
 import MyBreadcrumb from '../components/MyBreadcrumb.vue';
+import Button from 'primevue/button/sfc';
 import { useStore } from 'vuex'
 import { reactive } from 'vue'
-
-window.onScan = require('onscan.js')
 
 const SCAN_RFID = `${apiUrl}/api/vehicle/scan/:id`
 const scanRfid = (payload) => {
@@ -56,42 +64,71 @@ const scanRfid = (payload) => {
 export default {
     components: {
         MyBreadcrumb,
+        Button,
     },
     setup() {
 
         const store = useStore  
         
-        let info = reactive({
+        const vehicle = {
             type_name: null,
             brand_name: null,
             model: null,
             plate_no: null,
             driver: null,
-            picture: '/img/avatar.png'
+            picture: '/img/avatar.png',
+            datetime: null,
+        }
+
+        const restart = () => {
+            info.type_name = null
+            info.brand_name = null
+            info.model = null
+            info.plate_no = null
+            info.driver = null
+            info.picture = '/img/avatar.png'
+            info.datetime = null
+        }
+
+        const info = reactive({
+            ...vehicle
         })
 
         const getInfo = (rfid) => {
+            restart()
             scanRfid({id: rfid}).then(response => {
-                const { data: { data } } = response
-                info.type_name = data.type_name
-                info.brand_name = data.brand_name
-                info.model = data.model
-                info.plate_no = data.plate_no
-                info.driver = data.driver
-                info.picture = data.picture
+                const { data: { vehicle, datetime } } = response
+                info.type_name = vehicle.type_name
+                info.brand_name = vehicle.brand_name
+                info.model = vehicle.model
+                info.plate_no = vehicle.plate_no
+                info.driver = vehicle.driver
+                info.picture = vehicle.picture
+                info.datetime = datetime
+            }).catch(e => {
+                console.log(e)
+                Swal.fire({
+                    text: `No vehicle record exists for RFID: ${rfid}`,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })                
             })
         }
 
-        // Enable scan events for the entire document
-        onScan.attachTo(document);
         // Register event listener
         document.addEventListener('scan', function(sScancode, iQuantity) {
             const rfid = sScancode.detail.scanCode
             getInfo(rfid)
         });
 
+        const getInfoTest = () => {
+            getInfo('2303285070')
+        }
+
         return {
-            info
+            info,
+            restart,
+            getInfoTest
         }
 
     },
@@ -103,6 +140,12 @@ export default {
             ]
         }
     },
+    computed: {
+        today() {
+            const date = new Date()
+            return date.toDateString()
+        }
+    }
 }
 </script>
 

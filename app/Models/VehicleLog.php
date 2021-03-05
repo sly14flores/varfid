@@ -26,7 +26,7 @@ class VehicleLog extends Model
      */
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('F j, Y h:i A');
+        return Carbon::parse($value)->format('F j, Y h:i:s A');
     }
 
     public function vehicle() {

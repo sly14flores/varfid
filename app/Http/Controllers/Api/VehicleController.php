@@ -15,6 +15,8 @@ use App\Http\Resources\VehiclesListResourceCollection;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\Messages;
 
+use App\Models\VehicleLog;
+
 use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
@@ -240,9 +242,19 @@ class VehicleController extends Controller
 
         if (is_null($vehicle)) {
 			return $this->jsonErrorResourceNotFound();
-        }        
+        }
 
-        $data = new VehiclesListResource($vehicle);
+        $log = new VehicleLog();
+        $log->rfid = $rfid;
+        $log->save();
+        
+        $datetime = $log->created_at;
+
+        $vehicle = new VehiclesListResource($vehicle);
+        $data = [
+            'vehicle' => $vehicle,
+            'datetime' => $datetime,
+        ];
 
         return $data;
     }
