@@ -6,7 +6,7 @@
                 <BlockUI :blocked="blockedPanel">
                     <form @submit="onSubmit">
                         <div class="card p-fluid">
-                            <h5><i class="pi pi-user"></i> Vehicle Information</h5>
+                            <h5><i class="pi pi-user"></i> Vehicle</h5>
                             <hr />
                             <div class="p-grid">
                                 <div class="p-col-1 p-offset-11">
@@ -19,63 +19,63 @@
                                     <FileUpload v-if="profileUpload" mode="basic" name="profile" :customUpload="true" :auto="true" @uploader="updateProfile" :multiple="false" accept="image/*" :disabled="editMode && !writeOn" />
                                 </div>
                             </div>
-                            <div class="p-grid p-mt-4">
-                                <div class="p-field p-lg-4 p-md-12">
-                                    <label for="type_id,">Vehicle Type</label>
-                                    <Dropdown id="type_id" v-model="type_id" :options="types" optionValue="id" optionLabel="name" placeholder="Select vehicle type" :class="{'p-invalid': typeIdError}" :disabled="editMode && !writeOn" />
+                            <h5><i class="fa fa-car" aria-hidden="true"></i> Vehicle Information</h5>
+                            <hr />                                               
+                            <div class="p-formgroup-inline p-mt-4">
+                                <div class="p-field">
+                                    <label for="rfid" class="p-sr-only">RFID</label>
+                                    <InputText id="rfid" type="text" placeholder="Enter rfid" v-model="rfid" :class="{'p-inputtext-sm': true, 'p-invalid': rfidError}" :disabled="editMode && !writeOn" />
+                                    <small class="p-error">{{ rfidError }}</small>                     
+                                </div>
+                                <div class="p-field">
+                                    <label for="type_id" class="p-sr-only">Vehicle Type</label>
+                                    <Dropdown id="type_id" v-model="type_id" :options="types" optionValue="id" optionLabel="name" placeholder="Select vehicle type" :class="{'p-inputtext-sm': true, 'p-invalid': typeIdError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ typeIdError }}</small>                       
                                 </div>
-                                <div class="p-field p-lg-4 p-md-12">
-                                    <label for="brand_id,,">Brand</label>
-                                    <Dropdown id="brand_id" v-model="brand_id" :options="brands" optionValue="id" optionLabel="name" placeholder="Select brand" :class="{'p-invalid': brandIdError}" :disabled="editMode && !writeOn" />
+                                <div class="p-field">
+                                    <label for="brand_id" class="p-sr-only">Brand</label>
+                                    <Dropdown id="brand_id" v-model="brand_id" :options="brands" optionValue="id" optionLabel="name" placeholder="Select brand" :class="{'p-inputtext-sm': true, 'p-invalid': brandIdError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ brandIdError }}</small>                       
                                 </div>                                
-                                <div class="p-field p-lg-4 p-md-12">
-                                    <label for="model,">Model</label>
-                                    <InputText id="model," type="text" placeholder="Enter model" v-model="model" :class="{'p-invalid': modelError}" :disabled="editMode && !writeOn" />
+                                <div class="p-field">
+                                    <label for="model" class="p-sr-only">Model</label>
+                                    <InputText id="model" type="text" placeholder="Enter model" v-model="model" :class="{'p-inputtext-sm': true, 'p-invalid': modelError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ modelError }}</small>                        
                                 </div>
-                            </div>
-                            <div class="p-grid p-mt-4">
-                                <div class="p-field p-lg-4 p-md-12">
-                                    <label for="rfid">RFID</label>
-                                    <InputText id="rfid" type="text" placeholder="Enter rfid" v-model="rfid" :class="{'p-invalid': rfidError}" :disabled="editMode && !writeOn" />
-                                    <small class="p-error">{{ rfidError }}</small>                     
-                                </div>                                 
-                                <div class="p-field p-lg-4 p-md-12">
-                                    <label for="plate_no">Plate No</label>
-                                    <InputText id="plate_no" type="text" placeholder="Enter plate no" v-model="plate_no" :class="{'p-invalid': plateNoError}" :disabled="editMode && !writeOn" />
+                                <div class="p-field">
+                                    <label for="plate_no" class="p-sr-only">Plate No</label>
+                                    <InputText id="plate_no" type="text" placeholder="Enter plate no" v-model="plate_no" :class="{'p-inputtext-sm':true, 'p-invalid': plateNoError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ plateNoError }}</small>
-                                </div>                          
+                                </div>                                 
                             </div>
-                            <h5><i class="pi pi-lock"></i> Driver Information</h5>
+                            <h5><i class="fa fa-user-circle" aria-hidden="true"></i> Driver Information</h5>
                             <hr />
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
-                                    <label for="firstname">First Name</label>
-                                    <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
+                                    <label for="firstname" class="p-sr-only">First Name</label>
+                                    <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-inputtext-sm': true, 'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ firstnameError }}</small>                       
                                 </div>
                                 <div class="p-field p-lg-4 p-md-12">
-                                    <label for="lastname">Last Name</label>
-                                    <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
+                                    <label for="lastname" class="p-sr-only">Last Name</label>
+                                    <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-inputtext-sm': true, 'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ lastnameError }}</small>                        
                                 </div>
                                 <div class="p-field p-lg-4 p-md-12">
-                                    <label for="sex">Sex</label>
-                                    <Dropdown id="sex" v-model="sex" :options="sexs" optionValue="id" optionLabel="name" placeholder="Select sex" :class="{'p-invalid': sexError}" :disabled="editMode && !writeOn" />
+                                    <label for="sex" class="p-sr-only">Sex</label>
+                                    <Dropdown id="sex" v-model="sex" :options="sexs" optionValue="id" optionLabel="name" placeholder="Select sex" :class="{'p-inputtext-sm': true, 'p-invalid': sexError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ sexError }}</small>
                                 </div>                               
                             </div>
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
-                                    <label for="contact_no">Contact No</label>
-                                    <InputText id="contact_no" type="text" placeholder="Enter contact number" v-model="contact_no" :class="{'p-invalid': contactNoError}" :disabled="editMode && !writeOn" />
+                                    <label for="contact_no" class="p-sr-only">Contact No</label>
+                                    <InputText id="contact_no" type="text" placeholder="Enter contact number" v-model="contact_no" :class="{'p-inputtext-sm': true, 'p-invalid': contactNoError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ lastnameError }}</small>                        
                                 </div>                                
                                 <div class="p-field p-lg-8 p-md-12">
-                                    <label for="address">Address</label>
-                                    <InputText id="address" type="text" placeholder="Enter address" v-model="address" :class="{'p-invalid': addressError}" :disabled="editMode && !writeOn" />
+                                    <label for="address" class="p-sr-only">Address</label>
+                                    <InputText id="address" type="text" placeholder="Enter address" v-model="address" :class="{'p-inputtext-sm': true, 'p-invalid': addressError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ addressError }}</small>                       
                                 </div>                                                         
                             </div>
