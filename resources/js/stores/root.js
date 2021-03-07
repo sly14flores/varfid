@@ -106,7 +106,7 @@ const actions = {
         }
     },
     LOGOUT_SUCCESS() {
-        window.open('#/login','_self')
+        window.open('#/startup','_self')
     },
     LOGOUT_ERROR() {
 

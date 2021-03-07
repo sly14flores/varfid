@@ -3,6 +3,7 @@ import store from './store'
 
 const PageWrapper = () => import("./PageWrapper");
 import Login from "./pages/Login";
+import ScanStart from "./pages/ScanStart";
 import ChangePassword from "./pages/ChangePassword"
 
 import Dashboard from "./pages/Dashboard";
@@ -44,11 +45,16 @@ const routes = [
     component: Login
   },
   {
+    path: "/startup",
+    name: "Startup",
+    component: ScanStart,
+  },
+  {
     path: "/change/password",
     name: "ChangePassword",
     component: PageWrapper,
     props: {pageComponent: ChangePassword}
-  },  
+  }, 
   {
     path: "/",
     name: "Dashboard",
@@ -60,7 +66,7 @@ const routes = [
     name: "Scan",
     component: PageWrapper,
     props: {pageComponent: Scan}
-  },
+  },  
   {
     path: "/logs",
     name: "Logs",

@@ -11,7 +11,7 @@ window.onScan = require('onscan.js')
 onScan.attachTo(document);
 
 require('@fortawesome/fontawesome-free/css/all.css')
-require('@fortawesome/fontawesome-free/js/all.js')
+// require('@fortawesome/fontawesome-free/js/all.js')
 
 import '../css/layout/layout.scss';
 import '../css/layout/flags/flags.css';

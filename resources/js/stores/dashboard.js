@@ -44,11 +44,11 @@ const actions = {
     },
     GET_DATA_ERROR({commit}, payload) {
         commit('FETCHING_DATA', false)
-        Swal.fire({
-            text: 'Something went wrong',
-            icon: 'error',
-            confirmButtonText: 'Ok'
-        })
+        // Swal.fire({
+        //     text: 'Something went wrong',
+        //     icon: 'error',
+        //     confirmButtonText: 'Ok'
+        // })
     },    
 }
 

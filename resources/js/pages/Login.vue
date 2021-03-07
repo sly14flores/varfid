@@ -40,9 +40,7 @@
                 </form>
             </div>
         </div>
-        <div class="footer">
-            <span class="footer-text">&copy; 2021 Vehicle Authentication RFID</span>
-        </div>
+        <LoginFooter />
     </div>
 </template>
 
@@ -51,12 +49,14 @@
 import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import ActionButton from '../components/ActionButton'
+import LoginFooter from '../components/LoginFooter'
 
 export default {
     components: {
         Button,
         InputText,
-        ActionButton
+        ActionButton,
+        LoginFooter
     },
     data() {
         return {
@@ -103,16 +103,6 @@ export default {
   min-height: 100%;
   display: grid;
   grid-template-rows: 1fr auto;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  line-height: 30px;
-  text-align: center;
 }
 
 .center {

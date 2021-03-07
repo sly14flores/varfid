@@ -66,11 +66,11 @@ const mainMenu = [
         icon:'pi pi-fw pi-home',
         to:'/'
     },
-    {
-        label:'Scan',
-        icon:'pi pi-fw pi-desktop',
-        to:'/scan'
-    },
+    // {
+    //     label:'Scan',
+    //     icon:'pi pi-fw pi-desktop',
+    //     to:'/scan'
+    // },
     {
         label:'Logs',
         icon:'pi pi-fw pi-list',
