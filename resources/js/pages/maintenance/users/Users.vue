@@ -1,10 +1,9 @@
 <template>
-  <router-view></router-view>
-  <!-- <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
-  </router-view> -->
+  </router-view>
 </template>
 
 <script>
@@ -16,9 +15,14 @@ export default {
 
         const store = useStore()
 
-        const { dispatch } = store
+        const { state } = store
 
-        // dispatch('AUTHENTICATE')
+        const group = state.profile.group
+        const isAdmin = group == 1
+
+        return {
+          isAdmin
+        }
 
     },     
     components: {
@@ -28,14 +32,6 @@ export default {
         return {
 
         }
-    },
-    methods: {
-        init() {
-            // this.$store.dispatch('users/INIT')
-        },
-    },
-    mounted() {
-        // this.init()
-    }    
+    },  
 }
 </script>

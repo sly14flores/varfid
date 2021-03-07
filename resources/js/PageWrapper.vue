@@ -24,12 +24,42 @@ import AppProfile from './AppProfile.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
 
-import menu from './menu.js';
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { mainMenu, manageUsersMenu, maintenanceSubMenus } from './menu.js'
 
 require('./http.js');
 
 export default {
   props: ['pageComponent'],
+  setup() {
+
+    const store = useStore()
+    const group = store.state.profile.group    
+
+    const createUsersMenu = (group==1)?manageUsersMenu:[]
+
+    const createMaintenanceMenu = [
+      {
+          label:'Maintenance',
+          icon:'pi pi-fw pi-cog',
+          items: [
+            ...createUsersMenu,
+            ...maintenanceSubMenus
+          ]
+      }      
+    ]
+
+    const menu = reactive([
+      ...mainMenu,
+      ...createMaintenanceMenu
+    ])
+
+    return {
+      menu
+    }
+
+  },
   components: {
     AppTopBar,
     AppProfile,
@@ -43,7 +73,7 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-      menu,     
+      // menu,     
     }
   },
   computed: {

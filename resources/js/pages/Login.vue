@@ -14,7 +14,7 @@
                             <label for="username">Username</label>
                             <span class="p-input-icon-right">
                                 <i class="pi pi-user" />
-                                <InputText type="text" :class="{'p-invalid': validations.username && validations.username[0]}" v-model="user.username" />
+                                <InputText type="text" :class="{'p-invalid': validations.username && validations.username[0]}" v-model="user.username" autofocus />
                             </span>
                             <small class="p-error">{{ validations.username && validations.username[0] }}</small>
                         </div>
