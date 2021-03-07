@@ -73,7 +73,6 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-      // menu,     
     }
   },
   computed: {

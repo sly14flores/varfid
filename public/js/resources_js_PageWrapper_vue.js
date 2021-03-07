@@ -284,8 +284,7 @@ __webpack_require__(/*! ./http.js */ "./resources/js/http.js");
       layoutColorMode: 'dark',
       staticMenuInactive: false,
       overlayMenuActive: false,
-      mobileMenuActive: false // menu,     
-
+      mobileMenuActive: false
     };
   },
   computed: {
