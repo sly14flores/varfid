@@ -868,7 +868,7 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             if (error.response.status === 401) {
-              window.open('#/startup', '_self'); // Swal.fire({
+              window.open('#/login', '_self'); // Swal.fire({
               //     text: 'You have been logged out because your account was logged in from a different device',
               //     icon: 'info',
               //     confirmButtonText: 'Ok'
