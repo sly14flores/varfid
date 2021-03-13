@@ -111,6 +111,18 @@ import { useRoute } from 'vue-router'
 import { watch, ref } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
+import { apiUrl } from '../../url.js'
+
+const CHECK_RFID = `${apiUrl}/api/check/rfid`
+function checkRfid(payload) {
+    return axios.post(CHECK_RFID, {...payload})
+}
+
+const CHECK_PLATE_NO = `${apiUrl}/api/check/plateno`
+function checkPlateNo(payload) {
+    return axios.post(CHECK_PLATE_NO, {...payload})
+}
+
 export default {
     props: ['editOn'],
     components: {
@@ -189,7 +201,31 @@ export default {
                 return "This field is required";
             }
             return true;
-        }    
+        }
+
+        async function validateRfid(value) {
+            if (!value) {
+                return "This field is required";
+            }
+            const { data } = await checkRfid({id: vehicleId, rfid:value})
+            const { data: { available } } = data
+            if (!available) {
+                return 'Rfid already exists'
+            }            
+            return true;
+        }
+        
+        async function validatePlateNo(value) {
+            if (!value) {
+                return "This field is required";
+            }
+            const { data } = await checkPlateNo({id: vehicleId, plate_no:value})
+            const { data: { available } } = data
+            if (!available) {
+                return 'Plate no already exists'
+            }
+            return true;
+        }         
 
         function validField(value) {
             return true;
@@ -201,8 +237,8 @@ export default {
         const { value: type_id, errorMessage: typeIdError } = useField('vehicle.type_id',validateField);
         const { value: brand_id, errorMessage: brandIdError } = useField('vehicle.brand_id',validateField);
         const { value: model, errorMessage: modelError } = useField('vehicle.model',validateField);
-        const { value: plate_no, errorMessage: plateNoError } = useField('vehicle.plate_no',validateField);
-        const { value: rfid, errorMessage: rfidError } = useField('vehicle.rfid',validateField);
+        const { value: plate_no, errorMessage: plateNoError } = useField('vehicle.plate_no',validatePlateNo);
+        const { value: rfid, errorMessage: rfidError } = useField('vehicle.rfid',validateRfid);
         const { value: firstname, errorMessage: firstnameError } = useField('vehicle.firstname',validateField);
         const { value: lastname, errorMessage: lastnameError } = useField('vehicle.lastname',validateField);
         const { value: sex, errorMessage: sexError } = useField('vehicle.sex',validateField);

@@ -258,4 +258,42 @@ class VehicleController extends Controller
 
         return $data;
     }
+
+    public function uniqueRfid(Request $request) {
+
+        $rfid = $request->rfid;
+        $id = $request->id;
+
+        $wheres = [['rfid',$rfid]];
+        if (!is_null($id)) {
+            $wheres[] = ['id','!=',$id];
+        }
+        
+        $vehicle = Vehicle::where($wheres)->first();
+        $available = is_null($vehicle);
+
+        return $this->jsonSuccessResponse([
+            'available'=>$available
+        ], 200);
+
+    }
+    
+    public function uniquePlateNo(Request $request) {
+
+        $plate_no = $request->plate_no;
+        $id = $request->id;
+
+        $wheres = [['plate_no',$plate_no]];
+        if (!is_null($id)) {
+            $wheres[] = ['id','!=',$id];
+        }
+        
+        $vehicle = Vehicle::where($wheres)->first();
+        $available = is_null($vehicle);
+
+        return $this->jsonSuccessResponse([
+            'available'=>$available
+        ], 200);
+
+    }    
 }

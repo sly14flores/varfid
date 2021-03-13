@@ -121,6 +121,16 @@ Route::post('change/password', ChangePassword::class);
 Route::post('check/username', [UserController::class, 'uniqueUsername']);
 
 /**
+ * Unique rfid validation
+ */
+Route::post('check/rfid', [VehicleController::class, 'uniqueRfid']);
+
+/**
+ * Unique plate_no validation
+ */
+Route::post('check/plateno', [VehicleController::class, 'uniquePlateNo']);
+
+/**
  * Selections
  */
 Route::prefix('selections')->group(function() {
