@@ -39,7 +39,7 @@
                                 </div>                                
                                 <div class="p-field">
                                     <label for="model" class="p-sr-only">Model</label>
-                                    <InputText id="model" type="text" placeholder="Enter model" v-model="model" :class="{'p-inputtext-sm': true, 'p-invalid': modelError}" :disabled="editMode && !writeOn" />
+                                    <Dropdown id="model" v-model="model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" :class="{'p-inputtext-sm': true, 'p-invalid': modelError}" :disabled="editMode && !writeOn" />                                    
                                     <small class="p-error">{{ modelError }}</small>                        
                                 </div>
                                 <div class="p-field">
@@ -305,7 +305,10 @@ export default {
         },
         brands() {
             return this.$store.state.selections.brands
-        },               
+        },
+        models() {
+            return this.$store.state.selections.models
+        },                 
         picture: {
             get() {
                 return this.$store.state.vehicles.picture
@@ -359,6 +362,7 @@ export default {
 
         this.$store.dispatch('selections/GET_TYPES')
         this.$store.dispatch('selections/GET_BRANDS')
+        this.$store.dispatch('selections/GET_MODELS')
 
     }
 }

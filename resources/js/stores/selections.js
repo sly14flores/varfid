@@ -19,6 +19,11 @@ const getBrands = () => {
     return axios.get(GET_BRANDS)
 }
 
+const GET_MODELS = `${apiUrl}/api/selections/vehicle/models`
+const getModels = () => {
+    return axios.get(GET_MODELS)
+}
+
 const groups = []
 const sexs = [
     {id: "Male", name: "Male"},
@@ -26,6 +31,7 @@ const sexs = [
 ]
 const types = []
 const brands = []
+const models = []
 
 const state = () => {
     return {
@@ -33,6 +39,7 @@ const state = () => {
         sexs,
         types,
         brands,
+        models,
     }
 }
 
@@ -45,7 +52,10 @@ const mutations = {
     },
     BRANDS(state,payload) {
         state.brands = payload
-    }        
+    },
+    MODELS(state,payload) {
+        state.models = payload
+    }     
 }
 
 const actions = {
@@ -92,6 +102,21 @@ const actions = {
         commit('BRANDS', payload)
     },
     GET_BRANDS_ERROR(payload) {
+        console.log(payload)
+    },
+    async GET_MODELS({dispatch}) {
+        try {
+            const { data } = await getModels()
+            dispatch('GET_MODELS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_MODELS_ERROR', response)
+        }
+    },
+    GET_MODELS_SUCCESS({commit}, payload) {
+        commit('MODELS', payload)
+    },
+    GET_MODELS_ERROR(payload) {
         console.log(payload)
     },    
 }

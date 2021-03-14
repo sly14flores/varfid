@@ -18902,6 +18902,9 @@ function checkPlateNo(payload) {
     brands: function brands() {
       return this.$store.state.selections.brands;
     },
+    models: function models() {
+      return this.$store.state.selections.models;
+    },
     picture: {
       get: function get() {
         return this.$store.state.vehicles.picture;
@@ -18959,6 +18962,7 @@ function checkPlateNo(payload) {
   created: function created() {
     this.$store.dispatch('selections/GET_TYPES');
     this.$store.dispatch('selections/GET_BRANDS');
+    this.$store.dispatch('selections/GET_MODELS');
   }
 });
 
@@ -22309,14 +22313,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.brandIdError), 1
       /* TEXT */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         id: "model",
-        type: "text",
-        placeholder: "Enter model",
         modelValue: $setup.model,
         "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
           return $setup.model = $event;
         }),
+        options: $options.models,
+        optionValue: "id",
+        optionLabel: "name",
+        placeholder: "Select model",
         "class": {
           'p-inputtext-sm': true,
           'p-invalid': $setup.modelError
@@ -22324,7 +22330,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.modelError), 1
+      , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.modelError), 1
       /* TEXT */
       )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "plate_no",
@@ -24900,6 +24906,12 @@ var getBrands = function getBrands() {
   return axios.get(GET_BRANDS);
 };
 
+var GET_MODELS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_1__.apiUrl, "/api/selections/vehicle/models");
+
+var getModels = function getModels() {
+  return axios.get(GET_MODELS);
+};
+
 var groups = [];
 var sexs = [{
   id: "Male",
@@ -24910,13 +24922,15 @@ var sexs = [{
 }];
 var types = [];
 var brands = [];
+var models = [];
 
 var state = function state() {
   return {
     groups: groups,
     sexs: sexs,
     types: types,
-    brands: brands
+    brands: brands,
+    models: models
   };
 };
 
@@ -24929,6 +24943,9 @@ var mutations = {
   },
   BRANDS: function BRANDS(state, payload) {
     state.brands = payload;
+  },
+  MODELS: function MODELS(state, payload) {
+    state.models = payload;
   }
 };
 var actions = {
@@ -25053,6 +25070,47 @@ var actions = {
     commit('BRANDS', payload);
   },
   GET_BRANDS_ERROR: function GET_BRANDS_ERROR(payload) {
+    console.log(payload);
+  },
+  GET_MODELS: function GET_MODELS(_ref7) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var dispatch, _yield$getModels, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              dispatch = _ref7.dispatch;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return getModels();
+
+            case 4:
+              _yield$getModels = _context4.sent;
+              data = _yield$getModels.data;
+              dispatch('GET_MODELS_SUCCESS', data);
+              _context4.next = 13;
+              break;
+
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](1);
+              response = _context4.t0.response;
+              dispatch('GET_MODELS_ERROR', response);
+
+            case 13:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 9]]);
+    }))();
+  },
+  GET_MODELS_SUCCESS: function GET_MODELS_SUCCESS(_ref8, payload) {
+    var commit = _ref8.commit;
+    commit('MODELS', payload);
+  },
+  GET_MODELS_ERROR: function GET_MODELS_ERROR(payload) {
     console.log(payload);
   }
 };

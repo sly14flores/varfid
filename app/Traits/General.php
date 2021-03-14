@@ -2,8 +2,9 @@
 
 namespace App\Traits;
 
-use App\Models\VehicleType;
 use App\Models\Brand;
+use App\Models\VehicleType;
+use App\Models\VehicleModel;
 
 trait General {
 
@@ -43,5 +44,11 @@ trait General {
         return Brand::all();     
 
     }
+
+    public function models() {
+
+        return VehicleModel::all();     
+
+    }    
 
 }

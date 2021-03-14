@@ -151,5 +151,6 @@ Route::prefix('selections')->group(function() {
     Route::get('user/groups', [UserSelections::class, 'userGroups']);
     Route::get('vehicle/types', [VehicleSelections::class, 'vehicleTypes']);
     Route::get('vehicle/brands', [VehicleSelections::class, 'vehicleBrands']);
+    Route::get('vehicle/models', [VehicleSelections::class, 'vehicleModels']);
 
 });

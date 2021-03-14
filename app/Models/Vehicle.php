@@ -47,7 +47,7 @@ class Vehicle extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function model() {
-        return $this->belongsTo(VehicleModel::class);
-    }    
+    public function vehicle_model() {
+        return $this->belongsTo(VehicleModel::class,'model');
+    }
 }
