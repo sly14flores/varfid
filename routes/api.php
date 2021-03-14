@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\VehicleTypeController;
+use App\Http\Controllers\Api\VehicleModelController;
 use App\Http\Controllers\Api\VehicleLogController;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\UserSelections;
@@ -106,7 +107,19 @@ Route::prefix('maintenance')->group(function() {
         'type' => VehicleTypeController::class,
     ],[
         'except' => ['index']
-    ]);    
+    ]);
+
+    // Models
+    Route::apiResources([
+        'models' => VehicleModelController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'model' => VehicleModelController::class,
+    ],[
+        'except' => ['index']
+    ]);     
 
 });
 
