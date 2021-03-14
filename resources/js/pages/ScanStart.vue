@@ -8,7 +8,7 @@
         <p class="p-text-center p-text-bold">Scanning Point</p>
         <div class="vehicle-info">
             <div class="p-d-flex p-p-2">
-                <Button type="Button" icon="pi pi-check" class="p-mr-2" @click="getInfoTest" />
+                <!-- <Button type="Button" icon="pi pi-check" class="p-mr-2" @click="getInfoTest" /> -->
                 <Button type="Button" icon="pi pi-refresh" class="p-ml-auto p-button-danger" @click="restart" />
             </div>            
             <div class="card p-fluid">
