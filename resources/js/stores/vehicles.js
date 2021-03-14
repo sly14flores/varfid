@@ -26,9 +26,9 @@ const getVehicle = (payload) => {
 
 const GET_VEHICLES = `${apiUrl}/api/vehicles`
 const getVehicles = (payload) => {
-    const { page } = payload
+    const { page, filters } = payload
     const pageNo = page + 1
-    return axios.get(GET_VEHICLES, {params: { page: pageNo } })
+    return axios.get(GET_VEHICLES, {params: { page: pageNo, ...filters } })
 }
 
 const DELETE_VEHICLE = `${apiUrl}/api/vehicle/:id`
@@ -316,8 +316,8 @@ const actions = {
     async GET_VEHICLES({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
         try {
-            const { page } = payload
-            const { data: { data: { data, pagination } } } = await getVehicles({ page })
+            const { page, filters } = payload
+            const { data: { data: { data, pagination } } } = await getVehicles({ page, filters })
             dispatch('GET_VEHICLES_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error

@@ -16550,6 +16550,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_paginator_sfc__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primevue/paginator/sfc */ "./node_modules/primevue/paginator/Paginator.vue");
 /* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
 /* harmony import */ var primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/blockui/sfc */ "./node_modules/primevue/blockui/BlockUI.vue");
+/* harmony import */ var primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/dropdown/sfc */ "./node_modules/primevue/dropdown/Dropdown.vue");
+/* harmony import */ var primevue_button_sfc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/button/sfc */ "./node_modules/primevue/button/Button.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
 
 
 
@@ -16563,7 +16579,9 @@ __webpack_require__.r(__webpack_exports__);
     DataTable: primevue_datatable_sfc__WEBPACK_IMPORTED_MODULE_1__.default,
     Column: primevue_column_sfc__WEBPACK_IMPORTED_MODULE_2__.default,
     Paginator: primevue_paginator_sfc__WEBPACK_IMPORTED_MODULE_3__.default,
-    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_5__.default
+    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_5__.default,
+    Dropdown: primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_6__.default,
+    Button: primevue_button_sfc__WEBPACK_IMPORTED_MODULE_7__.default
   },
   setup: function setup() {},
   data: function data() {
@@ -16576,10 +16594,37 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Logs',
         to: "".concat(this.$route.fullPath)
       }],
-      search: ''
+      filters: {
+        type: 0,
+        brand: 0,
+        model: 0
+      },
+      search: '',
+      page: 0
     };
   },
   computed: {
+    types: function types() {
+      var types = [{
+        id: 0,
+        name: 'All Types'
+      }].concat(_toConsumableArray(this.$store.state.selections.types));
+      return types;
+    },
+    brands: function brands() {
+      var brands = [{
+        id: 0,
+        name: 'All Brands'
+      }].concat(_toConsumableArray(this.$store.state.selections.brands));
+      return brands;
+    },
+    models: function models() {
+      var models = [{
+        id: 0,
+        name: 'All Models'
+      }].concat(_toConsumableArray(this.$store.state.selections.models));
+      return models;
+    },
     logs: function logs() {
       var _this = this;
 
@@ -16595,16 +16640,28 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    filterList: function filterList() {
+      this.fetchLogs({
+        page: this.page
+      });
+    },
     fetchLogs: function fetchLogs(event) {
       // event.page: New page number
       // event.first: Index of first record
       // event.rows: Number of rows to display in new page
       // event.pageCount: Total number of pages
       var page = event.page;
+      this.page = page;
       this.$store.dispatch('logs/GET_LOGS', {
-        page: page
+        page: page,
+        filters: this.filters
       });
     }
+  },
+  created: function created() {
+    this.$store.dispatch('selections/GET_TYPES');
+    this.$store.dispatch('selections/GET_BRANDS');
+    this.$store.dispatch('selections/GET_MODELS');
   },
   mounted: function mounted() {
     this.fetchLogs({
@@ -19008,6 +19065,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_paginator_sfc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primevue/paginator/sfc */ "./node_modules/primevue/paginator/Paginator.vue");
 /* harmony import */ var primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primevue/inputtext/sfc */ "./node_modules/primevue/inputtext/InputText.vue");
 /* harmony import */ var primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primevue/blockui/sfc */ "./node_modules/primevue/blockui/BlockUI.vue");
+/* harmony import */ var primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/dropdown/sfc */ "./node_modules/primevue/dropdown/Dropdown.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 
@@ -19026,7 +19097,8 @@ __webpack_require__.r(__webpack_exports__);
     Button: primevue_button_sfc__WEBPACK_IMPORTED_MODULE_3__.default,
     ConfirmDialog: primevue_confirmdialog_sfc__WEBPACK_IMPORTED_MODULE_4__.default,
     InputText: primevue_inputtext_sfc__WEBPACK_IMPORTED_MODULE_6__.default,
-    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_7__.default
+    BlockUI: primevue_blockui_sfc__WEBPACK_IMPORTED_MODULE_7__.default,
+    Dropdown: primevue_dropdown_sfc__WEBPACK_IMPORTED_MODULE_8__.default
   },
   data: function data() {
     return {
@@ -19038,18 +19110,36 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Vehicles',
         to: '/vehicles'
       }],
-      search: ""
+      filters: {
+        type: 0,
+        brand: 0,
+        model: 0
+      },
+      search: "",
+      page: 0
     };
   },
   computed: {
     types: function types() {
-      return this.$store.state.selections.types;
+      var types = [{
+        id: 0,
+        name: 'All Types'
+      }].concat(_toConsumableArray(this.$store.state.selections.types));
+      return types;
     },
     brands: function brands() {
-      return this.$store.state.selections.brands;
+      var brands = [{
+        id: 0,
+        name: 'All Brands'
+      }].concat(_toConsumableArray(this.$store.state.selections.brands));
+      return brands;
     },
     models: function models() {
-      return this.$store.state.selections.models;
+      var models = [{
+        id: 0,
+        name: 'All Models'
+      }].concat(_toConsumableArray(this.$store.state.selections.models));
+      return models;
     },
     vehicles: function vehicles() {
       var _this = this;
@@ -19069,14 +19159,21 @@ __webpack_require__.r(__webpack_exports__);
     newForm: function newForm() {
       this.$router.push('/vehicles/add');
     },
+    filterList: function filterList() {
+      this.fetchVehicles({
+        page: this.page
+      });
+    },
     fetchVehicles: function fetchVehicles(event) {
       // event.page: New page number
       // event.first: Index of first record
       // event.rows: Number of rows to display in new page
       // event.pageCount: Total number of pages
       var page = event.page;
+      this.page = page;
       this.$store.dispatch('vehicles/GET_VEHICLES', {
-        page: page
+        page: page,
+        filters: this.filters
       });
     },
     deleteVehicle: function deleteVehicle(id) {
@@ -19765,13 +19862,52 @@ var _hoisted_2 = {
   "class": "p-d-flex p-p-2 card"
 };
 var _hoisted_3 = {
-  "class": "p-ml-auto"
+  "class": "p-formgroup-inline"
 };
 var _hoisted_4 = {
+  "class": "p-field"
+};
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "type",
+  "class": "p-sr-only"
+}, "Type", -1
+/* HOISTED */
+);
+
+var _hoisted_6 = {
+  "class": "p-field"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "brand",
+  "class": "p-sr-only"
+}, "Brand", -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "p-field"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "model",
+  "class": "p-sr-only"
+}, "Model", -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
+  "class": "p-field"
+};
+var _hoisted_11 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_12 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -19781,6 +19917,10 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
+
+  var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
+
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
@@ -19806,11 +19946,58 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
         dataKey: "id"
       }, {
         header: _withId(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            modelValue: $data.search,
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "type",
+            modelValue: $data.filters.type,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+              return $data.filters.type = $event;
+            }),
+            options: $options.types,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select Type",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "brand",
+            modelValue: $data.filters.brand,
+            "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+              return $data.filters.brand = $event;
+            }),
+            options: $options.brands,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select Brand",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "model",
+            modelValue: $data.filters.model,
+            "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+              return $data.filters.model = $event;
+            }),
+            options: $options.models,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select model",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            type: "button",
+            "class": "p-button-sm p-button-secondary",
+            label: "Filter",
+            onClick: $options.filterList
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            modelValue: $data.search,
+            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
               return $data.search = $event;
             }),
+            "class": "p-inputtext-sm",
             placeholder: "Search"
           }, null, 8
           /* PROPS */
@@ -19851,7 +20038,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[2] || (_cache[2] = function ($event) {
+        onPage: _cache[5] || (_cache[5] = function ($event) {
           return $options.fetchLogs($event);
         })
       }, null, 8
@@ -22580,13 +22767,52 @@ var _hoisted_5 = {
   "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
-  "class": "p-ml-auto"
+  "class": "p-formgroup-inline"
 };
 var _hoisted_7 = {
+  "class": "p-field"
+};
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "type",
+  "class": "p-sr-only"
+}, "Type", -1
+/* HOISTED */
+);
+
+var _hoisted_9 = {
+  "class": "p-field"
+};
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "brand",
+  "class": "p-sr-only"
+}, "Brand", -1
+/* HOISTED */
+);
+
+var _hoisted_11 = {
+  "class": "p-field"
+};
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "model",
+  "class": "p-sr-only"
+}, "Model", -1
+/* HOISTED */
+);
+
+var _hoisted_13 = {
+  "class": "p-field"
+};
+var _hoisted_14 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_15 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -22596,6 +22822,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
+  var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
 
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
@@ -22631,11 +22859,58 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onClick: $options.newForm
           }, null, 8
           /* PROPS */
-          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            modelValue: $data.search,
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "type",
+            modelValue: $data.filters.type,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+              return $data.filters.type = $event;
+            }),
+            options: $options.types,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select Type",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "brand",
+            modelValue: $data.filters.brand,
+            "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+              return $data.filters.brand = $event;
+            }),
+            options: $options.brands,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select Brand",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+            id: "model",
+            modelValue: $data.filters.model,
+            "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+              return $data.filters.model = $event;
+            }),
+            options: $options.models,
+            optionValue: "id",
+            optionLabel: "name",
+            placeholder: "Select model",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            type: "button",
+            "class": "p-button-sm p-button-secondary",
+            label: "Filter",
+            onClick: $options.filterList
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            modelValue: $data.search,
+            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
               return $data.search = $event;
             }),
+            "class": "p-inputtext-sm",
             placeholder: "Search"
           }, null, 8
           /* PROPS */
@@ -22708,7 +22983,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[2] || (_cache[2] = function ($event) {
+        onPage: _cache[5] || (_cache[5] = function ($event) {
           return $options.fetchVehicles($event);
         })
       }, null, 8
@@ -23736,12 +24011,13 @@ var getLog = function getLog(payload) {
 var GET_LOGS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/logs");
 
 var getLogs = function getLogs(payload) {
-  var page = payload.page;
+  var page = payload.page,
+      filters = payload.filters;
   var pageNo = page + 1;
   return axios.get(GET_LOGS, {
-    params: {
+    params: _objectSpread({
       page: pageNo
-    }
+    }, filters)
   });
 };
 
@@ -24049,7 +24325,7 @@ var actions = {
   },
   GET_LOGS: function GET_LOGS(_ref15, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-      var commit, dispatch, page, _yield$getLogs, _yield$getLogs$data$d, data, _pagination, response;
+      var commit, dispatch, page, filters, _yield$getLogs, _yield$getLogs$data$d, data, _pagination, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
@@ -24058,10 +24334,11 @@ var actions = {
               commit = _ref15.commit, dispatch = _ref15.dispatch;
               commit('FETCHING_LIST', true);
               _context5.prev = 2;
-              page = payload.page;
+              page = payload.page, filters = payload.filters;
               _context5.next = 6;
               return getLogs({
-                page: page
+                page: page,
+                filters: filters
               });
 
             case 6:
@@ -25775,12 +26052,13 @@ var getVehicle = function getVehicle(payload) {
 var GET_VEHICLES = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_2__.apiUrl, "/api/vehicles");
 
 var getVehicles = function getVehicles(payload) {
-  var page = payload.page;
+  var page = payload.page,
+      filters = payload.filters;
   var pageNo = page + 1;
   return axios.get(GET_VEHICLES, {
-    params: {
+    params: _objectSpread({
       page: pageNo
-    }
+    }, filters)
   });
 };
 
@@ -26162,7 +26440,7 @@ var actions = {
   },
   GET_VEHICLES: function GET_VEHICLES(_ref17, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-      var commit, dispatch, page, _yield$getVehicles, _yield$getVehicles$da, data, _pagination, response;
+      var commit, dispatch, page, filters, _yield$getVehicles, _yield$getVehicles$da, data, _pagination, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
@@ -26171,10 +26449,11 @@ var actions = {
               commit = _ref17.commit, dispatch = _ref17.dispatch;
               commit('FETCHING_LIST', true);
               _context5.prev = 2;
-              page = payload.page;
+              page = payload.page, filters = payload.filters;
               _context5.next = 6;
               return getVehicles({
-                page: page
+                page: page,
+                filters: filters
               });
 
             case 6:

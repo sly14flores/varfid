@@ -35,19 +35,19 @@ trait General {
 
     public function types() {
 
-        return VehicleType::all();
+        return VehicleType::all(['id','name']);
 
     }
 
     public function brands() {
 
-        return Brand::all();     
+        return Brand::all(['id','name']);     
 
     }
 
     public function models() {
 
-        return VehicleModel::all();     
+        return VehicleModel::all(['id','name']);     
 
     }    
 
