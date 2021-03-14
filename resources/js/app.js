@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
+// import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import store from './store.js';
 
@@ -25,6 +26,7 @@ import Ripple from 'primevue/ripple';
 import Tooltip from 'primevue/tooltip';
 
 const app = createApp(App);
+app.use(ToastService);
 
 app.config.productionTip = false
 app.config.globalProperties.$appState = reactive({ inputStyle: 'outlined' });
@@ -34,7 +36,7 @@ app.use(store);
 app.use(router);
 app.use(PrimeVue);
 app.use(ConfirmationService);
-app.use(ToastService);
 app.directive('ripple', Ripple);
 app.directive('tooltip', Tooltip);
+// app.component('Toast', Toast);
 app.mount('#app');
