@@ -6,7 +6,7 @@
                 <BlockUI :blocked="blockedPanel">
                     <form @submit="onSubmit">
                         <div class="card p-fluid">
-                            <h5><i class="pi pi-circle-off"></i> Brand Information</h5>
+                            <h5><i class="pi pi-circle-off"></i> Vehicle Model Information</h5>
                             <hr />
                             <div class="p-grid">
                                 <div class="p-col-1 p-offset-11">
@@ -16,20 +16,20 @@
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
                                     <label for="name">Name</label>
-                                    <InputText id="name" type="text" placeholder="Enter Name" v-model="name" :class="{'p-invalid': nameError}" :disabled="editMode && !writeOn" />
+                                    <InputText id="name" model="text" placeholder="Enter Name" v-model="name" :class="{'p-invalid': nameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ nameError }}</small>                       
                                 </div>
                                 <div class="p-field p-lg-8 p-md-12">
                                     <label for="description">Description</label>
-                                    <InputText id="description" type="text" placeholder="Enter Description" v-model="description" :disabled="editMode && !writeOn" />
+                                    <InputText id="description" model="text" placeholder="Enter Description" v-model="description" :disabled="editMode && !writeOn" />
                                 </div>                                                  
                             </div>                                                            
                         </div>
                         <div class="p-d-flex">
-                            <ActionButton :show="saving" raised="false" serverity="primary" type="submit" :disabled="!writeOn && editMode">
+                            <ActionButton :show="saving" raised="false" serverity="primary" model="submit" :disabled="!writeOn && editMode">
                                 &nbsp;{{(editMode)?'Update':'Save'}}
                             </ActionButton>
-                            <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
+                            <Button model="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
                         </div>                        
                     </form>
                 </BlockUI>             
@@ -74,31 +74,31 @@ export default {
         const editMode = eval(editOn)
         const route = useRoute()
         const { params } = route
-        const brandId = params.id || null
+        const modelId = params.id || null
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
 
         const init = {
             initialValues: {
-                brand: {...state.brands.values}
+                model: {...state.models.values}
             }
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
         watch(
-            () => state.brands.brand,
+            () => state.models.model,
             (data, prevData) => {
                 setValues({
-                    brand: {...data}
+                    model: {...data}
                 })
             }
         )       
 
-        dispatch('brands/TOGGLE_WRITE',false)
+        dispatch('models/TOGGLE_WRITE',false)
         if (editMode) { // Edit
-            dispatch('brands/GET_BRAND', { id: brandId })
+            dispatch('models/GET_MODEL', { id: modelId })
         } else { // New
             resetForm();
         }
@@ -106,17 +106,17 @@ export default {
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
-            const { brand } = values
+            const { model } = values
 
             confirm.require({
-                message: (editMode)?"Are you sure you want to add update this brand's info?":'Are you sure you want to add this new brand?',
+                message: (editMode)?"Are you sure you want to add update this model's info?":'Are you sure you want to add this new model?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     if (editMode) {
-                        dispatch('brands/UPDATE_BRAND', brand)
+                        dispatch('models/UPDATE_MODEL', model)
                     } else {
-                        dispatch('brands/CREATE_BRAND', brand)
+                        dispatch('models/CREATE_MODEL', model)
                         resetForm();
                     }
                 },
@@ -138,9 +138,9 @@ export default {
             return true;
         }
 
-        const { value: id } = useField('brand.id',validField);
-        const { value: name, errorMessage: nameError } = useField('brand.name',validateField);        
-        const { value: description } = useField('brand.description',validField);        
+        const { value: id } = useField('model.id',validField);
+        const { value: name, errorMessage: nameError } = useField('model.name',validateField);        
+        const { value: description } = useField('model.description',validField);        
 
         return {
             onSubmit,
@@ -156,31 +156,31 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/maintenance'},
             items: [
-                {label: 'Vehicle Brands', to: '/maintenance/brands'},
-                {label: (this.editMode)?'Edit Brand':'New Brand', to: `${this.$route.fullPath}`}
+                {label: 'Vehicle Models', to: '/maintenance/models'},
+                {label: (this.editMode)?'Edit Model':'New Model', to: `${this.$route.fullPath}`}
             ]            
         }
     },
     computed: {
         saving() {
-            return this.$store.state.brands.saving
+            return this.$store.state.models.saving
         },
         writeOn: {
             set(value) {
-                this.$store.dispatch('brands/TOGGLE_WRITE', value)
+                this.$store.dispatch('models/TOGGLE_WRITE', value)
             },
             get() {
-                return this.$store.state.brands.writeOn
+                return this.$store.state.models.writeOn
             }
         },
         blockedPanel() {
-            return this.$store.state.brands.fetchingData
+            return this.$store.state.models.fetchingData
         },
     },
     methods: {
         close() {
-            this.$store.dispatch('brands/INIT')
-            this.$router.push('/maintenance/brands')
+            this.$store.dispatch('models/INIT')
+            this.$router.push('/maintenance/models')
         },
         toggleWrite() {
             this.writeOn = !this.writeOn

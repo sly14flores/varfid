@@ -57,7 +57,23 @@ const maintenanceSubMenus = [
                 to: '/maintenance/brands/add'
             },                  
         ]            
-    },    
+    },
+    {
+        label:'Models',
+        icon:'pi pi-fw pi-circle-off',
+        items: [
+            {
+                label: 'List',
+                icon:'pi pi-fw pi-list',
+                to: '/maintenance/models'
+            },
+            {
+                label: 'Add',
+                icon:'pi pi-fw pi-plus',
+                to: '/maintenance/models/add'
+            },                  
+        ]            
+    },       
 ]
 
 const mainMenu = [

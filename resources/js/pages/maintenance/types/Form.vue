@@ -156,7 +156,7 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/maintenance'},
             items: [
-                {label: 'Vehicle Types', to: '/maintenance/brands'},
+                {label: 'Vehicle Types', to: '/maintenance/types'},
                 {label: (this.editMode)?'Edit Type':'New Type', to: `${this.$route.fullPath}`}
             ]            
         }
@@ -174,7 +174,7 @@ export default {
             }
         },
         blockedPanel() {
-            return this.$store.state.brands.fetchingData
+            return this.$store.state.types.fetchingData
         },
     },
     methods: {

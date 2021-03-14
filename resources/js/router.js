@@ -37,6 +37,11 @@ import Types from "./pages/maintenance/types/Types"
 import TypesList from "./pages/maintenance/types/List"
 import TypeNew from "./pages/maintenance/types/New"
 import TypeEdit from "./pages/maintenance/types/Edit"
+// Models
+import Models from "./pages/maintenance/models/Types"
+import ModelsList from "./pages/maintenance/models/List"
+import ModelNew from "./pages/maintenance/models/New"
+import ModelEdit from "./pages/maintenance/models/Edit"
 
 const routes = [
   {
@@ -167,7 +172,29 @@ const routes = [
             component: TypeEdit
           }          
         ]
-      },      
+      },
+      {
+        path: 'models',
+        name: 'Models',
+        component: Models,
+        children: [
+          {
+            path: '',
+            name: 'ModelsList',
+            component: ModelsList,
+          },
+          {
+            path: 'add',
+            name: 'NewModel',
+            component: ModelNew
+          },
+          {
+            path: 'show/:id',
+            name: 'ShowModel',
+            component: ModelEdit
+          }          
+        ]
+      },        
     ]
   },  
 ];
