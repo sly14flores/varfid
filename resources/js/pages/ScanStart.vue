@@ -14,11 +14,20 @@
             <div class="card p-fluid">
                 <div class="p-grid">
                     <div class="p-col-4">
-                        <img :src="info.picture" alt="" />
+                        <img :src="info.picture" alt="" v-if="!fetching" />
+                        <Skeleton width="100%" height="14rem" v-if="fetching" />
                     </div>
                     <div class="p-col-6">
                         <div class="p-grid">
-                            <div class="p-col-4">
+                            <div class="p-col-12" v-if="fetching">
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                                <p><Skeleton width="30rem" height="1.5rem" /></p>
+                            </div>
+                            <div class="p-col-4" v-if="!fetching">
                                 <p>Type: </p>
                                 <p>Brand: </p>
                                 <p>Model: </p>
@@ -26,13 +35,13 @@
                                 <p>Driver: </p>
                                 <p>Date/Time: </p>                                    
                             </div>
-                            <div class="p-col-8">
+                            <div class="p-col-8" v-if="!fetching">
                                 <p class="p-text-bold">{{ info.type_name }}</p>
                                 <p class="p-text-bold">{{ info.brand_name }}</p>
                                 <p class="p-text-bold">{{ info.model }}</p>
                                 <p class="p-text-bold">{{ info.plate_no }}</p>
                                 <p class="p-text-bold">{{ info.driver }}</p>
-                                <p class="p-text-bold">{{ info.datetime }}</p>                                     
+                                <p class="p-text-bold">{{ info.datetime }}</p>
                             </div>
                         </div>
                     </div>
@@ -50,15 +59,17 @@
 
 import LoginFooter from '../components/LoginFooter'
 import Button from 'primevue/button/sfc';
+import Skeleton from 'primevue/skeleton/sfc';
 
 import axios from 'axios'
 import route from '../library/route'
 import { apiUrl } from '../url.js'
 
 import Swal from 'sweetalert2'
+// import { useToast } from "primevue/usetoast";
 
 import { useStore } from 'vuex'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 const SCAN_RFID = `${apiUrl}/api/vehicle/scan/:id`
 const scanRfid = (payload) => {
@@ -71,11 +82,16 @@ export default {
     components: {
         LoginFooter,
         Button,
+        Skeleton
     },
     setup() {
 
-        const store = useStore  
+        const store = useStore 
+        // const toast = useToast()
+        // toast.add({severity:'success', summary: 'Success', detail:'Authorized Personnel', life: 3000})
         
+        const fetching = ref(false)
+
         const vehicle = {
             type_name: null,
             brand_name: null,
@@ -102,7 +118,9 @@ export default {
 
         const getInfo = (rfid) => {
             restart()
+            fetching.value = true
             scanRfid({id: rfid}).then(response => {
+                fetching.value = false
                 const { data: { vehicle, datetime } } = response
                 info.type_name = vehicle.type_name
                 info.brand_name = vehicle.brand_name
@@ -111,12 +129,35 @@ export default {
                 info.driver = vehicle.driver
                 info.picture = vehicle.picture
                 info.datetime = datetime
+                Swal.fire({
+                    // text: `No vehicle record exists for RFID: ${rfid}`,
+                    html: '<p style="padding-left: 5px; color:#3e8e51">Authorized Personnel</p>',             
+                    icon: 'success',
+                    toast: 'true',
+                    // position: 'top-right',
+                    position: 'top',
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    background: '#b6d8c6',
+                    iconColor: '#3e8e51',
+                    padding: '1.5rem',                    
+                    timer: 2000,
+                })                
             }).catch(e => {
                 console.log(e)
+                fetching.value = false
                 Swal.fire({
-                    text: `No vehicle record exists for RFID: ${rfid}`,
+                    // text: `No vehicle record exists for RFID: ${rfid}`,
+                    html: '<p style="padding-left: 5px; color:#d10926">Unauthorized Personnel</p>',                    
                     icon: 'error',
-                    confirmButtonText: 'Ok'
+                    toast: 'true',
+                    // position: 'top-right',
+                    position: 'top',
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    background: '#e8c2cf',
+                    padding: '1.5rem',
+                    timer: 2000,
                 })                
             })
         }
@@ -134,7 +175,8 @@ export default {
         return {
             info,
             restart,
-            getInfoTest
+            getInfoTest,
+            fetching
         }
 
     },
