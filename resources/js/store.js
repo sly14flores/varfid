@@ -6,6 +6,7 @@ import vehicles from './stores/vehicles.js'
 import users from './stores/users.js'
 import brands from './stores/brands.js'
 import types from './stores/vehicletypes.js'
+import models from './stores/models.js'
 import logs from './stores/logs.js'
 import dashboard from './stores/dashboard.js'
 
@@ -26,6 +27,7 @@ export default createStore({
         users,
         brands,
         types,
+        models,
         logs,
         dashboard
     },
