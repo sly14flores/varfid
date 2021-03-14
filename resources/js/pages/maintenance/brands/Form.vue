@@ -156,7 +156,7 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/maintenance'},
             items: [
-                {label: 'Vehicle Brands', to: '/maintenance/brands'},
+                {label: 'Brands', to: '/maintenance/brands'},
                 {label: (this.editMode)?'Edit Brand':'New Brand', to: `${this.$route.fullPath}`}
             ]            
         }

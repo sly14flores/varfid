@@ -17174,7 +17174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         to: '/maintenance'
       },
       items: [{
-        label: 'Vehicle Brands',
+        label: 'Brands',
         to: '/maintenance/brands'
       }, {
         label: this.editMode ? 'Edit Brand' : 'New Brand',

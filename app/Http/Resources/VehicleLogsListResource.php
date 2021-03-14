@@ -19,7 +19,7 @@ class VehicleLogsListResource extends JsonResource
             'rfid' => $this->rfid,
             'type' => $this->vehicle->type->name,
             'brand' => $this->vehicle->brand->name,
-            'model' => $this->vehicle->model,
+            'model' => $this->vehicle->vehicle_model->name,
             'plateNo' => $this->vehicle->plate_no,
             'owner' => "{$this->vehicle->firstname} {$this->vehicle->lastname}",
             'dateTime' => $this->created_at,
