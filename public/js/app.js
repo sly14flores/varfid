@@ -17197,7 +17197,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/maintenance'
+        to: '/'
       },
       items: [{
         label: 'Brands',
@@ -17222,6 +17222,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    newForm: function newForm() {
+      this.$router.push('/maintenance/brands/add');
+    },
     fetchBrands: function fetchBrands(event) {
       // event.page: New page number
       // event.first: Index of first record
@@ -17535,7 +17538,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/maintenance'
+        to: '/'
       },
       items: [{
         label: 'Vehicle Models',
@@ -17560,6 +17563,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    newForm: function newForm() {
+      this.$router.push('/maintenance/models/add');
+    },
     fetchModels: function fetchModels(event) {
       // event.page: New page number
       // event.first: Index of first record
@@ -17888,7 +17894,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/maintenance'
+        to: '/'
       },
       items: [{
         label: 'Vehicle Types',
@@ -17913,6 +17919,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    newForm: function newForm() {
+      this.$router.push('/maintenance/types/add');
+    },
     fetchTypes: function fetchTypes(event) {
       // event.page: New page number
       // event.first: Index of first record
@@ -18275,6 +18284,9 @@ function checkUsername(payload) {
         to: '/maintenance/users'
       },
       items: [{
+        label: 'Users',
+        to: '/maintenance/users'
+      }, {
         label: this.editMode ? 'Edit User' : 'New User',
         to: "".concat(this.$route.fullPath)
       }],
@@ -18403,9 +18415,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/maintenance/users'
+        to: '/'
       },
-      items: [],
+      items: [{
+        label: 'Users',
+        to: '/maintenance/users'
+      }],
       search: ""
     };
   },
@@ -18425,6 +18440,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    newForm: function newForm() {
+      this.$router.push('/maintenance/users/add');
+    },
     fetchUsers: function fetchUsers(event) {
       // event.page: New page number
       // event.first: Index of first record
@@ -18869,9 +18887,12 @@ function checkPlateNo(payload) {
     return {
       home: {
         icon: 'pi pi-home',
-        to: '/vehicles'
+        to: '/'
       },
       items: [{
+        label: 'Vehicles',
+        to: '/vehicles'
+      }, {
         label: this.editMode ? 'Edit Vehicle' : 'New Vehicle',
         to: "".concat(this.$route.fullPath)
       }],
@@ -19021,6 +19042,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    types: function types() {
+      return this.$store.state.selections.types;
+    },
+    brands: function brands() {
+      return this.$store.state.selections.brands;
+    },
+    models: function models() {
+      return this.$store.state.selections.models;
+    },
     vehicles: function vehicles() {
       var _this = this;
 
@@ -19036,6 +19066,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    newForm: function newForm() {
+      this.$router.push('/vehicles/add');
+    },
     fetchVehicles: function fetchVehicles(event) {
       // event.page: New page number
       // event.first: Index of first record
@@ -19063,6 +19096,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  created: function created() {
+    this.$store.dispatch('selections/GET_TYPES');
+    this.$store.dispatch('selections/GET_BRANDS');
+    this.$store.dispatch('selections/GET_MODELS');
   },
   mounted: function mounted() {
     this.fetchVehicles({
@@ -20415,16 +20453,19 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_5 = {
-  "class": "p-ml-auto"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_7 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -20433,11 +20474,11 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
-
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -20463,7 +20504,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            icon: "pi pi-plus",
+            "class": "p-button-info",
+            onClick: $options.newForm
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             modelValue: $data.search,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
               return $data.search = $event;
@@ -20783,16 +20830,19 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_5 = {
-  "class": "p-ml-auto"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_7 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -20801,11 +20851,11 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
-
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -20831,7 +20881,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            icon: "pi pi-plus",
+            "class": "p-button-info",
+            onClick: $options.newForm
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             modelValue: $data.search,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
               return $data.search = $event;
@@ -21192,16 +21248,19 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_5 = {
-  "class": "p-ml-auto"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_7 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -21210,11 +21269,11 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
-
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -21240,7 +21299,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            icon: "pi pi-plus",
+            "class": "p-button-info",
+            onClick: $options.newForm
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             modelValue: $data.search,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
               return $data.search = $event;
@@ -21760,16 +21825,19 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_5 = {
-  "class": "p-ml-auto"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_7 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -21778,11 +21846,11 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
-
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -21808,7 +21876,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            icon: "pi pi-plus",
+            "class": "p-button-info",
+            onClick: $options.newForm
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             modelValue: $data.search,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
               return $data.search = $event;
@@ -22500,16 +22574,19 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_5 = {
-  "class": "p-ml-auto"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_6 = {
+  "class": "p-ml-auto"
+};
+var _hoisted_7 = {
   "class": "p-input-icon-left"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "pi pi-search"
 }, null, -1
 /* HOISTED */
@@ -22518,11 +22595,11 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
-
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -22548,7 +22625,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            icon: "pi pi-plus",
+            "class": "p-button-info",
+            onClick: $options.newForm
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             modelValue: $data.search,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
               return $data.search = $event;

@@ -7,7 +7,11 @@
                 <BlockUI :blocked="blockedPanel">
                     <DataTable :value="vehicles" dataKey="id">
                         <template #header>
-                            <div class="p-d-flex p-p-2 card">
+                            <div class="p-d-flex p-p-2">
+                                <Button icon="pi pi-plus" class="p-button-info" @click="newForm" />
+                            </div>
+                            <div class="p-d-flex p-mt-2 p-p-2 card">
+
                                 <div class='p-ml-auto'>
                                     <span class="p-input-icon-left">
                                         <i class="pi pi-search" />
@@ -73,6 +77,15 @@ export default {
         }
     },
     computed: {
+        types() {
+            return this.$store.state.selections.types
+        },
+        brands() {
+            return this.$store.state.selections.brands
+        },
+        models() {
+            return this.$store.state.selections.models
+        },        
         vehicles() {
             
             return this.$store.state.vehicles.vehicles.filter(vehicle => {
@@ -99,6 +112,9 @@ export default {
         }
     },
     methods: {
+        newForm() {
+            this.$router.push('/vehicles/add')
+        },
         fetchVehicles(event) {
             // event.page: New page number
             // event.first: Index of first record
@@ -121,6 +137,13 @@ export default {
                 }
             });
         }
+    },
+    created() {
+
+        this.$store.dispatch('selections/GET_TYPES')
+        this.$store.dispatch('selections/GET_BRANDS')
+        this.$store.dispatch('selections/GET_MODELS')
+
     },
     mounted() {
         this.fetchVehicles({ page: 0 })

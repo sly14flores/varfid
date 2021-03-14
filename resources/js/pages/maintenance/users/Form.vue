@@ -235,6 +235,7 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/maintenance/users'},
             items: [
+                {label: 'Users', to: '/maintenance/users'},
                 {label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}
             ],
             profileUpload: true,
