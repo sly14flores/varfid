@@ -275,8 +275,9 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/vehicles'},
+            home: {icon: 'pi pi-home', to: '/'},
             items: [
+                {label: 'Vehicles', to: '/vehicles'},
                 {label: (this.editMode)?'Edit Vehicle':'New Vehicle', to: `${this.$route.fullPath}`}
             ],
             profileUpload: true,

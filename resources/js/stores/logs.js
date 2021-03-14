@@ -27,9 +27,9 @@ const getLog = (payload) => {
 
 const GET_LOGS = `${apiUrl}/api/logs`
 const getLogs = (payload) => {
-    const { page } = payload
+    const { page, filters } = payload
     const pageNo = page + 1
-    return axios.get(GET_LOGS, {params: { page: pageNo } })
+    return axios.get(GET_LOGS, {params: { page: pageNo, ...filters } })
 }
 
 const DELETE_LOG = `${apiUrl}/api/log/:id`
@@ -220,8 +220,8 @@ const actions = {
     async GET_LOGS({commit,dispatch}, payload) {
         commit('FETCHING_LIST',true)
         try {
-            const { page } = payload
-            const { data: { data: { data, pagination } } } = await getLogs({ page })
+            const { page, filters } = payload
+            const { data: { data: { data, pagination } } } = await getLogs({ page, filters })
             dispatch('GET_LOGS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error

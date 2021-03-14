@@ -9,6 +9,7 @@ use App\Models\VehicleLog;
 use App\Http\Resources\VehicleLogResource;
 use App\Http\Resources\VehicleLogResourceCollection;
 use App\Http\Resources\VehicleLogsListResourceCollection;
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Support\Facades\Validator;
 use App\Traits\Messages;
@@ -34,9 +35,28 @@ class VehicleLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $logs = VehicleLog::paginate(10);
+        $wheres = [];
+        $type = $request->type;
+        $brand = $request->brand;
+        $model = $request->model;
+
+        $logs = VehicleLog::where($wheres);
+        $logs = $logs->whereHas('vehicle', function(Builder $query) use ($type,$brand,$model) {
+            $wheres = [];
+            if ($type>0) {
+                $wheres[] = ['type_id',$type];
+            }
+            if ($brand>0) {
+                $wheres[] = ['brand_id',$brand];
+            }
+            if ($model>0) {
+                $wheres[] = ['model',$model];
+            }            
+            return $query->where($wheres);
+        });
+        $logs = $logs->paginate(20);
 
         $data = new VehicleLogsListResourceCollection($logs);
 

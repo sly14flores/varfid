@@ -40,9 +40,26 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vehicles = Vehicle::paginate(10);
+        $wheres = [];
+        $type = $request->type;
+        $brand = $request->brand;
+        $model = $request->model;
+
+        if ($type>0) {
+            $wheres[] = ['type_id',$type];
+        }
+
+        if ($brand>0) {
+            $wheres[] = ['brand_id',$brand];
+        }
+
+        if ($model>0) {
+            $wheres[] = ['model',$model];
+        }
+
+        $vehicles = Vehicle::where($wheres)->paginate(10);
 
         $data = new VehiclesListResourceCollection($vehicles);
 

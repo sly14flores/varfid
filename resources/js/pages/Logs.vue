@@ -6,10 +6,27 @@
                 <DataTable :value="logs" dataKey="id">
                     <template #header>
                         <div class="p-d-flex p-p-2 card">
+                            <div class="p-formgroup-inline">
+                                <div class="p-field">
+                                    <label for="type" class="p-sr-only">Type</label>
+                                    <Dropdown id="type" v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+                                </div>
+                                <div class="p-field">
+                                    <label for="brand" class="p-sr-only">Brand</label>
+                                    <Dropdown id="brand" v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
+                                </div>
+                                <div class="p-field">
+                                    <label for="model" class="p-sr-only">Model</label>
+                                    <Dropdown id="model" v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
+                                </div>
+                                <div class="p-field">
+                                    <Button type="button" class="p-button-sm p-button-secondary" label="Filter" @click="filterList" />
+                                </div>
+                            </div>                             
                             <div class='p-ml-auto'>
                                 <span class="p-input-icon-left">
                                     <i class="pi pi-search" />
-                                    <InputText v-model="search" placeholder="Search" />
+                                    <InputText v-model="search" class="p-inputtext-sm" placeholder="Search" />
                                 </span>
                             </div>                         
                         </div>
@@ -37,6 +54,8 @@ import Column from 'primevue/column/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import BlockUI from 'primevue/blockui/sfc';
+import Dropdown from 'primevue/dropdown/sfc';
+import Button from 'primevue/button/sfc';
 
 export default {
     components: {
@@ -45,7 +64,9 @@ export default {
         DataTable,
         Column,
         Paginator,
-        BlockUI
+        BlockUI,
+        Dropdown,
+        Button
     },
     setup() {
 
@@ -56,10 +77,37 @@ export default {
             items: [
                 {label: 'Logs', to: `${this.$route.fullPath}`}               
             ],
-            search: ''
+            filters: {
+                type: 0,
+                brand: 0,
+                model: 0
+            },            
+            search: '',
+            page: 0
         }
     },
     computed: {
+        types() {
+            const types = [
+                {id: 0, name: 'All Types'},
+                ...this.$store.state.selections.types
+            ]
+            return types
+        },
+        brands() {
+            const brands = [
+                {id: 0, name: 'All Brands'},
+                ...this.$store.state.selections.brands
+            ]
+            return brands
+        },
+        models() {
+            const models = [
+                {id: 0, name: 'All Models'},
+                ...this.$store.state.selections.models
+            ]
+            return models
+        },        
         logs() {
 
             return this.$store.state.logs.logs.filter(log => {
@@ -82,15 +130,26 @@ export default {
         }
     },
     methods: {
+        filterList() {
+            this.fetchLogs({page: this.page})
+        },
         fetchLogs(event) {
             // event.page: New page number
             // event.first: Index of first record
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('logs/GET_LOGS', { page })
+            this.page = page
+            this.$store.dispatch('logs/GET_LOGS', { page, filters: this.filters })
         },
     },
+    created() {
+
+        this.$store.dispatch('selections/GET_TYPES')
+        this.$store.dispatch('selections/GET_BRANDS')
+        this.$store.dispatch('selections/GET_MODELS')
+
+    },    
     mounted() {
         this.fetchLogs({ page: 0 })
     }     

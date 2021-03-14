@@ -7,7 +7,10 @@
                 <BlockUI :blocked="blockedPanel">
                     <DataTable :value="types" dataKey="id">
                         <template #header>
-                            <div class="p-d-flex p-p-2 card">
+                            <div class="p-d-flex p-p-2">
+                                <Button icon="pi pi-plus" class="p-button-info" @click="newForm" />
+                            </div>                            
+                            <div class="p-d-flex p-mt-2 p-p-2 card">
                                 <div class='p-ml-auto'>
                                     <span class="p-input-icon-left">
                                         <i class="pi pi-search" />
@@ -59,7 +62,7 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/maintenance'},
+            home: {icon: 'pi pi-home', to: '/'},
             items: [
                 {label: 'Vehicle Types', to: '/maintenance/types'}
             ],
@@ -85,6 +88,9 @@ export default {
         }
     },
     methods: {
+        newForm() {
+            this.$router.push('/maintenance/types/add')
+        },
         fetchTypes(event) {
             // event.page: New page number
             // event.first: Index of first record
