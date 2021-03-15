@@ -82,7 +82,7 @@ export default {
                 brand: 0,
                 model: 0
             },            
-            search: '',
+            search: "",
             page: 0
         }
     },
