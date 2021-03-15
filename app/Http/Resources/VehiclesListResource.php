@@ -20,7 +20,7 @@ class VehiclesListResource extends JsonResource
             'id' => $this->id,
             'type_name' => $this->type->name,
             'brand_name' => $this->brand->name,
-            'model' => $this->vehicle_model->name,
+            'model' => (is_null($this->vehicle_model))?null:$this->vehicle_model->name,
             'plate_no' => $this->plate_no,
             'rfid' => $this->rfid,
             'firstname' => $this->firstname,
