@@ -66,8 +66,8 @@ import route from '../library/route'
 import { apiUrl } from '../url.js'
 
 import Swal from 'sweetalert2'
-// import { useToast } from "primevue/usetoast";
 
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { reactive, ref } from 'vue'
 
@@ -86,9 +86,8 @@ export default {
     },
     setup() {
 
-        const store = useStore 
-        // const toast = useToast()
-        // toast.add({severity:'success', summary: 'Success', detail:'Authorized Personnel', life: 3000})
+        const store = useStore()
+        const route = useRoute()
         
         const fetching = ref(false)
 
@@ -117,6 +116,9 @@ export default {
         })
 
         const getInfo = (rfid) => {
+
+            if (route.path!="/") return
+
             restart()
             fetching.value = true
             scanRfid({id: rfid}).then(response => {

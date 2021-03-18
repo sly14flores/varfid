@@ -16826,6 +16826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../url.js */ "./resources/js/url.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -16840,7 +16841,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
- // import { useToast } from "primevue/usetoast";
+
 
 
 
@@ -16861,9 +16862,8 @@ var scanRfid = function scanRfid(payload) {
     Skeleton: primevue_skeleton_sfc__WEBPACK_IMPORTED_MODULE_2__.default
   },
   setup: function setup() {
-    var store = vuex__WEBPACK_IMPORTED_MODULE_8__.useStore; // const toast = useToast()
-    // toast.add({severity:'success', summary: 'Success', detail:'Authorized Personnel', life: 3000})
-
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_8__.useStore)();
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_9__.useRoute)();
     var fetching = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)(false);
     var vehicle = {
       type_name: null,
@@ -16888,6 +16888,7 @@ var scanRfid = function scanRfid(payload) {
     var info = (0,vue__WEBPACK_IMPORTED_MODULE_7__.reactive)(_objectSpread({}, vehicle));
 
     var getInfo = function getInfo(rfid) {
+      if (route.path != "/") return;
       restart();
       fetching.value = true;
       scanRfid({
@@ -23182,7 +23183,7 @@ var routes = [{
   name: "Login",
   component: _pages_Login__WEBPACK_IMPORTED_MODULE_1__.default
 }, {
-  path: "/startup",
+  path: "/",
   name: "Startup",
   component: _pages_ScanStart__WEBPACK_IMPORTED_MODULE_2__.default
 }, {
@@ -23193,7 +23194,7 @@ var routes = [{
     pageComponent: _pages_ChangePassword__WEBPACK_IMPORTED_MODULE_3__.default
   }
 }, {
-  path: "/",
+  path: "/dashboard",
   name: "Dashboard",
   component: PageWrapper,
   props: {
@@ -25127,7 +25128,7 @@ var actions = {
     commit('LOADING', false);
     var data = payload.data;
     commit('PROFILE', data);
-    window.open('#/', '_self');
+    window.open('#/dashboard', '_self');
   },
   LOGIN_ERROR: function LOGIN_ERROR(_ref3, payload) {
     var commit = _ref3.commit;
@@ -25180,7 +25181,7 @@ var actions = {
     }))();
   },
   LOGOUT_SUCCESS: function LOGOUT_SUCCESS() {
-    window.open('#/startup', '_self');
+    window.open('#/', '_self');
   },
   LOGOUT_ERROR: function LOGOUT_ERROR() {},
   AUTHENTICATE: function AUTHENTICATE() {

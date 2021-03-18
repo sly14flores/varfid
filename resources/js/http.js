@@ -34,7 +34,7 @@ window.axios.interceptors.response.use(
     // eslint-disable-next-line func-names
     async function(error) {
         if (error.response.status === 401) {
-            window.open('#/login','_self');
+            window.open('#/','_self');
             // Swal.fire({
             //     text: 'You have been logged out because your account was logged in from a different device',
             //     icon: 'info',
