@@ -81,7 +81,7 @@ const actions = {
         commit('LOADING',false)
         const { data } = payload
         commit('PROFILE',data)
-        window.open('#/','_self')
+        window.open('#/dashboard','_self')
     },
     LOGIN_ERROR({commit}, payload) {
         commit('LOADING',false)
@@ -106,7 +106,7 @@ const actions = {
         }
     },
     LOGOUT_SUCCESS() {
-        window.open('#/startup','_self')
+        window.open('#/','_self')
     },
     LOGOUT_ERROR() {
 

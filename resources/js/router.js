@@ -50,7 +50,7 @@ const routes = [
     component: Login
   },
   {
-    path: "/startup",
+    path: "/",
     name: "Startup",
     component: ScanStart,
   },
@@ -61,7 +61,7 @@ const routes = [
     props: {pageComponent: ChangePassword}
   }, 
   {
-    path: "/",
+    path: "/dashboard",
     name: "Dashboard",
     component: PageWrapper,
     props: {pageComponent: Dashboard}

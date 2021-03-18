@@ -23182,7 +23182,7 @@ var routes = [{
   name: "Login",
   component: _pages_Login__WEBPACK_IMPORTED_MODULE_1__.default
 }, {
-  path: "/startup",
+  path: "/",
   name: "Startup",
   component: _pages_ScanStart__WEBPACK_IMPORTED_MODULE_2__.default
 }, {
@@ -23193,7 +23193,7 @@ var routes = [{
     pageComponent: _pages_ChangePassword__WEBPACK_IMPORTED_MODULE_3__.default
   }
 }, {
-  path: "/",
+  path: "/dashboard",
   name: "Dashboard",
   component: PageWrapper,
   props: {
@@ -25127,7 +25127,7 @@ var actions = {
     commit('LOADING', false);
     var data = payload.data;
     commit('PROFILE', data);
-    window.open('#/', '_self');
+    window.open('#/dashboard', '_self');
   },
   LOGIN_ERROR: function LOGIN_ERROR(_ref3, payload) {
     var commit = _ref3.commit;
@@ -25180,7 +25180,7 @@ var actions = {
     }))();
   },
   LOGOUT_SUCCESS: function LOGOUT_SUCCESS() {
-    window.open('#/startup', '_self');
+    window.open('#/', '_self');
   },
   LOGOUT_ERROR: function LOGOUT_ERROR() {},
   AUTHENTICATE: function AUTHENTICATE() {
