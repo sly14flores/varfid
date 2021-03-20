@@ -16597,9 +16597,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       filters: {
         type: 0,
         brand: 0,
-        model: 0
+        model: 0,
+        plate_no: '',
+        rfid: '',
+        name: ''
       },
-      search: "",
+      // search: "",
       page: 0
     };
   },
@@ -16626,11 +16629,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return models;
     },
     logs: function logs() {
-      var _this = this;
-
-      return this.$store.state.logs.logs.filter(function (log) {
-        return log.rfid.toLowerCase().includes(_this.search.toLowerCase()) || log.plateNo.toLowerCase().includes(_this.search.toLowerCase()) || log.type.toLowerCase().includes(_this.search.toLowerCase()) || log.brand.toLowerCase().includes(_this.search.toLowerCase()) || log.model.toLowerCase().includes(_this.search.toLowerCase()) || log.owner.toLowerCase().includes(_this.search.toLowerCase());
-      });
+      return this.$store.state.logs.logs; // return this.$store.state.logs.logs.filter(log => {
+      //     return log.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
+      //         log.plateNo.toLowerCase().includes(this.search.toLowerCase()) ||
+      //         log.type.toLowerCase().includes(this.search.toLowerCase()) ||
+      //         log.brand.toLowerCase().includes(this.search.toLowerCase()) ||
+      //         log.model.toLowerCase().includes(this.search.toLowerCase()) ||
+      //         log.owner.toLowerCase().includes(this.search.toLowerCase())
+      // })
     },
     pagination: function pagination() {
       return this.$store.state.logs.pagination;
@@ -16659,9 +16665,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {
-    this.$store.dispatch('selections/GET_TYPES');
-    this.$store.dispatch('selections/GET_BRANDS');
-    this.$store.dispatch('selections/GET_MODELS');
+    this.$store.dispatch('selections/GET_VEHICLE_ALL'); // this.$store.dispatch('selections/GET_TYPES')
+    // this.$store.dispatch('selections/GET_BRANDS')
+    // this.$store.dispatch('selections/GET_MODELS')
   },
   mounted: function mounted() {
     this.fetchLogs({
@@ -19114,9 +19120,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       filters: {
         type: 0,
         brand: 0,
-        model: 0
+        model: 0,
+        plate_no: '',
+        rfid: '',
+        name: ''
       },
-      search: "",
+      // search: "",
       page: 0
     };
   },
@@ -19143,11 +19152,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return models;
     },
     vehicles: function vehicles() {
-      var _this = this;
-
-      return this.$store.state.vehicles.vehicles.filter(function (vehicle) {
-        return vehicle.type_name.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.brand_name.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.model.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.plate_no.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.rfid.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.firstname.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.lastname.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.sex.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.contact_no.toLowerCase().includes(_this.search.toLowerCase()) || vehicle.address.toLowerCase().includes(_this.search.toLowerCase());
-      });
+      return this.$store.state.vehicles.vehicles; // return this.$store.state.vehicles.vehicles.filter(vehicle => {
+      //     return vehicle.type_name.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.brand_name.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.model.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.plate_no.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.sex.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.contact_no.toLowerCase().includes(this.search.toLowerCase()) ||
+      //             vehicle.address.toLowerCase().includes(this.search.toLowerCase())
+      // })
     },
     pagination: function pagination() {
       return this.$store.state.vehicles.pagination;
@@ -19178,7 +19194,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     deleteVehicle: function deleteVehicle(id) {
-      var _this2 = this;
+      var _this = this;
 
       this.$confirm.require({
         key: 'confirmDelete',
@@ -19186,7 +19202,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: function accept() {
-          _this2.$store.dispatch('vehicles/DELETE_VEHICLE', {
+          _this.$store.dispatch('vehicles/DELETE_VEHICLE', {
             id: id
           });
         },
@@ -19196,9 +19212,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {
-    this.$store.dispatch('selections/GET_TYPES');
-    this.$store.dispatch('selections/GET_BRANDS');
-    this.$store.dispatch('selections/GET_MODELS');
+    this.$store.dispatch('selections/GET_VEHICLE_ALL'); // this.$store.dispatch('selections/GET_TYPES')
+    // this.$store.dispatch('selections/GET_BRANDS')
+    // this.$store.dispatch('selections/GET_MODELS')
   },
   mounted: function mounted() {
     this.fetchVehicles({
@@ -19901,18 +19917,42 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 var _hoisted_10 = {
   "class": "p-field"
 };
-var _hoisted_11 = {
-  "class": "p-ml-auto"
-};
-var _hoisted_12 = {
-  "class": "p-input-icon-left"
-};
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "pi pi-search"
-}, null, -1
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "plate_no",
+  "class": "p-sr-only"
+}, "Plate No", -1
 /* HOISTED */
 );
+
+var _hoisted_12 = {
+  "class": "p-field"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "rfid",
+  "class": "p-sr-only"
+}, "RFID", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "p-field"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "name",
+  "class": "p-sr-only"
+}, "Name", -1
+/* HOISTED */
+);
+
+var _hoisted_16 = {
+  "class": "p-field"
+};
+var _hoisted_17 = {
+  "class": "p-field"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -19921,9 +19961,9 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
 
-  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
-
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
+
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
 
@@ -19986,23 +20026,50 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "plate_no",
+            type: "text",
+            modelValue: $data.filters.plate_no,
+            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+              return $data.filters.plate_no = $event;
+            }),
+            placeholder: "Plate No",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "rfid",
+            type: "text",
+            modelValue: $data.filters.rfid,
+            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+              return $data.filters.rfid = $event;
+            }),
+            placeholder: "RFID",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "name",
+            type: "text",
+            modelValue: $data.filters.name,
+            "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+              return $data.filters.name = $event;
+            }),
+            placeholder: "Firstname Lastname",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             type: "button",
-            "class": "p-button-sm p-button-secondary",
+            "class": "p-button-sm p-button-danger",
             label: "Filter",
             onClick: $options.filterList
           }, null, 8
           /* PROPS */
-          , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            modelValue: $data.search,
-            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-              return $data.search = $event;
-            }),
-            "class": "p-inputtext-sm",
-            placeholder: "Search"
-          }, null, 8
-          /* PROPS */
-          , ["modelValue"])])])])];
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+            "class": "p-button-sm p-button-warning",
+            icon: "pi pi-print"
+          })])])])];
         }),
         "default": _withId(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -20039,7 +20106,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[5] || (_cache[5] = function ($event) {
+        onPage: _cache[7] || (_cache[7] = function ($event) {
           return $options.fetchLogs($event);
         })
       }, null, 8
@@ -22806,19 +22873,39 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 var _hoisted_13 = {
   "class": "p-field"
 };
-var _hoisted_14 = {
-  "class": "p-ml-auto"
-};
-var _hoisted_15 = {
-  "class": "p-input-icon-left"
-};
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "pi pi-search"
-}, null, -1
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "plate_no",
+  "class": "p-sr-only"
+}, "Plate No", -1
 /* HOISTED */
 );
 
+var _hoisted_15 = {
+  "class": "p-field"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "rfid",
+  "class": "p-sr-only"
+}, "RFID", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = {
+  "class": "p-field"
+};
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "name",
+  "class": "p-sr-only"
+}, "Name", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = {
+  "class": "p-field"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
@@ -22899,23 +22986,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "plate_no",
+            type: "text",
+            modelValue: $data.filters.plate_no,
+            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+              return $data.filters.plate_no = $event;
+            }),
+            placeholder: "Plate No",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "rfid",
+            type: "text",
+            modelValue: $data.filters.rfid,
+            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+              return $data.filters.rfid = $event;
+            }),
+            placeholder: "RFID",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+            id: "name",
+            type: "text",
+            modelValue: $data.filters.name,
+            "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+              return $data.filters.name = $event;
+            }),
+            placeholder: "Firstname Lastname",
+            "class": "p-inputtext-sm"
+          }, null, 8
+          /* PROPS */
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             type: "button",
-            "class": "p-button-sm p-button-secondary",
+            "class": "p-button-sm p-button-danger",
             label: "Filter",
             onClick: $options.filterList
           }, null, 8
           /* PROPS */
-          , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            modelValue: $data.search,
-            "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-              return $data.search = $event;
-            }),
-            "class": "p-inputtext-sm",
-            placeholder: "Search"
-          }, null, 8
-          /* PROPS */
-          , ["modelValue"])])])])];
+          , ["onClick"])])])])];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -22984,7 +23095,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[5] || (_cache[5] = function ($event) {
+        onPage: _cache[7] || (_cache[7] = function ($event) {
           return $options.fetchVehicles($event);
         })
       }, null, 8
@@ -25249,6 +25360,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  * APIs
  */
 
+var GET_VEHICLE_ALL = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_1__.apiUrl, "/api/selections/vehicle/all");
+
+var getVehicleAll = function getVehicleAll() {
+  return axios.get(GET_VEHICLE_ALL);
+};
+
 var GET_GROUPS = "".concat(_url_js__WEBPACK_IMPORTED_MODULE_1__.apiUrl, "/api/selections/user/groups");
 
 var getGroups = function getGroups() {
@@ -25351,9 +25468,9 @@ var actions = {
   GET_GROUPS_ERROR: function GET_GROUPS_ERROR(payload) {
     console.log(payload);
   },
-  GET_TYPES: function GET_TYPES(_ref3) {
+  GET_VEHICLE_ALL: function GET_VEHICLE_ALL(_ref3) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var dispatch, _yield$getTypes, data, response;
+      var dispatch, _yield$getVehicleAll, data, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
@@ -25362,12 +25479,12 @@ var actions = {
               dispatch = _ref3.dispatch;
               _context2.prev = 1;
               _context2.next = 4;
-              return getTypes();
+              return getVehicleAll();
 
             case 4:
-              _yield$getTypes = _context2.sent;
-              data = _yield$getTypes.data;
-              dispatch('GET_TYPES_SUCCESS', data);
+              _yield$getVehicleAll = _context2.sent;
+              data = _yield$getVehicleAll.data;
+              dispatch('GET_VEHICLE_ALL_SUCCESS', data);
               _context2.next = 13;
               break;
 
@@ -25375,7 +25492,7 @@ var actions = {
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](1);
               response = _context2.t0.response;
-              dispatch('GET_TYPES_ERROR', response);
+              dispatch('GET_VEHICLE_ALL_ERROR', response);
 
             case 13:
             case "end":
@@ -25385,16 +25502,21 @@ var actions = {
       }, _callee2, null, [[1, 9]]);
     }))();
   },
-  GET_TYPES_SUCCESS: function GET_TYPES_SUCCESS(_ref4, payload) {
+  GET_VEHICLE_ALL_SUCCESS: function GET_VEHICLE_ALL_SUCCESS(_ref4, payload) {
     var commit = _ref4.commit;
-    commit('TYPES', payload);
+    var types = payload.types,
+        brands = payload.brands,
+        models = payload.models;
+    commit('TYPES', types);
+    commit('BRANDS', brands);
+    commit('MODELS', models);
   },
-  GET_TYPES_ERROR: function GET_TYPES_ERROR(payload) {
+  GET_VEHICLE_ALL_ERROR: function GET_VEHICLE_ALL_ERROR(payload) {
     console.log(payload);
   },
-  GET_BRANDS: function GET_BRANDS(_ref5) {
+  GET_TYPES: function GET_TYPES(_ref5) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      var dispatch, _yield$getBrands, data, response;
+      var dispatch, _yield$getTypes, data, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
@@ -25403,12 +25525,12 @@ var actions = {
               dispatch = _ref5.dispatch;
               _context3.prev = 1;
               _context3.next = 4;
-              return getBrands();
+              return getTypes();
 
             case 4:
-              _yield$getBrands = _context3.sent;
-              data = _yield$getBrands.data;
-              dispatch('GET_BRANDS_SUCCESS', data);
+              _yield$getTypes = _context3.sent;
+              data = _yield$getTypes.data;
+              dispatch('GET_TYPES_SUCCESS', data);
               _context3.next = 13;
               break;
 
@@ -25416,7 +25538,7 @@ var actions = {
               _context3.prev = 9;
               _context3.t0 = _context3["catch"](1);
               response = _context3.t0.response;
-              dispatch('GET_BRANDS_ERROR', response);
+              dispatch('GET_TYPES_ERROR', response);
 
             case 13:
             case "end":
@@ -25426,16 +25548,16 @@ var actions = {
       }, _callee3, null, [[1, 9]]);
     }))();
   },
-  GET_BRANDS_SUCCESS: function GET_BRANDS_SUCCESS(_ref6, payload) {
+  GET_TYPES_SUCCESS: function GET_TYPES_SUCCESS(_ref6, payload) {
     var commit = _ref6.commit;
-    commit('BRANDS', payload);
+    commit('TYPES', payload);
   },
-  GET_BRANDS_ERROR: function GET_BRANDS_ERROR(payload) {
+  GET_TYPES_ERROR: function GET_TYPES_ERROR(payload) {
     console.log(payload);
   },
-  GET_MODELS: function GET_MODELS(_ref7) {
+  GET_BRANDS: function GET_BRANDS(_ref7) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var dispatch, _yield$getModels, data, response;
+      var dispatch, _yield$getBrands, data, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
@@ -25444,12 +25566,12 @@ var actions = {
               dispatch = _ref7.dispatch;
               _context4.prev = 1;
               _context4.next = 4;
-              return getModels();
+              return getBrands();
 
             case 4:
-              _yield$getModels = _context4.sent;
-              data = _yield$getModels.data;
-              dispatch('GET_MODELS_SUCCESS', data);
+              _yield$getBrands = _context4.sent;
+              data = _yield$getBrands.data;
+              dispatch('GET_BRANDS_SUCCESS', data);
               _context4.next = 13;
               break;
 
@@ -25457,7 +25579,7 @@ var actions = {
               _context4.prev = 9;
               _context4.t0 = _context4["catch"](1);
               response = _context4.t0.response;
-              dispatch('GET_MODELS_ERROR', response);
+              dispatch('GET_BRANDS_ERROR', response);
 
             case 13:
             case "end":
@@ -25467,8 +25589,49 @@ var actions = {
       }, _callee4, null, [[1, 9]]);
     }))();
   },
-  GET_MODELS_SUCCESS: function GET_MODELS_SUCCESS(_ref8, payload) {
+  GET_BRANDS_SUCCESS: function GET_BRANDS_SUCCESS(_ref8, payload) {
     var commit = _ref8.commit;
+    commit('BRANDS', payload);
+  },
+  GET_BRANDS_ERROR: function GET_BRANDS_ERROR(payload) {
+    console.log(payload);
+  },
+  GET_MODELS: function GET_MODELS(_ref9) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var dispatch, _yield$getModels, data, response;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              dispatch = _ref9.dispatch;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return getModels();
+
+            case 4:
+              _yield$getModels = _context5.sent;
+              data = _yield$getModels.data;
+              dispatch('GET_MODELS_SUCCESS', data);
+              _context5.next = 13;
+              break;
+
+            case 9:
+              _context5.prev = 9;
+              _context5.t0 = _context5["catch"](1);
+              response = _context5.t0.response;
+              dispatch('GET_MODELS_ERROR', response);
+
+            case 13:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[1, 9]]);
+    }))();
+  },
+  GET_MODELS_SUCCESS: function GET_MODELS_SUCCESS(_ref10, payload) {
+    var commit = _ref10.commit;
     commit('MODELS', payload);
   },
   GET_MODELS_ERROR: function GET_MODELS_ERROR(payload) {

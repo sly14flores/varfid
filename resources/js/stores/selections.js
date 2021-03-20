@@ -4,6 +4,11 @@ import { apiUrl } from '../url.js'
 /**
  * APIs
  */
+const GET_VEHICLE_ALL = `${apiUrl}/api/selections/vehicle/all`
+const getVehicleAll = () => {
+    return axios.get(GET_VEHICLE_ALL)
+}
+
 const GET_GROUPS = `${apiUrl}/api/selections/user/groups`
 const getGroups = () => {
     return axios.get(GET_GROUPS)
@@ -74,6 +79,24 @@ const actions = {
     GET_GROUPS_ERROR(payload) {
         console.log(payload)
     },
+    async GET_VEHICLE_ALL({dispatch}) {
+        try {
+            const { data } = await getVehicleAll()
+            dispatch('GET_VEHICLE_ALL_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_VEHICLE_ALL_ERROR', response)
+        }
+    },
+    GET_VEHICLE_ALL_SUCCESS({commit}, payload) {
+        const { types, brands, models } = payload
+        commit('TYPES', types)
+        commit('BRANDS', brands)
+        commit('MODELS', models)
+    },
+    GET_VEHICLE_ALL_ERROR(payload) {
+        console.log(payload)
+    },    
     async GET_TYPES({dispatch}) {
         try {
             const { data } = await getTypes()

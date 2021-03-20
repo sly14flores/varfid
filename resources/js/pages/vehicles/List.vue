@@ -25,15 +25,21 @@
                                         <Dropdown id="model" v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
                                     </div>
                                     <div class="p-field">
-                                        <Button type="button" class="p-button-sm p-button-secondary" label="Filter" @click="filterList" />
+                                        <label for="plate_no" class="p-sr-only">Plate No</label>
+                                        <InputText id="plate_no" type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
                                     </div>
-                                </div>                                
-                                <div class='p-ml-auto'>
-                                    <span class="p-input-icon-left">
-                                        <i class="pi pi-search" />
-                                        <InputText v-model="search" class="p-inputtext-sm" placeholder="Search" />
-                                    </span>
-                                </div>                         
+                                    <div class="p-field">
+                                        <label for="rfid" class="p-sr-only">RFID</label>
+                                        <InputText id="rfid" type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
+                                    </div>
+                                    <div class="p-field">
+                                        <label for="name" class="p-sr-only">Name</label>
+                                        <InputText id="name" type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
+                                    </div>                                                                       
+                                    <div class="p-field">
+                                        <Button type="button" class="p-button-sm p-button-danger" label="Filter" @click="filterList" />
+                                    </div>
+                                </div>                        
                             </div>
                         </template>                        
                         <Column field="type_name" header="Type"></Column>
@@ -94,9 +100,12 @@ export default {
             filters: {
                 type: 0,
                 brand: 0,
-                model: 0
+                model: 0,
+                plate_no: '',
+                rfid: '',
+                name: ''
             },
-            search: "",
+            // search: "",
             page: 0,
         }
     },
@@ -123,21 +132,23 @@ export default {
             return models
         },        
         vehicles() {
+
+            return this.$store.state.vehicles.vehicles
             
-            return this.$store.state.vehicles.vehicles.filter(vehicle => {
+            // return this.$store.state.vehicles.vehicles.filter(vehicle => {
             
-                return vehicle.type_name.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.brand_name.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.model.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.plate_no.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.sex.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.contact_no.toLowerCase().includes(this.search.toLowerCase()) ||
-                        vehicle.address.toLowerCase().includes(this.search.toLowerCase())
+            //     return vehicle.type_name.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.brand_name.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.model.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.plate_no.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.lastname.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.sex.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.contact_no.toLowerCase().includes(this.search.toLowerCase()) ||
+            //             vehicle.address.toLowerCase().includes(this.search.toLowerCase())
             
-            })
+            // })
 
         },
         pagination() {
@@ -180,9 +191,10 @@ export default {
     },
     created() {
 
-        this.$store.dispatch('selections/GET_TYPES')
-        this.$store.dispatch('selections/GET_BRANDS')
-        this.$store.dispatch('selections/GET_MODELS')
+        this.$store.dispatch('selections/GET_VEHICLE_ALL')
+        // this.$store.dispatch('selections/GET_TYPES')
+        // this.$store.dispatch('selections/GET_BRANDS')
+        // this.$store.dispatch('selections/GET_MODELS')
 
     },
     mounted() {
