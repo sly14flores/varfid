@@ -24,6 +24,15 @@ class VehicleSelections extends Controller
     public function vehicleModels()
     {
         return $this->models();
-    }    
+    }
+
+    public function all()
+    {
+        return [
+            'types'=>$this->types(),
+            'brands'=>$this->brands(),
+            'models'=>$this->models(),
+        ];
+    }
 
 }

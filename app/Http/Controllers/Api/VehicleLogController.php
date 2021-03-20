@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\VehicleLog;
 use App\Http\Resources\VehicleLogResource;
@@ -41,19 +42,31 @@ class VehicleLogController extends Controller
         $type = $request->type;
         $brand = $request->brand;
         $model = $request->model;
+        $plate_no = $request->plate_no;
+        $rfid = $request->rfid;
+        $name = $request->name;
 
-        $logs = VehicleLog::where($wheres);
-        $logs = $logs->whereHas('vehicle', function(Builder $query) use ($type,$brand,$model) {
+        $logs = VehicleLog::where($wheres)
+        ->whereHas('vehicle', function(Builder $query) use ($type,$brand,$model,$plate_no,$rfid,$name) {
             $wheres = [];
             if ($type>0) {
-                $wheres[] = ['type_id',$type];
+                $wheres[] = ['vehicles.type_id',$type];
             }
             if ($brand>0) {
-                $wheres[] = ['brand_id',$brand];
+                $wheres[] = ['vehicles.brand_id',$brand];
             }
             if ($model>0) {
-                $wheres[] = ['model',$model];
-            }            
+                $wheres[] = ['vehicles.model',$model];
+            }
+            if ($plate_no!=null) {
+                $wheres[] = ['vehicles.plate_no','like',"%{$plate_no}%"];
+            }
+            if ($rfid!=null) {
+                $wheres[] = ['vehicles.rfid','like',"%{$rfid}%"];
+            }
+            if ($name!=null) {
+                $wheres[] = [DB::raw("CONCAT(vehicles.firstname, ' ', vehicles.lastname)"),'like',"%{$name}%"];
+            }
             return $query->where($wheres);
         });
         $logs = $logs->paginate(20);

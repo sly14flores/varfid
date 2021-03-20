@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Vehicle;
 use App\Http\Resources\VehicleResource;
@@ -46,6 +47,9 @@ class VehicleController extends Controller
         $type = $request->type;
         $brand = $request->brand;
         $model = $request->model;
+        $plate_no = $request->plate_no;
+        $rfid = $request->rfid;
+        $name = $request->name;
 
         if ($type>0) {
             $wheres[] = ['type_id',$type];
@@ -57,6 +61,18 @@ class VehicleController extends Controller
 
         if ($model>0) {
             $wheres[] = ['model',$model];
+        }
+
+        if ($plate_no!=null) {
+            $wheres[] = ['plate_no','like',"%{$plate_no}%"];
+        }
+
+        if ($rfid!=null) {
+            $wheres[] = ['rfid','like',"%{$rfid}%"];
+        }
+        
+        if ($name!=null) {
+            $wheres[] = [DB::raw("CONCAT(firstname, ' ', lastname)"),'like',"%{$name}%"];
         }
 
         $vehicles = Vehicle::where($wheres)->paginate(10);

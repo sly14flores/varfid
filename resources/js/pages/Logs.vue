@@ -20,14 +20,23 @@
                                     <Dropdown id="model" v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
                                 </div>
                                 <div class="p-field">
-                                    <Button type="button" class="p-button-sm p-button-secondary" label="Filter" @click="filterList" />
+                                    <label for="plate_no" class="p-sr-only">Plate No</label>
+                                    <InputText id="plate_no" type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
                                 </div>
-                            </div>                             
-                            <div class='p-ml-auto'>
-                                <span class="p-input-icon-left">
-                                    <i class="pi pi-search" />
-                                    <InputText v-model="search" class="p-inputtext-sm" placeholder="Search" />
-                                </span>
+                                <div class="p-field">
+                                    <label for="rfid" class="p-sr-only">RFID</label>
+                                    <InputText id="rfid" type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
+                                </div>
+                                <div class="p-field">
+                                    <label for="name" class="p-sr-only">Name</label>
+                                    <InputText id="name" type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
+                                </div>                                
+                                <div class="p-field">
+                                    <Button type="button" class="p-button-sm p-button-danger" label="Filter" @click="filterList" />
+                                </div>
+                                <div class="p-field">
+                                    <Button class="p-button-sm p-button-warning" icon="pi pi-print" />
+                                </div>
                             </div>                         
                         </div>
                     </template>                        
@@ -80,9 +89,12 @@ export default {
             filters: {
                 type: 0,
                 brand: 0,
-                model: 0
+                model: 0,
+                plate_no: '',
+                rfid: '',
+                name: ''                
             },            
-            search: "",
+            // search: "",
             page: 0
         }
     },
@@ -110,16 +122,18 @@ export default {
         },        
         logs() {
 
-            return this.$store.state.logs.logs.filter(log => {
+            return this.$store.state.logs.logs
+
+            // return this.$store.state.logs.logs.filter(log => {
             
-                return log.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
-                    log.plateNo.toLowerCase().includes(this.search.toLowerCase()) ||
-                    log.type.toLowerCase().includes(this.search.toLowerCase()) ||
-                    log.brand.toLowerCase().includes(this.search.toLowerCase()) ||
-                    log.model.toLowerCase().includes(this.search.toLowerCase()) ||
-                    log.owner.toLowerCase().includes(this.search.toLowerCase())
+            //     return log.rfid.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         log.plateNo.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         log.type.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         log.brand.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         log.model.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         log.owner.toLowerCase().includes(this.search.toLowerCase())
             
-            })
+            // })
 
         },
         pagination() {
@@ -145,9 +159,10 @@ export default {
     },
     created() {
 
-        this.$store.dispatch('selections/GET_TYPES')
-        this.$store.dispatch('selections/GET_BRANDS')
-        this.$store.dispatch('selections/GET_MODELS')
+        this.$store.dispatch('selections/GET_VEHICLE_ALL')
+        // this.$store.dispatch('selections/GET_TYPES')
+        // this.$store.dispatch('selections/GET_BRANDS')
+        // this.$store.dispatch('selections/GET_MODELS')
 
     },    
     mounted() {
