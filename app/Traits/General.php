@@ -43,16 +43,34 @@ trait General {
 
     }
 
+    public function getType($id)
+    {
+        $type = VehicleType::find($id);
+        return (is_null($type))?"":$type->name;
+    }
+
     public function brands() {
 
         return Brand::all(['id','name']);     
 
     }
 
-    public function models() {
+    public function getBrand($id) {
+        $brand = Brand::find($id);
+        return (is_null($brand))?"":$brand->name;
+    }
+
+    public function models()
+    {
 
         return VehicleModel::all(['id','name']);     
 
+    }
+
+    public function getModel($id)
+    {
+        $model = VehicleModel::find($id);
+        return (is_null($model))?"":$model->name;
     }
 
     public function getVehicleLogs($filters)
