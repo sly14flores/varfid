@@ -16607,6 +16607,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   computed: {
+    csrf: function csrf() {
+      return document.querySelector('meta[name=csrf-token]').content;
+    },
+    strFilters: function strFilters() {
+      return JSON.stringify(this.filters);
+    },
     types: function types() {
       var types = [{
         id: 0,
@@ -16662,6 +16668,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         page: page,
         filters: this.filters
       });
+    },
+    printLogs: function printLogs() {
+      var e = document.querySelector('#printLogs');
+      e.submit();
     }
   },
   created: function created() {
@@ -19953,6 +19963,12 @@ var _hoisted_16 = {
 var _hoisted_17 = {
   "class": "p-field"
 };
+var _hoisted_18 = {
+  id: "printLogs",
+  action: "/print/logs",
+  method: "post",
+  target: "_blank"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -20068,8 +20084,11 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
           /* PROPS */
           , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             "class": "p-button-sm p-button-warning",
-            icon: "pi pi-print"
-          })])])])];
+            icon: "pi pi-print",
+            onClick: $options.printLogs
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])])])])];
         }),
         "default": _withId(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -20118,7 +20137,19 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   }, 8
   /* PROPS */
-  , ["blocked"])])]);
+  , ["blocked"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+    type: "hidden",
+    name: "_token",
+    value: $options.csrf
+  }, null, 8
+  /* PROPS */
+  , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+    type: "hidden",
+    name: "filters",
+    value: $options.strFilters
+  }, null, 8
+  /* PROPS */
+  , ["value"])])]);
 });
 
 /***/ }),
@@ -24127,9 +24158,10 @@ var getLogs = function getLogs(payload) {
       filters = payload.filters;
   var pageNo = page + 1;
   return axios.get(GET_LOGS, {
-    params: _objectSpread({
-      page: pageNo
-    }, filters)
+    params: {
+      page: pageNo,
+      filters: filters
+    }
   });
 };
 
@@ -24217,7 +24249,7 @@ var actions = {
   },
   CREATE_LOG: function CREATE_LOG(_ref3, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var commit, dispatch, _yield$createLog, data, response;
+      var commit, dispatch, _yield$createLog, data, _ref4, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -24238,7 +24270,7 @@ var actions = {
             case 11:
               _context.prev = 11;
               _context.t0 = _context["catch"](2);
-              response = _context.t0.response;
+              _ref4 = _context.t0 || {}, response = _ref4.response;
               dispatch('CREATE_LOG_ERROR', response);
               return _context.abrupt("return", false);
 
@@ -24250,8 +24282,8 @@ var actions = {
       }, _callee, null, [[2, 11]]);
     }))();
   },
-  CREATE_LOG_SUCCESS: function CREATE_LOG_SUCCESS(_ref4, payload) {
-    var commit = _ref4.commit;
+  CREATE_LOG_SUCCESS: function CREATE_LOG_SUCCESS(_ref5, payload) {
+    var commit = _ref5.commit;
     commit('SAVING', false);
     var message = payload.message;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
@@ -24260,8 +24292,8 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  CREATE_LOG_ERROR: function CREATE_LOG_ERROR(_ref5, payload) {
-    var commit = _ref5.commit;
+  CREATE_LOG_ERROR: function CREATE_LOG_ERROR(_ref6, payload) {
+    var commit = _ref6.commit;
     commit('SAVING', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: 'Something went wrong',
@@ -24269,15 +24301,15 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  UPDATE_LOG: function UPDATE_LOG(_ref6, payload) {
+  UPDATE_LOG: function UPDATE_LOG(_ref7, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var commit, dispatch, _yield$updateLog, data, response;
+      var commit, dispatch, _yield$updateLog, data, _ref8, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref6.commit, dispatch = _ref6.dispatch;
+              commit = _ref7.commit, dispatch = _ref7.dispatch;
               commit('SAVING', true);
               commit('TOGGLE_WRITE', true);
               _context2.prev = 3;
@@ -24293,7 +24325,7 @@ var actions = {
             case 12:
               _context2.prev = 12;
               _context2.t0 = _context2["catch"](3);
-              response = _context2.t0.response;
+              _ref8 = _context2.t0 || {}, response = _ref8.response;
               dispatch('UPDATE_LOG_ERROR', response);
               return _context2.abrupt("return", false);
 
@@ -24305,8 +24337,8 @@ var actions = {
       }, _callee2, null, [[3, 12]]);
     }))();
   },
-  UPDATE_LOG_SUCCESS: function UPDATE_LOG_SUCCESS(_ref7, payload) {
-    var commit = _ref7.commit;
+  UPDATE_LOG_SUCCESS: function UPDATE_LOG_SUCCESS(_ref9, payload) {
+    var commit = _ref9.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
     var message = payload.message;
@@ -24316,8 +24348,8 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  UPDATE_LOG_ERROR: function UPDATE_LOG_ERROR(_ref8, payload) {
-    var commit = _ref8.commit;
+  UPDATE_LOG_ERROR: function UPDATE_LOG_ERROR(_ref10, payload) {
+    var commit = _ref10.commit;
     commit('SAVING', false);
     commit('TOGGLE_WRITE', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
@@ -24326,15 +24358,15 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  DELETE_LOG: function DELETE_LOG(_ref9, payload) {
+  DELETE_LOG: function DELETE_LOG(_ref11, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      var dispatch, id, _yield$deleteLog, data, response;
+      var dispatch, id, _yield$deleteLog, data, _ref12, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              dispatch = _ref9.dispatch;
+              dispatch = _ref11.dispatch;
               id = payload.id;
               _context3.prev = 2;
               _context3.next = 5;
@@ -24352,7 +24384,7 @@ var actions = {
             case 10:
               _context3.prev = 10;
               _context3.t0 = _context3["catch"](2);
-              response = _context3.t0.response;
+              _ref12 = _context3.t0 || {}, response = _ref12.response;
               dispatch('DELETE_LOG_ERROR', response);
 
             case 14:
@@ -24363,8 +24395,8 @@ var actions = {
       }, _callee3, null, [[2, 10]]);
     }))();
   },
-  DELETE_LOG_SUCCESS: function DELETE_LOG_SUCCESS(_ref10, payload) {
-    var dispatch = _ref10.dispatch;
+  DELETE_LOG_SUCCESS: function DELETE_LOG_SUCCESS(_ref13, payload) {
+    var dispatch = _ref13.dispatch;
     var message = payload.message;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: message,
@@ -24375,23 +24407,23 @@ var actions = {
       page: 0
     });
   },
-  DELETE_LOG_ERROR: function DELETE_LOG_ERROR(_ref11, payload) {
-    var commit = _ref11.commit;
+  DELETE_LOG_ERROR: function DELETE_LOG_ERROR(_ref14, payload) {
+    var commit = _ref14.commit;
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: 'Something went wrong',
       icon: 'error',
       confirmButtonText: 'Ok'
     });
   },
-  GET_LOG: function GET_LOG(_ref12, payload) {
+  GET_LOG: function GET_LOG(_ref15, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var commit, dispatch, id, _yield$getLog, data, response;
+      var commit, dispatch, id, _yield$getLog, data, _ref16, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref12.commit, dispatch = _ref12.dispatch;
+              commit = _ref15.commit, dispatch = _ref15.dispatch;
               commit('FETCHING_DATA', true);
               id = payload.id;
               _context4.prev = 3;
@@ -24410,7 +24442,7 @@ var actions = {
             case 11:
               _context4.prev = 11;
               _context4.t0 = _context4["catch"](3);
-              response = _context4.t0.response;
+              _ref16 = _context4.t0 || {}, response = _ref16.response;
               dispatch('GET_LOG_ERROR', response);
 
             case 15:
@@ -24421,13 +24453,13 @@ var actions = {
       }, _callee4, null, [[3, 11]]);
     }))();
   },
-  GET_LOG_SUCCESS: function GET_LOG_SUCCESS(_ref13, payload) {
-    var commit = _ref13.commit;
+  GET_LOG_SUCCESS: function GET_LOG_SUCCESS(_ref17, payload) {
+    var commit = _ref17.commit;
     commit('LOG', payload);
     commit('FETCHING_DATA', false);
   },
-  GET_LOG_ERROR: function GET_LOG_ERROR(_ref14, payload) {
-    var commit = _ref14.commit;
+  GET_LOG_ERROR: function GET_LOG_ERROR(_ref18, payload) {
+    var commit = _ref18.commit;
     commit('FETCHING_DATA', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: 'Something went wrong',
@@ -24435,15 +24467,15 @@ var actions = {
       confirmButtonText: 'Ok'
     });
   },
-  GET_LOGS: function GET_LOGS(_ref15, payload) {
+  GET_LOGS: function GET_LOGS(_ref19, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-      var commit, dispatch, page, filters, _yield$getLogs, _yield$getLogs$data$d, data, _pagination, response;
+      var commit, dispatch, page, filters, _yield$getLogs, _yield$getLogs$data$d, data, _pagination, _ref20, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref15.commit, dispatch = _ref15.dispatch;
+              commit = _ref19.commit, dispatch = _ref19.dispatch;
               commit('FETCHING_LIST', true);
               _context5.prev = 2;
               page = payload.page, filters = payload.filters;
@@ -24468,7 +24500,7 @@ var actions = {
             case 13:
               _context5.prev = 13;
               _context5.t0 = _context5["catch"](2);
-              response = _context5.t0.response;
+              _ref20 = _context5.t0 || {}, response = _ref20.response;
               dispatch('GET_LOGS_ERROR', response);
 
             case 17:
@@ -24479,17 +24511,16 @@ var actions = {
       }, _callee5, null, [[2, 13]]);
     }))();
   },
-  GET_LOGS_SUCCESS: function GET_LOGS_SUCCESS(_ref16, payload) {
-    var commit = _ref16.commit;
+  GET_LOGS_SUCCESS: function GET_LOGS_SUCCESS(_ref21, payload) {
+    var commit = _ref21.commit;
     var data = payload.data,
         pagination = payload.pagination;
-    console.log(data);
     commit('LOGS', data);
     commit('PAGINATION', pagination);
     commit('FETCHING_LIST', false);
   },
-  GET_LOGS_ERROR: function GET_LOGS_ERROR(_ref17, payload) {
-    var commit = _ref17.commit;
+  GET_LOGS_ERROR: function GET_LOGS_ERROR(_ref22, payload) {
+    var commit = _ref22.commit;
     commit('FETCHING_LIST', false);
     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
       text: 'Something went wrong',
@@ -25429,7 +25460,7 @@ var mutations = {
 var actions = {
   GET_GROUPS: function GET_GROUPS(_ref) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var dispatch, _yield$getGroups, data, response;
+      var dispatch, _yield$getGroups, data, _ref2, response;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -25450,7 +25481,7 @@ var actions = {
             case 9:
               _context.prev = 9;
               _context.t0 = _context["catch"](1);
-              response = _context.t0.response;
+              _ref2 = _context.t0 || null, response = _ref2.response;
               dispatch('GET_GROUPS_ERROR', response);
 
             case 13:
@@ -25461,14 +25492,14 @@ var actions = {
       }, _callee, null, [[1, 9]]);
     }))();
   },
-  GET_GROUPS_SUCCESS: function GET_GROUPS_SUCCESS(_ref2, payload) {
-    var commit = _ref2.commit;
+  GET_GROUPS_SUCCESS: function GET_GROUPS_SUCCESS(_ref3, payload) {
+    var commit = _ref3.commit;
     commit('GROUPS', payload);
   },
   GET_GROUPS_ERROR: function GET_GROUPS_ERROR(payload) {
     console.log(payload);
   },
-  GET_VEHICLE_ALL: function GET_VEHICLE_ALL(_ref3) {
+  GET_VEHICLE_ALL: function GET_VEHICLE_ALL(_ref4) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var dispatch, _yield$getVehicleAll, data, response;
 
@@ -25476,7 +25507,7 @@ var actions = {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              dispatch = _ref3.dispatch;
+              dispatch = _ref4.dispatch;
               _context2.prev = 1;
               _context2.next = 4;
               return getVehicleAll();
@@ -25502,8 +25533,8 @@ var actions = {
       }, _callee2, null, [[1, 9]]);
     }))();
   },
-  GET_VEHICLE_ALL_SUCCESS: function GET_VEHICLE_ALL_SUCCESS(_ref4, payload) {
-    var commit = _ref4.commit;
+  GET_VEHICLE_ALL_SUCCESS: function GET_VEHICLE_ALL_SUCCESS(_ref5, payload) {
+    var commit = _ref5.commit;
     var types = payload.types,
         brands = payload.brands,
         models = payload.models;
@@ -25514,7 +25545,7 @@ var actions = {
   GET_VEHICLE_ALL_ERROR: function GET_VEHICLE_ALL_ERROR(payload) {
     console.log(payload);
   },
-  GET_TYPES: function GET_TYPES(_ref5) {
+  GET_TYPES: function GET_TYPES(_ref6) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
       var dispatch, _yield$getTypes, data, response;
 
@@ -25522,7 +25553,7 @@ var actions = {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              dispatch = _ref5.dispatch;
+              dispatch = _ref6.dispatch;
               _context3.prev = 1;
               _context3.next = 4;
               return getTypes();
@@ -25548,14 +25579,14 @@ var actions = {
       }, _callee3, null, [[1, 9]]);
     }))();
   },
-  GET_TYPES_SUCCESS: function GET_TYPES_SUCCESS(_ref6, payload) {
-    var commit = _ref6.commit;
+  GET_TYPES_SUCCESS: function GET_TYPES_SUCCESS(_ref7, payload) {
+    var commit = _ref7.commit;
     commit('TYPES', payload);
   },
   GET_TYPES_ERROR: function GET_TYPES_ERROR(payload) {
     console.log(payload);
   },
-  GET_BRANDS: function GET_BRANDS(_ref7) {
+  GET_BRANDS: function GET_BRANDS(_ref8) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var dispatch, _yield$getBrands, data, response;
 
@@ -25563,7 +25594,7 @@ var actions = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              dispatch = _ref7.dispatch;
+              dispatch = _ref8.dispatch;
               _context4.prev = 1;
               _context4.next = 4;
               return getBrands();
@@ -25589,14 +25620,14 @@ var actions = {
       }, _callee4, null, [[1, 9]]);
     }))();
   },
-  GET_BRANDS_SUCCESS: function GET_BRANDS_SUCCESS(_ref8, payload) {
-    var commit = _ref8.commit;
+  GET_BRANDS_SUCCESS: function GET_BRANDS_SUCCESS(_ref9, payload) {
+    var commit = _ref9.commit;
     commit('BRANDS', payload);
   },
   GET_BRANDS_ERROR: function GET_BRANDS_ERROR(payload) {
     console.log(payload);
   },
-  GET_MODELS: function GET_MODELS(_ref9) {
+  GET_MODELS: function GET_MODELS(_ref10) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
       var dispatch, _yield$getModels, data, response;
 
@@ -25604,7 +25635,7 @@ var actions = {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              dispatch = _ref9.dispatch;
+              dispatch = _ref10.dispatch;
               _context5.prev = 1;
               _context5.next = 4;
               return getModels();
@@ -25630,8 +25661,8 @@ var actions = {
       }, _callee5, null, [[1, 9]]);
     }))();
   },
-  GET_MODELS_SUCCESS: function GET_MODELS_SUCCESS(_ref10, payload) {
-    var commit = _ref10.commit;
+  GET_MODELS_SUCCESS: function GET_MODELS_SUCCESS(_ref11, payload) {
+    var commit = _ref11.commit;
     commit('MODELS', payload);
   },
   GET_MODELS_ERROR: function GET_MODELS_ERROR(payload) {

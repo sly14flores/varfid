@@ -4,20 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Models\VehicleLog;
 use App\Http\Resources\VehicleLogResource;
 use App\Http\Resources\VehicleLogResourceCollection;
 use App\Http\Resources\VehicleLogsListResourceCollection;
-use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Support\Facades\Validator;
 use App\Traits\Messages;
+use App\Traits\General;
 
 class VehicleLogController extends Controller
 {
-    use Messages;
+    use Messages, General;
 
     private $http_code_ok;
     private $http_code_error;
@@ -38,38 +37,9 @@ class VehicleLogController extends Controller
      */
     public function index(Request $request)
     {
-        $wheres = [];
-        $type = $request->type;
-        $brand = $request->brand;
-        $model = $request->model;
-        $plate_no = $request->plate_no;
-        $rfid = $request->rfid;
-        $name = $request->name;
-
-        $logs = VehicleLog::where($wheres)
-        ->whereHas('vehicle', function(Builder $query) use ($type,$brand,$model,$plate_no,$rfid,$name) {
-            $wheres = [];
-            if ($type>0) {
-                $wheres[] = ['vehicles.type_id',$type];
-            }
-            if ($brand>0) {
-                $wheres[] = ['vehicles.brand_id',$brand];
-            }
-            if ($model>0) {
-                $wheres[] = ['vehicles.model',$model];
-            }
-            if ($plate_no!=null) {
-                $wheres[] = ['vehicles.plate_no','like',"%{$plate_no}%"];
-            }
-            if ($rfid!=null) {
-                $wheres[] = ['vehicles.rfid','like',"%{$rfid}%"];
-            }
-            if ($name!=null) {
-                $wheres[] = [DB::raw("CONCAT(vehicles.firstname, ' ', vehicles.lastname)"),'like',"%{$name}%"];
-            }
-            return $query->where($wheres);
-        });
-        $logs = $logs->paginate(20);
+        $filters = json_decode($request->filters,true);
+        $getLogs = $this->getVehicleLogs($filters);
+        $logs = $getLogs->paginate(20);
 
         $data = new VehicleLogsListResourceCollection($logs);
 

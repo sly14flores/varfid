@@ -13,5 +13,6 @@ const mix = require('laravel-mix');
 
 mix.copyDirectory('resources/dist/img','public/img');
 mix.copyDirectory('resources/assets/layout/images', 'public/assets/images');
+mix.copy('resources/css/bootstrap.min.css', 'public/css');
 
 mix.js('resources/js/app.js', 'public/js').vue();

@@ -69,7 +69,7 @@ const actions = {
             const { data } = await getGroups()
             dispatch('GET_GROUPS_SUCCESS', data)
         } catch (error) {
-            const { response } = error
+            const { response } = error || null
             dispatch('GET_GROUPS_ERROR', response)
         }
     },

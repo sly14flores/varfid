@@ -35,7 +35,7 @@
                                     <Button type="button" class="p-button-sm p-button-danger" label="Filter" @click="filterList" />
                                 </div>
                                 <div class="p-field">
-                                    <Button class="p-button-sm p-button-warning" icon="pi pi-print" />
+                                    <Button class="p-button-sm p-button-warning" icon="pi pi-print" @click="printLogs" />
                                 </div>
                             </div>                         
                         </div>
@@ -52,6 +52,10 @@
                 <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchLogs($event)"></Paginator>
             </BlockUI>
         </div>
+        <form id="printLogs" action="/print/logs" method="post" target="_blank">
+            <input type="hidden" name="_token" :value="csrf">
+            <input type="hidden" name="filters" :value="strFilters" />
+        </form>
     </div>
 </template>
 
@@ -99,6 +103,12 @@ export default {
         }
     },
     computed: {
+        csrf() {
+            return  document.querySelector('meta[name=csrf-token]').content
+        },
+        strFilters() {
+            return JSON.stringify(this.filters)
+        },
         types() {
             const types = [
                 {id: 0, name: 'All Types'},
@@ -156,6 +166,12 @@ export default {
             this.page = page
             this.$store.dispatch('logs/GET_LOGS', { page, filters: this.filters })
         },
+        printLogs() {
+
+            const e = document.querySelector('#printLogs')
+            e.submit()
+
+        }
     },
     created() {
 
