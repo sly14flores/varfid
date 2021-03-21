@@ -29,7 +29,7 @@ const GET_LOGS = `${apiUrl}/api/logs`
 const getLogs = (payload) => {
     const { page, filters } = payload
     const pageNo = page + 1
-    return axios.get(GET_LOGS, {params: { page: pageNo, ...filters } })
+    return axios.get(GET_LOGS, {params: { page: pageNo, filters } })
 }
 
 const DELETE_LOG = `${apiUrl}/api/log/:id`
@@ -114,7 +114,7 @@ const actions = {
             dispatch('CREATE_LOG_SUCCESS', data)
             return true
         } catch(error) {
-            const { response } = error
+            const { response } = error || {}
             dispatch('CREATE_LOG_ERROR', response)
             return false
         }
@@ -144,7 +144,7 @@ const actions = {
             dispatch('UPDATE_LOG_SUCCESS', data)
             return true
         } catch (error) {
-            const { response } = error
+            const { response } = error || {}
             dispatch('UPDATE_LOG_ERROR', response)
             return false
         }
@@ -174,7 +174,7 @@ const actions = {
             const { data } = await deleteLog({id})
             dispatch('DELETE_LOG_SUCCESS', data)
         } catch (error) {
-            const { response } = error
+            const { response } = error || {}
             dispatch('DELETE_LOG_ERROR', response)
         }
     },
@@ -201,7 +201,7 @@ const actions = {
             const { data: { data } } = await getLog({id})
             dispatch('GET_LOG_SUCCESS', data)
         } catch (error) {
-            const { response } = error
+            const { response } = error || {}
             dispatch('GET_LOG_ERROR', response)
         }
     },
@@ -224,13 +224,12 @@ const actions = {
             const { data: { data: { data, pagination } } } = await getLogs({ page, filters })
             dispatch('GET_LOGS_SUCCESS', { data, pagination })
         } catch (error) {
-            const { response } = error
+            const { response } = error || {}
             dispatch('GET_LOGS_ERROR', response)
         }
     },
     GET_LOGS_SUCCESS({commit}, payload) {
         const { data, pagination } = payload
-        console.log(data)
         commit('LOGS',data)
         commit('PAGINATION',pagination)
         commit('FETCHING_LIST',false)
