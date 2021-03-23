@@ -9,6 +9,7 @@ import ChangePassword from "./pages/ChangePassword"
 import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
 import Logs from "./pages/Logs";
+import Reports from "./pages/Reports";
 
 /**
  * Vehicles
@@ -77,7 +78,13 @@ const routes = [
     name: "Logs",
     component: PageWrapper,
     props: {pageComponent: Logs}
-  },   
+  },
+  {
+    path: "/reports",
+    name: "Reports",
+    component: PageWrapper,
+    props: {pageComponent: Reports}
+  },    
   {
     path: "/vehicles",
     name: "Vehicles",
