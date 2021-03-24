@@ -200,6 +200,7 @@ export default {
             if (this.filters.coverage==3) {
                 const sDate = new Date()
                 sDate.setMonth(this.filters.month)
+                sDate.setYear(this.filters.year)
                 sDate.setDate(1)
 
                 const eDate = new Date(sDate.getFullYear(), this.filters.month + 1, 0)
@@ -211,6 +212,7 @@ export default {
 
             const sDate = new Date()
             sDate.setMonth(this.filters.month)
+            sDate.setYear(this.filters.year)
             sDate.setDate(1)
 
             const eDate = new Date(sDate.getFullYear(), this.filters.month + 1, 0)
@@ -251,6 +253,7 @@ export default {
                     this.validations.year = true
                 }
                 if (this.validations.month || this.validations.year) return
+                this.monthSelected()
             }
 
             if (this.filters.coverage==4) {
@@ -260,10 +263,12 @@ export default {
                 }
             }
 
-            const reportType = (this.page == 1)?'#printVehicles':'#printLogs'
+            this.$nextTick(() => {
+                const reportType = (this.page == 1)?'#printVehicles':'#printLogs'
 
-            const e = document.querySelector(reportType)
-            e.submit()
+                const e = document.querySelector(reportType)
+                e.submit()
+            })
 
         }
     },

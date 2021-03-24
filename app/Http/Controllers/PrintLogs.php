@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\General;
-use Illuminate\Support\Collection;
 use App\Models\VehicleLog;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -47,16 +46,20 @@ class PrintLogs extends Controller
         $period = (isset($filters['coverage']))?$filters['coverage']:null;
         $startDate = null;
         $endDate = null;
+        $title = "Vehicles Logs";
         if ($period!=null) {
+            $title = "Vehicles Logs Reports";
             $periods = ["Date","Dates","Month","Year"];
+            $filter_month = (isset($filters['month']))?$months[$filters['month']]:null;
+            $filter_year = (isset($filters['year']))?$filters['year']:null;
             $descriptions = [
                 $description = Carbon::parse($filters['startDate'])->format("M j, Y"),
                 $description = Carbon::parse($filters['startDate'])->format("M j, Y")." - ".Carbon::parse($filters['endDate'])->format("M j, Y"),
-                $description = "{$months[$filters['month']]} {$filters['year']}",
-                $description = "{$filters['year']}"
+                $description = "{$filter_month} {$filter_year}",
+                $description = "{$filter_year}"
             ];
             $description = "{$descriptions[$period-1]}";
-            $coverage[] = "Coverage: {$periods[$period-1]}: {$description}";
+            $coverage[] = "{$periods[$period-1]}: {$description}";
             $startDate = Carbon::parse($filters['startDate'])->format("Y-m-d 00:00:00");
             $endDate = Carbon::parse($filters['endDate'])->addDays(1)->format("Y-m-d 00:00:00");
         }
@@ -142,6 +145,7 @@ class PrintLogs extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->loadView('reports.logs', [
+            'title' => $title,
             'logo' => $logo,
             'coverage' => $coverage,
             'logs' => $logs,
