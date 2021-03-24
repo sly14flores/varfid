@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\General;
-use App\Models\VehicleLog;
+use App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class PrintLogs extends Controller
+class PrintVehicles extends Controller
 {
-
-    use General;
-
     /**
      * Handle the incoming request.
      *
@@ -23,7 +20,6 @@ class PrintLogs extends Controller
      */
     public function __invoke(Request $request)
     {
-
         $months = [
             "January",
             "February",
@@ -46,9 +42,7 @@ class PrintLogs extends Controller
         $period = (isset($filters['coverage']))?$filters['coverage']:null;
         $startDate = null;
         $endDate = null;
-        $title = "Vehicles Logs";
         if ($period!=null) {
-            $title = "Vehicles Logs Reports";
             $periods = ["Date","Dates","Month","Year"];
             $filter_month = (isset($filters['month']))?$months[$filters['month']]:null;
             $filter_year = (isset($filters['year']))?$filters['year']:null;
@@ -96,46 +90,53 @@ class PrintLogs extends Controller
         $rfid = $filters['rfid'];
         $name = $filters['name'];
 
-        $getLogs = VehicleLog::where($wheres)
-        ->whereHas('vehicle', function(Builder $query) use ($type,$brand,$model,$plate_no,$rfid,$name,$startDate,$endDate) {
-            $wheres = [];
-            if ($type>0) {
-                $wheres[] = ['vehicles.type_id',$type];
-            }
-            if ($brand>0) {
-                $wheres[] = ['vehicles.brand_id',$brand];
-            }
-            if ($model>0) {
-                $wheres[] = ['vehicles.model',$model];
-            }
-            if ($plate_no!=null) {
-                $wheres[] = ['vehicles.plate_no','like',"%{$plate_no}%"];
-            }
-            if ($rfid!=null) {
-                $wheres[] = ['vehicles.rfid','like',"%{$rfid}%"];
-            }
-            if ($name!=null) {
-                $wheres[] = [DB::raw("CONCAT(vehicles.firstname, ' ', vehicles.lastname)"),'like',"%{$name}%"];
-            }
-            $query = $query->where($wheres);
-            if (($startDate!=null) && ($endDate!=null)) {
-                $query = $query->whereBetween('vehicle_logs.created_at',[$startDate,$endDate]);
-            }
-            return $query;
-        })->get();
-        // return $getLogs->toSql();
+        if ($type>0) {
+            $wheres[] = ['type_id',$type];
+        }
 
-        $logs = [];
-        foreach ($getLogs as $log) {
-            $logs[] = [
-                'no' => $log->id,
-                'rfid' => $log->rfid,
-                'type' => $log->vehicle->type->name,
-                'brand' => $log->vehicle->brand->name,
-                'model' => (is_null($log->vehicle->vehicle_model))?null:$log->vehicle->vehicle_model->name,
-                'plateNo' => $log->vehicle->plate_no,
-                'owner' => "{$log->vehicle->firstname} {$log->vehicle->lastname}",
-                'dateTime' => Carbon::parse($log->created_at)->format("n/j/Y h:i:s A"),
+        if ($brand>0) {
+            $wheres[] = ['brand_id',$brand];
+        }
+
+        if ($model>0) {
+            $wheres[] = ['model',$model];
+        }
+
+        if ($plate_no!=null) {
+            $wheres[] = ['plate_no','like',"%{$plate_no}%"];
+        }
+
+        if ($rfid!=null) {
+            $wheres[] = ['rfid','like',"%{$rfid}%"];
+        }
+        
+        if ($name!=null) {
+            $wheres[] = [DB::raw("CONCAT(firstname, ' ', lastname)"),'like',"%{$name}%"];
+        }
+
+        $getVehicles = Vehicle::where($wheres);
+        if (($startDate!=null) && ($endDate!=null)) {
+            $getVehicles = $getVehicles->whereBetween('created_at',[$startDate,$endDate]);
+        }
+        $getVehicles = $getVehicles->get();
+        
+        $vehicles = [];
+        foreach ($getVehicles as $i => $vehicle) {
+            $vehicles[] = [
+                'no' => $i+1,
+                'type_name' => $vehicle->type->name,
+                'brand_name' => $vehicle->brand->name,
+                'model' => (is_null($vehicle->vehicle_model))?null:$vehicle->vehicle_model->name,
+                'plate_no' => $vehicle->plate_no,
+                'rfid' => $vehicle->rfid,
+                'firstname' => $vehicle->firstname,
+                'lastname' => $vehicle->lastname,
+                'sex' => $vehicle->sex,
+                'contact_no' => $vehicle->contact_no,
+                'address' => $vehicle->address,
+                'driver' => "{$vehicle->firstname} {$vehicle->lastname}",
+                'picture' => (is_null($vehicle->image))?null:config('profile.vehicles_url').Storage::url($vehicle->image),            
+                'date_created' => $vehicle->created_at,
             ];
         }
 
@@ -144,11 +145,10 @@ class PrintLogs extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('reports.logs', [
-            'title' => $title,
+        $pdf->loadView('reports.vehicles', [
             'logo' => $logo,
             'coverage' => $coverage,
-            'logs' => $logs,
+            'vehicles' => $vehicles,
         ]);
         // $canvas = $pdf->getCanvas();
         $pdf->setPaper('letter', 'portrait');

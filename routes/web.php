@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrintLogs;
+use App\Http\Controllers\PrintVehicles;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::get('/', function () {
 });
 
 Route::post('/print/logs', PrintLogs::class);
+Route::post('/print/report/logs', PrintLogs::class);
+Route::post('/print/report/vehicles', PrintVehicles::class);

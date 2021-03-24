@@ -86,7 +86,7 @@
 		<div class="wrapper">
 			<header>
 				<img class="logo" src="{{ $logo }}" />
-				<p style="float: right">{{ $title }}</p>
+				<p style="float: right">Vehicles Report</p>
 			</header>
 			<main>
 				<div class="coverage">
@@ -98,26 +98,28 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>RFID</th>
-							<th>Plate No</th>
-							<th>Vehicle Type</th>
+							<th>Type</th>
 							<th>Brand</th>
 							<th>Model</th>
-							<th>Owner' Name</th>
-							<th>DateTime</th>
+							<th>Plate No</th>
+							<th>RFID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Date Registered</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($logs as $log)
+						@foreach($vehicles as $vehicle)
 							<tr>
-								<td>{{ $log['no'] }}</td>
-								<td>{{ $log['rfid'] }}</td>
-								<td>{{ $log['plateNo'] }}</td>
-								<td>{{ $log['type'] }}</td>
-								<td>{{ $log['brand'] }}</td>
-								<td>{{ $log['model'] }}</td>
-								<td>{{ $log['owner'] }}</td>
-								<td>{{ $log['dateTime'] }}</td>
+								<td>{{ $vehicle['no'] }}</td>
+								<td>{{ $vehicle['type_name'] }}</td>
+								<td>{{ $vehicle['brand_name'] }}</td>
+								<td>{{ $vehicle['model'] }}</td>
+								<td>{{ $vehicle['plate_no'] }}</td>
+								<td>{{ $vehicle['rfid'] }}</td>
+								<td>{{ $vehicle['firstname'] }}</td>
+								<td>{{ $vehicle['lastname'] }}</td>
+								<td>{{ $vehicle['date_created'] }}</td>
 							</tr>
 						@endforeach
 					</tbody>

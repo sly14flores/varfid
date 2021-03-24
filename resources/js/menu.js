@@ -82,16 +82,16 @@ const mainMenu = [
         icon:'pi pi-fw pi-home',
         to:'/dashboard'
     },
-    // {
-    //     label:'Scan',
-    //     icon:'pi pi-fw pi-desktop',
-    //     to:'/scan'
-    // },
     {
         label:'Logs',
         icon:'pi pi-fw pi-list',
         to:'/logs'
-    },     
+    },
+    {
+        label:'Reports',
+        icon:'pi pi-fw pi-book',
+        to:'/reports'
+    },         
     {
         label:'Vehicles',
         icon:'pi pi-fw pi-discord',
