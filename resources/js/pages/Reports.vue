@@ -9,23 +9,25 @@
                 </div>
                 <div class="p-field p-col-12 p-md-3">
                     <label>Coverage</label>
-                    <Dropdown v-model="coverage" :options="coverages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+                    <Dropdown v-model="filters.coverage" :options="coverages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" @change="coverageChange" />
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="coverage==1 || coverage==2">
-                    <label>{{(coverage==2)?'Start Date':'Date'}}</label>
-                    <InputText type="date" v-model="filters.startDate" class="p-inputtext-sm" />
+                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==1 || filters.coverage==2">
+                    <label>{{(filters.coverage==2)?'Start Date':'Date'}}</label>
+                    <InputText type="date" v-model="filters.startDate" class="p-inputtext-sm" @change="startDateChange" />
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="coverage==2">
+                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==2">
                     <label>End Date</label>
                     <InputText type="date" v-model="filters.endDate" class="p-inputtext-sm" />
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="coverage==3">
+                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3">
                     <label>Month</label>
-                    <Dropdown v-model="filters.month" :options="months" optionValue="id" optionLabel="name" placeholder="Select Month" class="p-inputtext-sm" />
+                    <Dropdown v-model="filters.month" :options="months" optionValue="id" optionLabel="name" placeholder="Select Month" :class="{'p-inputtext-sm': true, 'p-invalid': validations.month}" @change="monthSelected" />
+                    <small class="p-error">{{(validations.month)?'Please select month':null}}</small>
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="coverage==3 || coverage==4">
+                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3 || filters.coverage==4">
                     <label>Year</label>
-                    <InputText type="text" v-model="filters.year" class="p-inputtext-sm" />
+                    <InputText type="text" v-model="filters.year" :class="{'p-inputtext-sm': true, 'p-invalid': validations.year}" />
+                    <small class="p-error">{{(validations.year)?'Please enter year':null}}</small>
                 </div>                                                                 
             </div>
             <div class="p-fluid p-formgrid p-grid">            
@@ -78,7 +80,6 @@ import Column from 'primevue/column/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Button from 'primevue/button/sfc';
-import Panel from 'primevue/panel/sfc';
 
 export default {
     components: {
@@ -103,18 +104,18 @@ export default {
         ]
 
         const months = [
-            {id: "01", name: "January"},
-            {id: "02", name: "February"},
-            {id: "03", name: "March"},
-            {id: "04", name: "April"},
-            {id: "05", name: "May"},
-            {id: "06", name: "June"},
-            {id: "07", name: "July"},
-            {id: "08", name: "August"},
-            {id: "09", name: "September"},
-            {id: "10", name: "October"},
-            {id: "11", name: "November"},
-            {id: "12", name: "December"},
+            {id: 0, name: "January"},
+            {id: 1, name: "February"},
+            {id: 2, name: "March"},
+            {id: 3, name: "April"},
+            {id: 4, name: "May"},
+            {id: 5, name: "June"},
+            {id: 6, name: "July"},
+            {id: 7, name: "August"},
+            {id: 8, name: "September"},
+            {id: 9, name: "October"},
+            {id: 10, name: "November"},
+            {id: 11, name: "December"},
         ]
 
         return {
@@ -131,37 +132,26 @@ export default {
                 {label: 'Reports', to: `${this.$route.fullPath}`}               
             ],         
             page: 1,
-            coverage: 1,
-        }
-    },
-    computed: {
-        filters() {
-
-            const sDate = new Date()
-            const eDate = new Date()
-
-            let startDate = this.formatDate(sDate.toGMTString())
-            let endDate = this.formatDate(eDate.toGMTString())
-            if (this.coverage==3) {
-                sDate.setDate(1)
-                eDate.setDate(31)
-                startDate = this.formatDate(sDate.toGMTString())
-                endDate = this.formatDate(eDate.toGMTString())                
-            }
-
-            return {
+            filters: {
+                coverage: 1,
                 type: 0,
                 brand: 0,
                 model: 0,
                 plate_no: '',
                 rfid: '',
                 name: '',
-                startDate,
-                endDate,
-                month: "00",
-                year: null
-            }                            
-        },        
+                startDate: null,
+                endDate: null,
+                month: null,
+                year: null        
+            },
+            validations: {
+                month: false,
+                year: false
+            }       
+        }
+    },
+    computed: {       
         csrf() {
             return  document.querySelector('meta[name=csrf-token]').content
         },
@@ -196,6 +186,43 @@ export default {
         },
     },
     methods: {
+        coverageChange() {
+            if (this.filters.coverage==1 || this.filters.coverage==2) {
+                const startDate = new Date()
+                const endDate = new Date()
+                const strStartDate = startDate.toISOString()
+                const splitSDate = strStartDate.split('T')
+                const endStartDate = endDate.toISOString()
+                const splitEDate = endStartDate.split('T')            
+                this.filters.startDate = splitSDate[0]
+                this.filters.endDate = splitEDate[0]
+            }
+            if (this.filters.coverage==3) {
+                const sDate = new Date()
+                sDate.setMonth(this.filters.month)
+                sDate.setDate(1)
+
+                const eDate = new Date(sDate.getFullYear(), this.filters.month + 1, 0)
+                this.filters.startDate = this.formatDate(sDate.toISOString())
+                this.filters.endDate = this.formatDate(eDate.toISOString())           
+            }
+        },
+        monthSelected() {
+
+            const sDate = new Date()
+            sDate.setMonth(this.filters.month)
+            sDate.setDate(1)
+
+            const eDate = new Date(sDate.getFullYear(), this.filters.month + 1, 0)
+            this.filters.startDate = this.formatDate(sDate.toISOString())
+            this.filters.endDate = this.formatDate(eDate.toISOString())
+
+        },
+        startDateChange() {
+            if (this.filters.coverage==1) {
+                this.filters.endDate = this.filters.startDate
+            }
+        },
         formatDate(date) {
             var d = new Date(date),
                 month = '' + (d.getMonth() + 1),
@@ -211,6 +238,28 @@ export default {
         },    
         print() {
 
+            /**
+             * Validations
+             */
+            this.validations.month = false            
+            this.validations.year = false
+            if (this.filters.coverage==3) {
+                if (this.filters.month==null) {
+                    this.validations.month = true
+                }
+                if (this.filters.year==null || this.filters.year=='') {
+                    this.validations.year = true
+                }
+                if (this.validations.month || this.validations.year) return
+            }
+
+            if (this.filters.coverage==4) {
+                if (this.filters.year==null || this.filters.year=='') {
+                    this.validations.year = true
+                    return
+                }
+            }
+
             const reportType = (this.page == 1)?'#printVehicles':'#printLogs'
 
             const e = document.querySelector(reportType)
@@ -218,12 +267,55 @@ export default {
 
         }
     },
+    watch: {
+        filters: {
+            handler(val, oldVal) {
+                if (val.year != null || val.year != '') {
+                    this.validations.year = false
+                } else {
+                    this.validations.year = true
+                }
+                if (val.month != null) {
+                    this.validations.month = false
+                } else {
+                    this.validations.month = true
+                }
+                if (val.coverage==4) {
+                    if (this.filters.year!=null && (this.filters.year.length<4) && (typeof this.filters.year !== 'number')) return
+                    const sDate = new Date()
+                    sDate.setMonth(0)
+                    sDate.setYear(this.filters.year)
+                    sDate.setDate(1)
+                    const eDate = new Date()
+                    eDate.setMonth(11)
+                    eDate.setYear(this.filters.year)
+                    eDate.setDate(31)
+                    this.filters.startDate = this.formatDate(sDate.toISOString())
+                    this.filters.endDate = this.formatDate(eDate.toISOString())                    
+                }
+            },
+            deep: true
+        },
+    },
     created() {
 
         this.$store.dispatch('selections/GET_VEHICLE_ALL')
 
     },    
     mounted() {
+
+        this.$nextTick(() => {
+
+            const startDate = new Date()
+            const endDate = new Date()
+            const strStartDate = startDate.toISOString()
+            const splitSDate = strStartDate.split('T')
+            const endStartDate = endDate.toISOString()
+            const splitEDate = endStartDate.split('T')            
+            this.filters.startDate = splitSDate[0]
+            this.filters.endDate = splitEDate[0]
+
+        })
 
     }     
 }

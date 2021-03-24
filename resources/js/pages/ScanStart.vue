@@ -171,7 +171,7 @@ export default {
         });
 
         const getInfoTest = () => {
-            getInfo('2303285070')
+            getInfo('12341234')
         }
 
         return {
