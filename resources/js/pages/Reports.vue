@@ -10,34 +10,64 @@
                 <div class="p-field p-col-12 p-md-3">
                     <label>Coverage</label>
                     <Dropdown v-model="coverage" :options="coverages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
-                </div>                
+                </div>
+                <div class="p-field p-col-12 p-md-3" v-if="coverage==1 || coverage==2">
+                    <label>{{(coverage==2)?'Start Date':'Date'}}</label>
+                    <InputText type="date" v-model="filters.startDate" class="p-inputtext-sm" />
+                </div>
+                <div class="p-field p-col-12 p-md-3" v-if="coverage==2">
+                    <label>End Date</label>
+                    <InputText type="date" v-model="filters.endDate" class="p-inputtext-sm" />
+                </div>
+                <div class="p-field p-col-12 p-md-3" v-if="coverage==3">
+                    <label>Month</label>
+                    <Dropdown v-model="filters.month" :options="months" optionValue="id" optionLabel="name" placeholder="Select Month" class="p-inputtext-sm" />
+                </div>
+                <div class="p-field p-col-12 p-md-3" v-if="coverage==3 || coverage==4">
+                    <label>Year</label>
+                    <InputText type="text" v-model="filters.year" class="p-inputtext-sm" />
+                </div>                                                                 
             </div>
             <div class="p-fluid p-formgrid p-grid">            
-                <div class="p-field p-col-12 p-md-6">
-                    <label>Lastname</label>
-                    <InputText id="city" type="text" />
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <label for="city">City</label>
-                    <InputText id="city" type="text" />
+                <div class="p-field p-col-12 p-md-3">
+                    <label>Type</label>
+                    <Dropdown v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
                 </div>
                 <div class="p-field p-col-12 p-md-3">
-                    <label for="state">State</label>
-                    <Dropdown inputId="state" v-model="selectedState" :options="states" optionLabel="name" placeholder="Select" />
+                    <label>Brand</label>
+                    <Dropdown v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
                 </div>
                 <div class="p-field p-col-12 p-md-3">
-                    <label for="zip">Zip</label>
-                    <InputText id="zip" type="text" />
+                    <label>Model</label>
+                    <Dropdown v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
                 </div>
+                <div class="p-field p-col-12 p-md-3">
+                    <label>Plate No</label>
+                    <InputText type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
+                </div>                
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                    <label>RFID</label>
+                    <InputText type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                    <label>Name</label>
+                    <InputText type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
+                </div>                 
             </div>
             <div class="p-d-flex p-p-3">
-                <Button type="Button" icon="pi pi-print" class="p-ml-auto p-button-primary"/>                    
+                <Button type="Button" icon="pi pi-print" class="p-ml-auto p-button-primary" @click="print" />                    
             </div>            
         </div>
-        <form id="printLogs" action="/print/logs" method="post" target="_blank">
+        <form id="printVehicles" action="/print/report/vehicles" method="post" target="_blank">
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" name="filters" :value="strFilters" />
         </form>
+        <form id="printLogs" action="/print/report/logs" method="post" target="_blank">
+            <input type="hidden" name="_token" :value="csrf">
+            <input type="hidden" name="filters" :value="strFilters" />
+        </form>        
     </div>
 </template>
 
@@ -70,11 +100,27 @@ export default {
             {id: 2, name: 'Date Range'},
             {id: 3, name: 'Monthly'},
             {id: 4, name: 'Yearly'},
-        ]        
+        ]
+
+        const months = [
+            {id: "01", name: "January"},
+            {id: "02", name: "February"},
+            {id: "03", name: "March"},
+            {id: "04", name: "April"},
+            {id: "05", name: "May"},
+            {id: "06", name: "June"},
+            {id: "07", name: "July"},
+            {id: "08", name: "August"},
+            {id: "09", name: "September"},
+            {id: "10", name: "October"},
+            {id: "11", name: "November"},
+            {id: "12", name: "December"},
+        ]
 
         return {
             pages,
-            coverages
+            coverages,
+            months
         }
 
     },
@@ -83,20 +129,39 @@ export default {
             home: {icon: 'pi pi-home', to: '/'},
             items: [
                 {label: 'Reports', to: `${this.$route.fullPath}`}               
-            ],
-            filters: {
-                type: 0,
-                brand: 0,
-                model: 0,
-                plate_no: '',
-                rfid: '',
-                name: ''                
-            },            
+            ],         
             page: 1,
             coverage: 1,
         }
     },
     computed: {
+        filters() {
+
+            const sDate = new Date()
+            const eDate = new Date()
+
+            let startDate = this.formatDate(sDate.toGMTString())
+            let endDate = this.formatDate(eDate.toGMTString())
+            if (this.coverage==3) {
+                sDate.setDate(1)
+                eDate.setDate(31)
+                startDate = this.formatDate(sDate.toGMTString())
+                endDate = this.formatDate(eDate.toGMTString())                
+            }
+
+            return {
+                type: 0,
+                brand: 0,
+                model: 0,
+                plate_no: '',
+                rfid: '',
+                name: '',
+                startDate,
+                endDate,
+                month: "00",
+                year: null
+            }                            
+        },        
         csrf() {
             return  document.querySelector('meta[name=csrf-token]').content
         },
@@ -131,21 +196,24 @@ export default {
         },
     },
     methods: {
-        filterList() {
-            this.fetchLogs({page: this.page})
-        },
-        fetchLogs(event) {
-            // event.page: New page number
-            // event.first: Index of first record
-            // event.rows: Number of rows to display in new page
-            // event.pageCount: Total number of pages
-            const { page } = event
-            this.page = page
-            this.$store.dispatch('logs/GET_LOGS', { page, filters: this.filters })
-        },
-        printLogs() {
+        formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
 
-            const e = document.querySelector('#printLogs')
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        },    
+        print() {
+
+            const reportType = (this.page == 1)?'#printVehicles':'#printLogs'
+
+            const e = document.querySelector(reportType)
             e.submit()
 
         }
