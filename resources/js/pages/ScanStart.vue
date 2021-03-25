@@ -57,6 +57,10 @@
 
 <script>
 
+document.removeEventListener('scan', function() {
+
+})
+
 import LoginFooter from '../components/LoginFooter'
 import Button from 'primevue/button/sfc';
 import Skeleton from 'primevue/skeleton/sfc';

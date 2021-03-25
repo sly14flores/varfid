@@ -17153,6 +17153,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+document.removeEventListener('scan', function () {});
 
 
 
@@ -25977,7 +25978,7 @@ var actions = {
     }))();
   },
   LOGOUT_SUCCESS: function LOGOUT_SUCCESS() {
-    window.open('#/', '_self');
+    window.open('/', '_self');
   },
   LOGOUT_ERROR: function LOGOUT_ERROR() {},
   AUTHENTICATE: function AUTHENTICATE() {
