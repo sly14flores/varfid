@@ -59,14 +59,17 @@
                 </div>                 
             </div>
             <div class="p-d-flex p-p-3">
-                <Button type="Button" icon="pi pi-print" class="p-ml-auto p-button-primary" @click="print" />                    
+                <Button type="button" icon="pi pi-search" class="p-ml-auto p-button-primary" @click="print" />
             </div>            
         </div>
-        <form id="printVehicles" action="/print/report/vehicles" method="post" target="_blank">
+        <div class="card p-fluid p-mt-1">
+            <iframe src="" name="iframe" height="500px" width="100%" title="Reports"></iframe>
+        </div>
+        <form id="printVehicles" action="/print/report/vehicles" method="post" target="iframe">
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" name="filters" :value="strFilters" />
         </form>
-        <form id="printLogs" action="/print/report/logs" method="post" target="_blank">
+        <form id="printLogs" action="/print/report/logs" method="post" target="iframe">
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" name="filters" :value="strFilters" />
         </form>        
