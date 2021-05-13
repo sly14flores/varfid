@@ -44,6 +44,7 @@ const deleteBrand = (payload) => {
  */
 const brand = {
     id: 0,
+    vechicle_type_id: null,
     name: null,
     description: null,
 }

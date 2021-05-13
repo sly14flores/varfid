@@ -16,8 +16,9 @@ class BrandsListResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'type_name' => (is_null($this->vehicleType))?"":$this->vehicleType->name,
             'name' => $this->name,
-            'description' => $this->description,
+            'description' => (is_null($this->description))?"":$this->description,
             'date_created' => $this->created_at 
         ];
     }

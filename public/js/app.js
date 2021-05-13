@@ -16621,18 +16621,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return types;
     },
     brands: function brands() {
-      var brands = [{
-        id: 0,
-        name: 'All Brands'
-      }].concat(_toConsumableArray(this.$store.state.selections.brands));
-      return brands;
+      var _this = this;
+
+      // const brands = [
+      // {id: 0, name: 'All Brands'},
+      // ...this.$store.state.selections.brands
+      // ]
+      return this.$store.state.selections.brands.filter(function (brand) {
+        return brand.vehicle_type_id == _this.filters.type;
+      });
     },
     models: function models() {
-      var models = [{
-        id: 0,
-        name: 'All Models'
-      }].concat(_toConsumableArray(this.$store.state.selections.models));
-      return models;
+      var _this2 = this;
+
+      // const models = [
+      // {id: 0, name: 'All Models'},
+      // ...this.$store.state.selections.models
+      // ]
+      return this.$store.state.selections.models.filter(function (model) {
+        return model.brand_id == _this2.filters.brand;
+      });
     },
     logs: function logs() {
       return this.$store.state.logs.logs; // return this.$store.state.logs.logs.filter(log => {
@@ -17474,19 +17482,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _useField = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.id', validField),
         id = _useField.value;
 
-    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.name', validateField),
-        name = _useField2.value,
-        nameError = _useField2.errorMessage;
+    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.vehicle_type_id', validateField),
+        vehicle_type_id = _useField2.value,
+        vehicle_type_idError = _useField2.errorMessage;
 
-    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.description', validField),
-        description = _useField3.value;
+    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.name', validateField),
+        name = _useField3.value,
+        nameError = _useField3.errorMessage;
+
+    var _useField4 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('brand.description', validField),
+        description = _useField4.value;
 
     return {
       onSubmit: onSubmit,
       editMode: editMode,
       id: id,
+      vehicle_type_id: vehicle_type_id,
       name: name,
       description: description,
+      vehicle_type_idError: vehicle_type_idError,
       nameError: nameError
     };
   },
@@ -17519,6 +17533,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     blockedPanel: function blockedPanel() {
       return this.$store.state.brands.fetchingData;
+    },
+    types: function types() {
+      return this.$store.state.selections.types;
     }
   },
   methods: {
@@ -17528,7 +17545,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     toggleWrite: function toggleWrite() {
       this.writeOn = !this.writeOn;
+    },
+    fetchTypes: function fetchTypes() {
+      this.$store.dispatch('selections/GET_TYPES');
     }
+  },
+  created: function created() {
+    this.fetchTypes();
   }
 });
 
@@ -17591,7 +17614,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.$store.state.brands.brands.filter(function (brand) {
-        return brand.name.toLowerCase().includes(_this.search.toLowerCase()) || brand.description.toLowerCase().includes(_this.search.toLowerCase());
+        return brand.type_name.toLowerCase().includes(_this.search.toLowerCase()) || brand.name.toLowerCase().includes(_this.search.toLowerCase()) || brand.description.toLowerCase().includes(_this.search.toLowerCase());
       });
     },
     pagination: function pagination() {
@@ -17815,19 +17838,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _useField = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.id', validField),
         id = _useField.value;
 
-    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.name', validateField),
-        name = _useField2.value,
-        nameError = _useField2.errorMessage;
+    var _useField2 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.vehicle_type_id', validateField),
+        vehicle_type_id = _useField2.value,
+        vehicle_type_idError = _useField2.errorMessage;
 
-    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.description', validField),
-        description = _useField3.value;
+    var _useField3 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.brand_id', validateField),
+        brand_id = _useField3.value,
+        brand_idError = _useField3.errorMessage;
+
+    var _useField4 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.name', validateField),
+        name = _useField4.value,
+        nameError = _useField4.errorMessage;
+
+    var _useField5 = (0,vee_validate__WEBPACK_IMPORTED_MODULE_12__.useField)('model.description', validField),
+        description = _useField5.value;
 
     return {
       onSubmit: onSubmit,
       editMode: editMode,
       id: id,
+      vehicle_type_id: vehicle_type_id,
+      brand_id: brand_id,
       name: name,
       description: description,
+      vehicle_type_idError: vehicle_type_idError,
+      brand_idError: brand_idError,
       nameError: nameError
     };
   },
@@ -17860,6 +17895,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     blockedPanel: function blockedPanel() {
       return this.$store.state.models.fetchingData;
+    },
+    types: function types() {
+      return this.$store.state.selections.types;
+    },
+    brands: function brands() {
+      var _this = this;
+
+      return this.$store.state.selections.brands.filter(function (brand) {
+        return brand.vehicle_type_id == _this.vehicle_type_id;
+      });
     }
   },
   methods: {
@@ -17869,7 +17914,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     toggleWrite: function toggleWrite() {
       this.writeOn = !this.writeOn;
+    },
+    fetchTypes: function fetchTypes() {
+      this.$store.dispatch('selections/GET_TYPES');
+    },
+    fetchBrands: function fetchBrands() {
+      this.$store.dispatch('selections/GET_BRANDS');
     }
+  },
+  created: function created() {
+    this.fetchTypes();
+    this.fetchBrands();
   }
 });
 
@@ -17932,7 +17987,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.$store.state.models.models.filter(function (model) {
-        return model.name.toLowerCase().includes(_this.search.toLowerCase()) || model.description.toLowerCase().includes(_this.search.toLowerCase());
+        return model.brand_name.toLowerCase().includes(_this.search.toLowerCase()) || model.name.toLowerCase().includes(_this.search.toLowerCase()) || model.description.toLowerCase().includes(_this.search.toLowerCase());
       });
     },
     pagination: function pagination() {
@@ -19454,18 +19509,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return types;
     },
     brands: function brands() {
-      var brands = [{
-        id: 0,
-        name: 'All Brands'
-      }].concat(_toConsumableArray(this.$store.state.selections.brands));
-      return brands;
+      var _this = this;
+
+      // const brands = [
+      //     {id: 0, name: 'All Brands'},
+      //     ...this.$store.state.selections.brands
+      // ]
+      return this.$store.state.selections.brands.filter(function (brand) {
+        return brand.vehicle_type_id == _this.filters.type;
+      });
     },
     models: function models() {
-      var models = [{
-        id: 0,
-        name: 'All Models'
-      }].concat(_toConsumableArray(this.$store.state.selections.models));
-      return models;
+      var _this2 = this;
+
+      // const models = [
+      //     {id: 0, name: 'All Models'},
+      //     ...this.$store.state.selections.models
+      // ]
+      return this.$store.state.selections.models.filter(function (model) {
+        return model.brand_id == _this2.filters.brand;
+      });
     },
     vehicles: function vehicles() {
       return this.$store.state.vehicles.vehicles; // return this.$store.state.vehicles.vehicles.filter(vehicle => {
@@ -19510,7 +19573,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     deleteVehicle: function deleteVehicle(id) {
-      var _this = this;
+      var _this3 = this;
 
       this.$confirm.require({
         key: 'confirmDelete',
@@ -19518,7 +19581,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: function accept() {
-          _this.$store.dispatch('vehicles/DELETE_VEHICLE', {
+          _this3.$store.dispatch('vehicles/DELETE_VEHICLE', {
             id: id
           });
         },
@@ -21230,8 +21293,8 @@ var _hoisted_9 = {
 };
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "name"
-}, "Name", -1
+  "for": "vehicle_type_id"
+}, "Vehicle Type", -1
 /* HOISTED */
 );
 
@@ -21239,22 +21302,37 @@ var _hoisted_11 = {
   "class": "p-error"
 };
 var _hoisted_12 = {
-  "class": "p-field p-lg-8 p-md-12"
+  "class": "p-field p-lg-4 p-md-12"
 };
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "name"
+}, "Name", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "p-error"
+};
+var _hoisted_15 = {
+  "class": "p-field p-lg-4 p-md-12"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "description"
 }, "Description", -1
 /* HOISTED */
 );
 
-var _hoisted_14 = {
+var _hoisted_17 = {
   "class": "p-d-flex"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
   var _component_ToggleButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ToggleButton");
+
+  var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
 
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
@@ -21274,7 +21352,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", {
-        onSubmit: _cache[4] || (_cache[4] = function () {
+        onSubmit: _cache[5] || (_cache[5] = function () {
           return $setup.onSubmit && $setup.onSubmit.apply($setup, arguments);
         }),
         autocomplete: "off"
@@ -21289,12 +21367,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         change: "toggleWrite"
       }, null, 8
       /* PROPS */
-      , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        id: "vehicle_type_id",
+        modelValue: $setup.vehicle_type_id,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+          return $setup.vehicle_type_id = $event;
+        }),
+        options: $options.types,
+        optionValue: "id",
+        optionLabel: "name",
+        placeholder: "Select vehicle type",
+        "class": {
+          'p-invalid': $setup.vehicle_type_idError
+        },
+        disabled: $setup.editMode && !$options.writeOn
+      }, null, 8
+      /* PROPS */
+      , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.vehicle_type_idError), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "name",
         type: "text",
         placeholder: "Enter Name",
         modelValue: $setup.name,
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
           return $setup.name = $event;
         }),
         "class": {
@@ -21303,20 +21399,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.nameError), 1
+      , ["modelValue", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.nameError), 1
       /* TEXT */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "description",
         type: "text",
         placeholder: "Enter Description",
         modelValue: $setup.description,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $setup.description = $event;
         }),
         disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "disabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
+      , ["modelValue", "disabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
         show: $options.saving,
         raised: "false",
         serverity: "primary",
@@ -21449,6 +21545,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "type_name",
+            header: "Vehicle Type"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "name",
             header: "Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -21604,12 +21703,12 @@ var _hoisted_8 = {
   "class": "p-grid"
 };
 var _hoisted_9 = {
-  "class": "p-field p-lg-4 p-md-12"
+  "class": "p-field p-lg-3 p-md-12"
 };
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "name"
-}, "Name", -1
+  "for": "vehicle_type_id"
+}, "Vehicle Type", -1
 /* HOISTED */
 );
 
@@ -21617,22 +21716,50 @@ var _hoisted_11 = {
   "class": "p-error"
 };
 var _hoisted_12 = {
-  "class": "p-field p-lg-8 p-md-12"
+  "class": "p-field p-lg-3 p-md-12"
 };
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "brand_id"
+}, "Brand", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "p-error"
+};
+var _hoisted_15 = {
+  "class": "p-field p-lg-3 p-md-12"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "name"
+}, "Name", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = {
+  "class": "p-error"
+};
+var _hoisted_18 = {
+  "class": "p-field p-lg-3 p-md-12"
+};
+
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "description"
 }, "Description", -1
 /* HOISTED */
 );
 
-var _hoisted_14 = {
+var _hoisted_20 = {
   "class": "p-d-flex"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MyBreadcrumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MyBreadcrumb");
 
   var _component_ToggleButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ToggleButton");
+
+  var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
 
   var _component_InputText = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("InputText");
 
@@ -21652,7 +21779,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", {
-        onSubmit: _cache[4] || (_cache[4] = function () {
+        onSubmit: _cache[6] || (_cache[6] = function () {
           return $setup.onSubmit && $setup.onSubmit.apply($setup, arguments);
         }),
         autocomplete: "off"
@@ -21667,12 +21794,48 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         change: "toggleWrite"
       }, null, 8
       /* PROPS */
-      , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        id: "vehicle_type_id",
+        modelValue: $setup.vehicle_type_id,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+          return $setup.vehicle_type_id = $event;
+        }),
+        options: $options.types,
+        optionValue: "id",
+        optionLabel: "name",
+        placeholder: "Select vehicle type",
+        "class": {
+          'p-invalid': $setup.vehicle_type_idError
+        },
+        disabled: $setup.editMode && !$options.writeOn
+      }, null, 8
+      /* PROPS */
+      , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.vehicle_type_idError), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        id: "brand_id",
+        modelValue: $setup.brand_id,
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+          return $setup.brand_id = $event;
+        }),
+        options: $options.brands,
+        optionValue: "id",
+        optionLabel: "name",
+        placeholder: "Select brand",
+        "class": {
+          'p-invalid': $setup.brand_idError
+        },
+        disabled: $setup.editMode && !$options.writeOn
+      }, null, 8
+      /* PROPS */
+      , ["modelValue", "options", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.brand_idError), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "name",
         model: "text",
         placeholder: "Enter Name",
         modelValue: $setup.name,
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $setup.name = $event;
         }),
         "class": {
@@ -21681,20 +21844,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.nameError), 1
+      , ["modelValue", "class", "disabled"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.nameError), 1
       /* TEXT */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
         id: "description",
         model: "text",
         placeholder: "Enter Description",
         modelValue: $setup.description,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
           return $setup.description = $event;
         }),
         disabled: $setup.editMode && !$options.writeOn
       }, null, 8
       /* PROPS */
-      , ["modelValue", "disabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
+      , ["modelValue", "disabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ActionButton, {
         show: $options.saving,
         raised: "false",
         serverity: "primary",
@@ -21827,6 +21990,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "brand_name",
+            header: "Brand"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "name",
             header: "Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -24248,6 +24414,7 @@ var deleteBrand = function deleteBrand(payload) {
 
 var brand = {
   id: 0,
+  vechicle_type_id: null,
   name: null,
   description: null
 };
@@ -25266,6 +25433,8 @@ var deleteModel = function deleteModel(payload) {
 
 var model = {
   id: 0,
+  vehicle_type_id: null,
+  brand_id: null,
   name: null,
   description: null
 };

@@ -17,6 +17,7 @@ class VehicleModel extends Model
      * @var array
      */
     protected $fillable = [
+        'brand_id',
         'name',
         'description'
     ];
@@ -28,5 +29,11 @@ class VehicleModel extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
 }

@@ -39,7 +39,9 @@ trait General {
 
     public function types() {
 
-        return VehicleType::all(['id','name']);
+        $vehicle_types = VehicleType::all(['id','name']);
+
+        return $vehicle_types;
 
     }
 
@@ -51,7 +53,7 @@ trait General {
 
     public function brands() {
 
-        return Brand::all(['id','name']);     
+        return Brand::all(['id','vehicle_type_id','name']);
 
     }
 
@@ -63,7 +65,7 @@ trait General {
     public function models()
     {
 
-        return VehicleModel::all(['id','name']);     
+        return VehicleModel::all(['id','brand_id','name']);     
 
     }
 
