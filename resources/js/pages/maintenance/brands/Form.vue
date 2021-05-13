@@ -15,11 +15,16 @@
                             </div>
                             <div class="p-grid">
                                 <div class="p-field p-lg-4 p-md-12">
+                                    <label for="vehicle_type_id">Vehicle Type</label>
+                                    <Dropdown id="vehicle_type_id" v-model="vehicle_type_id" :options="types" optionValue="id" optionLabel="name" placeholder="Select vehicle type" :class="{'p-invalid': vehicle_type_idError}" :disabled="editMode && !writeOn" />                                    
+                                    <small class="p-error">{{ vehicle_type_idError }}</small>
+                                </div>                                
+                                <div class="p-field p-lg-4 p-md-12">
                                     <label for="name">Name</label>
                                     <InputText id="name" type="text" placeholder="Enter Name" v-model="name" :class="{'p-invalid': nameError}" :disabled="editMode && !writeOn" />
                                     <small class="p-error">{{ nameError }}</small>                       
                                 </div>
-                                <div class="p-field p-lg-8 p-md-12">
+                                <div class="p-field p-lg-4 p-md-12">
                                     <label for="description">Description</label>
                                     <InputText id="description" type="text" placeholder="Enter Description" v-model="description" :disabled="editMode && !writeOn" />
                                 </div>                                                  
@@ -139,6 +144,7 @@ export default {
         }
 
         const { value: id } = useField('brand.id',validField);
+        const { value: vehicle_type_id, errorMessage: vehicle_type_idError } = useField('brand.vehicle_type_id',validateField);        
         const { value: name, errorMessage: nameError } = useField('brand.name',validateField);        
         const { value: description } = useField('brand.description',validField);        
 
@@ -146,8 +152,10 @@ export default {
             onSubmit,
             editMode,
             id,
+            vehicle_type_id,
             name,
             description,
+            vehicle_type_idError,
             nameError,
         }
 
@@ -176,6 +184,9 @@ export default {
         blockedPanel() {
             return this.$store.state.brands.fetchingData
         },
+        types() {
+            return this.$store.state.selections.types
+        }
     },
     methods: {
         close() {
@@ -184,7 +195,13 @@ export default {
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
+        },
+        fetchTypes() {
+            this.$store.dispatch('selections/GET_TYPES')
         }
     },
+    created() {
+        this.fetchTypes()
+    }
 }
 </script>

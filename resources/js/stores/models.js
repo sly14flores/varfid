@@ -44,6 +44,8 @@ const deleteModel = (payload) => {
  */
 const model = {
     id: 0,
+    vehicle_type_id: null,
+    brand_id: null,
     name: null,
     description: null,
 }

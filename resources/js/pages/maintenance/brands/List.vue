@@ -19,6 +19,7 @@
                                 </div>                         
                             </div>
                         </template>                        
+                        <Column field="type_name" header="Vehicle Type"></Column>
                         <Column field="name" header="Name"></Column>
                         <Column field="description" header="Description"></Column>
                         <Column field="id" header="Actions">
@@ -74,7 +75,8 @@ export default {
             
             return this.$store.state.brands.brands.filter(brand => {
             
-                return brand.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                return brand.type_name.toLowerCase().includes(this.search.toLowerCase()) ||
+                        brand.name.toLowerCase().includes(this.search.toLowerCase()) ||
                         brand.description.toLowerCase().includes(this.search.toLowerCase())
             
             })

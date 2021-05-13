@@ -53,7 +53,7 @@ trait General {
 
     public function brands() {
 
-        return Brand::all(['id','vehicle_type_id','name']);     
+        return Brand::all(['id','vehicle_type_id','name']);
 
     }
 

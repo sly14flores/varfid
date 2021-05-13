@@ -120,18 +120,22 @@ export default {
             return types
         },
         brands() {
-            const brands = [
-                {id: 0, name: 'All Brands'},
-                ...this.$store.state.selections.brands
-            ]
-            return brands
+            // const brands = [
+            //     {id: 0, name: 'All Brands'},
+            //     ...this.$store.state.selections.brands
+            // ]
+            return this.$store.state.selections.brands.filter(brand => {
+                return brand.vehicle_type_id == this.filters.type
+            })
         },
         models() {
-            const models = [
-                {id: 0, name: 'All Models'},
-                ...this.$store.state.selections.models
-            ]
-            return models
+            // const models = [
+            //     {id: 0, name: 'All Models'},
+            //     ...this.$store.state.selections.models
+            // ]
+            return this.$store.state.selections.models.filter(model => {
+                return model.brand_id == this.filters.brand
+            })
         },        
         vehicles() {
 

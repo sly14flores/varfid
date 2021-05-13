@@ -62,8 +62,9 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'vehicle_type_id' => 'integer',
             'name' => 'string',
-            'description' => 'string',
+            // 'description' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -139,8 +140,9 @@ class BrandController extends Controller
         }
 
         $rules = [
+            'vehicle_type_id' => 'integer',
             'name' => 'string',
-            'description' => 'string',
+            // 'description' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
