@@ -122,7 +122,7 @@ class PrintLogs extends Controller
                 $query = $query->whereBetween('vehicle_logs.created_at',[$startDate,$endDate]);
             }
             return $query;
-        })->get();
+        })->orderByDesc('created_at')->get();
         // return $getLogs->toSql();
 
         $logs = [];

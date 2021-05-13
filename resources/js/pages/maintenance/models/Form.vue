@@ -4,7 +4,7 @@
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
                 <BlockUI :blocked="blockedPanel">
-                    <form @submit="onSubmit">
+                    <form @submit="onSubmit" autocomplete="off">
                         <div class="card p-fluid">
                             <h5><i class="pi pi-circle-off"></i> Vehicle Model Information</h5>
                             <hr />

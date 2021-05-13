@@ -120,7 +120,7 @@ class PrintVehicles extends Controller
         if (($startDate!=null) && ($endDate!=null)) {
             $getVehicles = $getVehicles->whereBetween('created_at',[$startDate,$endDate]);
         }
-        $getVehicles = $getVehicles->get();
+        $getVehicles = $getVehicles->orderByDesc('created_at')->get();
         
         $vehicles = [];
         foreach ($getVehicles as $i => $vehicle) {

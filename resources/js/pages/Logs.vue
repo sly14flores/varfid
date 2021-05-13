@@ -5,49 +5,51 @@
             <BlockUI :blocked="blockedPanel">
                 <DataTable :value="logs" dataKey="id">
                     <template #header>
-                        <div class="p-d-flex p-p-2 card">
-                            <div class="p-formgroup-inline">
-                                <div class="p-field">
-                                    <label for="type" class="p-sr-only">Type</label>
-                                    <Dropdown id="type" v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
-                                </div>
-                                <div class="p-field">
-                                    <label for="brand" class="p-sr-only">Brand</label>
-                                    <Dropdown id="brand" v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
-                                </div>
-                                <div class="p-field">
-                                    <label for="model" class="p-sr-only">Model</label>
-                                    <Dropdown id="model" v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
-                                </div>
-                                <div class="p-field">
-                                    <label for="plate_no" class="p-sr-only">Plate No</label>
-                                    <InputText id="plate_no" type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
-                                </div>
-                                <div class="p-field">
-                                    <label for="rfid" class="p-sr-only">RFID</label>
-                                    <InputText id="rfid" type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
-                                </div>
-                                <div class="p-field">
-                                    <label for="name" class="p-sr-only">Name</label>
-                                    <InputText id="name" type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
-                                </div>                                
-                                <div class="p-field">
-                                    <Button type="button" class="p-button-sm p-button-danger" label="Filter" @click="filterList" />
-                                </div>
-                                <div class="p-field">
-                                    <Button class="p-button-sm p-button-warning" icon="pi pi-print" @click="printLogs" />
-                                </div>
-                            </div>                         
-                        </div>
+                        <form autocomplete="off">
+                            <div class="p-d-flex p-p-2 card">
+                                <div class="p-formgroup-inline">
+                                    <div class="p-field">
+                                        <label for="type" class="p-sr-only">Type</label>
+                                        <Dropdown id="type" v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+                                    </div>
+                                    <div class="p-field">
+                                        <label for="brand" class="p-sr-only">Brand</label>
+                                        <Dropdown id="brand" v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
+                                    </div>
+                                    <div class="p-field">
+                                        <label for="model" class="p-sr-only">Model</label>
+                                        <Dropdown id="model" v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
+                                    </div>
+                                    <div class="p-field">
+                                        <label for="plate_no" class="p-sr-only">Plate No</label>
+                                        <InputText id="plate_no" type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
+                                    </div>
+                                    <!-- <div class="p-field">
+                                        <label for="rfid" class="p-sr-only">RFID</label>
+                                        <InputText id="rfid" type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
+                                    </div> -->
+                                    <div class="p-field">
+                                        <label for="name" class="p-sr-only">Name</label>
+                                        <InputText id="name" type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
+                                    </div>                                
+                                    <div class="p-field">
+                                        <Button type="button" class="p-button-sm p-button-danger" label="Filter" @click="filterList" />
+                                    </div>
+                                    <div class="p-field">
+                                        <Button class="p-button-sm p-button-warning" icon="pi pi-print" @click="printLogs" />
+                                    </div>
+                                </div>                         
+                            </div>
+                        </form>
                     </template>                        
-                    <Column field="no" header="No"></Column>
-                    <Column field="rfid" header="RFID"></Column>
+                    <!-- <Column field="no" header="No"></Column> -->
+                    <!-- <Column field="rfid" header="RFID"></Column> -->
+                    <Column field="dateTime" header="Date/Time"></Column>
+                    <Column field="owner" header="Owner's Name"></Column>                                       
                     <Column field="plateNo" header="Plate No"></Column>
                     <Column field="type" header="Vehicle Type"></Column>
                     <Column field="brand" header="Brand"></Column>
                     <Column field="model" header="Model"></Column>
-                    <Column field="owner" header="Owner's Name"></Column>
-                    <Column field="dateTime" header="Date/Time"></Column>
                 </DataTable>
                 <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchLogs($event)"></Paginator>
             </BlockUI>
