@@ -28,5 +28,11 @@ class VehicleType extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
+
+    public function brands()
+    {
+        return $this->hasMany(Brand::class);
+    }
+
 }

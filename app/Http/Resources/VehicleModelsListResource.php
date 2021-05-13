@@ -16,6 +16,7 @@ class VehicleModelsListResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'brand_name' => (is_null($this->brand))?null:$this->brand->name,
             'name' => $this->name,
             'description' => $this->description,
             'date_created' => $this->created_at 
