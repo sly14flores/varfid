@@ -1,67 +1,69 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="card p-fluid p-mt-4">
-            <div class="p-fluid p-formgrid p-grid">
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Report Type</label>
-                    <Dropdown v-model="page" :options="pages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+        <form autocomplete="off">
+            <div class="card p-fluid p-mt-4">
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Report Type</label>
+                        <Dropdown v-model="page" :options="pages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Coverage</label>
+                        <Dropdown v-model="filters.coverage" :options="coverages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" @change="coverageChange" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==1 || filters.coverage==2">
+                        <label>{{(filters.coverage==2)?'Start Date':'Date'}}</label>
+                        <InputText type="date" v-model="filters.startDate" class="p-inputtext-sm" @change="startDateChange" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==2">
+                        <label>End Date</label>
+                        <InputText type="date" v-model="filters.endDate" class="p-inputtext-sm" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3">
+                        <label>Month</label>
+                        <Dropdown v-model="filters.month" :options="months" optionValue="id" optionLabel="name" placeholder="Select Month" :class="{'p-inputtext-sm': true, 'p-invalid': validations.month}" @change="monthSelected" />
+                        <small class="p-error">{{(validations.month)?'Please select month':null}}</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3 || filters.coverage==4">
+                        <label>Year</label>
+                        <InputText type="text" v-model="filters.year" :class="{'p-inputtext-sm': true, 'p-invalid': validations.year}" />
+                        <small class="p-error">{{(validations.year)?'Please enter year':null}}</small>
+                    </div>                                                                 
                 </div>
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Coverage</label>
-                    <Dropdown v-model="filters.coverage" :options="coverages" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" @change="coverageChange" />
+                <div class="p-fluid p-formgrid p-grid">            
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Type</label>
+                        <Dropdown v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Brand</label>
+                        <Dropdown v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Model</label>
+                        <Dropdown v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Plate No</label>
+                        <InputText type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
+                    </div>                
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==1 || filters.coverage==2">
-                    <label>{{(filters.coverage==2)?'Start Date':'Date'}}</label>
-                    <InputText type="date" v-model="filters.startDate" class="p-inputtext-sm" @change="startDateChange" />
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>RFID</label>
+                        <InputText type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label>Name</label>
+                        <InputText type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
+                    </div>                 
                 </div>
-                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==2">
-                    <label>End Date</label>
-                    <InputText type="date" v-model="filters.endDate" class="p-inputtext-sm" />
-                </div>
-                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3">
-                    <label>Month</label>
-                    <Dropdown v-model="filters.month" :options="months" optionValue="id" optionLabel="name" placeholder="Select Month" :class="{'p-inputtext-sm': true, 'p-invalid': validations.month}" @change="monthSelected" />
-                    <small class="p-error">{{(validations.month)?'Please select month':null}}</small>
-                </div>
-                <div class="p-field p-col-12 p-md-3" v-if="filters.coverage==3 || filters.coverage==4">
-                    <label>Year</label>
-                    <InputText type="text" v-model="filters.year" :class="{'p-inputtext-sm': true, 'p-invalid': validations.year}" />
-                    <small class="p-error">{{(validations.year)?'Please enter year':null}}</small>
-                </div>                                                                 
+                <div class="p-d-flex p-p-3">
+                    <Button type="button" icon="pi pi-search" class="p-ml-auto p-button-primary" @click="print" />
+                </div>            
             </div>
-            <div class="p-fluid p-formgrid p-grid">            
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Type</label>
-                    <Dropdown v-model="filters.type" :options="types" optionValue="id" optionLabel="name" placeholder="Select Type" class="p-inputtext-sm" />
-                </div>
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Brand</label>
-                    <Dropdown v-model="filters.brand" :options="brands" optionValue="id" optionLabel="name" placeholder="Select Brand" class="p-inputtext-sm" />
-                </div>
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Model</label>
-                    <Dropdown v-model="filters.model" :options="models" optionValue="id" optionLabel="name" placeholder="Select model" class="p-inputtext-sm" />
-                </div>
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Plate No</label>
-                    <InputText type="text" v-model="filters.plate_no" placeholder="Plate No" class="p-inputtext-sm" />                                        
-                </div>                
-            </div>
-            <div class="p-fluid p-formgrid p-grid">
-                <div class="p-field p-col-12 p-md-3">
-                    <label>RFID</label>
-                    <InputText type="text" v-model="filters.rfid" placeholder="RFID" class="p-inputtext-sm" />                                        
-                </div>
-                <div class="p-field p-col-12 p-md-3">
-                    <label>Name</label>
-                    <InputText type="text" v-model="filters.name" placeholder="Firstname Lastname" class="p-inputtext-sm" />                                        
-                </div>                 
-            </div>
-            <div class="p-d-flex p-p-3">
-                <Button type="button" icon="pi pi-search" class="p-ml-auto p-button-primary" @click="print" />
-            </div>            
-        </div>
+        </form>
         <div class="card p-fluid p-mt-1">
             <iframe src="" name="iframe" height="500px" width="100%" title="Reports"></iframe>
         </div>
@@ -83,6 +85,7 @@ import Column from 'primevue/column/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Button from 'primevue/button/sfc';
+import Form from './maintenance/brands/Form.vue';
 
 export default {
     components: {
@@ -90,7 +93,8 @@ export default {
         InputText,
         Column,
         Dropdown,
-        Button
+        Button,
+        Form
     },
     setup() {
 
