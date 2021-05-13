@@ -20189,84 +20189,76 @@ var _hoisted_1 = {
   "class": "card p-fluid p-mt-4"
 };
 var _hoisted_2 = {
-  "class": "p-d-flex p-p-2 card"
+  autocomplete: "off"
 };
 var _hoisted_3 = {
-  "class": "p-formgroup-inline"
+  "class": "p-d-flex p-p-2 card"
 };
 var _hoisted_4 = {
+  "class": "p-formgroup-inline"
+};
+var _hoisted_5 = {
   "class": "p-field"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "type",
   "class": "p-sr-only"
 }, "Type", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = {
+var _hoisted_7 = {
   "class": "p-field"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "brand",
   "class": "p-sr-only"
 }, "Brand", -1
 /* HOISTED */
 );
 
-var _hoisted_8 = {
+var _hoisted_9 = {
   "class": "p-field"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "model",
   "class": "p-sr-only"
 }, "Model", -1
 /* HOISTED */
 );
 
-var _hoisted_10 = {
+var _hoisted_11 = {
   "class": "p-field"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "plate_no",
   "class": "p-sr-only"
 }, "Plate No", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = {
+var _hoisted_13 = {
   "class": "p-field"
 };
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "rfid",
-  "class": "p-sr-only"
-}, "RFID", -1
-/* HOISTED */
-);
-
-var _hoisted_14 = {
-  "class": "p-field"
-};
-
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "name",
   "class": "p-sr-only"
 }, "Name", -1
 /* HOISTED */
 );
 
+var _hoisted_15 = {
+  "class": "p-field"
+};
 var _hoisted_16 = {
   "class": "p-field"
 };
 var _hoisted_17 = {
-  "class": "p-field"
-};
-var _hoisted_18 = {
   id: "printLogs",
   action: "/print/logs",
   method: "post",
@@ -20306,7 +20298,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
         dataKey: "id"
       }, {
         header: _withId(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "type",
             modelValue: $data.filters.type,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -20319,7 +20311,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "brand",
             modelValue: $data.filters.brand,
             "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -20332,7 +20324,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "model",
             modelValue: $data.filters.model,
             "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
@@ -20345,7 +20337,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             id: "plate_no",
             type: "text",
             modelValue: $data.filters.plate_no,
@@ -20356,50 +20348,39 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            id: "rfid",
-            type: "text",
-            modelValue: $data.filters.rfid,
-            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-              return $data.filters.rfid = $event;
-            }),
-            placeholder: "RFID",
-            "class": "p-inputtext-sm"
-          }, null, 8
-          /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"p-field\">\r\n                                        <label for=\"rfid\" class=\"p-sr-only\">RFID</label>\r\n                                        <InputText id=\"rfid\" type=\"text\" v-model=\"filters.rfid\" placeholder=\"RFID\" class=\"p-inputtext-sm\" />                                        \r\n                                    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             id: "name",
             type: "text",
             modelValue: $data.filters.name,
-            "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
               return $data.filters.name = $event;
             }),
             placeholder: "Firstname Lastname",
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             type: "button",
             "class": "p-button-sm p-button-danger",
             label: "Filter",
             onClick: $options.filterList
           }, null, 8
           /* PROPS */
-          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             "class": "p-button-sm p-button-warning",
             icon: "pi pi-print",
             onClick: $options.printLogs
           }, null, 8
           /* PROPS */
-          , ["onClick"])])])])];
+          , ["onClick"])])])])])];
         }),
         "default": _withId(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "no",
-            header: "No"
+            field: "dateTime",
+            header: "Date/Time"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "rfid",
-            header: "RFID"
+            field: "owner",
+            header: "Owner's Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "plateNo",
             header: "Plate No"
@@ -20412,12 +20393,6 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "model",
             header: "Model"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "owner",
-            header: "Owner's Name"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "dateTime",
-            header: "Date/Time"
           })];
         }),
         _: 1
@@ -20428,7 +20403,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[7] || (_cache[7] = function ($event) {
+        onPage: _cache[6] || (_cache[6] = function ($event) {
           return $options.fetchLogs($event);
         })
       }, null, 8
@@ -20440,7 +20415,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   }, 8
   /* PROPS */
-  , ["blocked"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+  , ["blocked"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
     type: "hidden",
     name: "_token",
     value: $options.csrf
@@ -23248,7 +23223,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", {
         onSubmit: _cache[12] || (_cache[12] = function () {
           return $setup.onSubmit && $setup.onSubmit.apply($setup, arguments);
-        })
+        }),
+        autocomplete: "off"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [_hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [$setup.editMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ToggleButton, {
         key: 0,
         modelValue: $options.writeOn,
@@ -23519,81 +23495,73 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_4 = {
-  "class": "p-d-flex p-p-2"
+  autocomplete: "off"
 };
 var _hoisted_5 = {
-  "class": "p-d-flex p-mt-2 p-p-2 card"
+  "class": "p-d-flex p-p-2"
 };
 var _hoisted_6 = {
-  "class": "p-formgroup-inline"
+  "class": "p-d-flex p-mt-2 p-p-2 card"
 };
 var _hoisted_7 = {
+  "class": "p-formgroup-inline"
+};
+var _hoisted_8 = {
   "class": "p-field"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "type",
   "class": "p-sr-only"
 }, "Type", -1
 /* HOISTED */
 );
 
-var _hoisted_9 = {
+var _hoisted_10 = {
   "class": "p-field"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "brand",
   "class": "p-sr-only"
 }, "Brand", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_12 = {
   "class": "p-field"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "model",
   "class": "p-sr-only"
 }, "Model", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = {
+var _hoisted_14 = {
   "class": "p-field"
 };
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "plate_no",
   "class": "p-sr-only"
 }, "Plate No", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = {
+var _hoisted_16 = {
   "class": "p-field"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "rfid",
-  "class": "p-sr-only"
-}, "RFID", -1
-/* HOISTED */
-);
-
-var _hoisted_17 = {
-  "class": "p-field"
-};
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "name",
   "class": "p-sr-only"
 }, "Name", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = {
+var _hoisted_18 = {
   "class": "p-field"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23631,13 +23599,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         dataKey: "id"
       }, {
         header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             icon: "pi pi-plus",
             "class": "p-button-info",
             onClick: $options.newForm
           }, null, 8
           /* PROPS */
-          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "type",
             modelValue: $data.filters.type,
             "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -23650,7 +23618,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "brand",
             modelValue: $data.filters.brand,
             "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -23663,7 +23631,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
             id: "model",
             modelValue: $data.filters.model,
             "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
@@ -23676,7 +23644,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             id: "plate_no",
             type: "text",
             modelValue: $data.filters.plate_no,
@@ -23687,39 +23655,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
-            id: "rfid",
-            type: "text",
-            modelValue: $data.filters.rfid,
-            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-              return $data.filters.rfid = $event;
-            }),
-            placeholder: "RFID",
-            "class": "p-inputtext-sm"
-          }, null, 8
-          /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"p-field\">\r\n                                            <label for=\"rfid\" class=\"p-sr-only\">RFID</label>\r\n                                            <InputText id=\"rfid\" type=\"text\" v-model=\"filters.rfid\" placeholder=\"RFID\" class=\"p-inputtext-sm\" />                                        \r\n                                        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_InputText, {
             id: "name",
             type: "text",
             modelValue: $data.filters.name,
-            "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+            "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
               return $data.filters.name = $event;
             }),
             placeholder: "Firstname Lastname",
             "class": "p-inputtext-sm"
           }, null, 8
           /* PROPS */
-          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+          , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
             type: "button",
             "class": "p-button-sm p-button-danger",
             label: "Filter",
             onClick: $options.filterList
           }, null, 8
           /* PROPS */
-          , ["onClick"])])])])];
+          , ["onClick"])])])])])];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "date_created",
+            header: "Date Registered"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: "plate_no",
+            header: "Plate No"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "type_name",
             header: "Type"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
@@ -23729,20 +23692,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             field: "model",
             header: "Model"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "plate_no",
-            header: "Plate No"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "rfid",
-            header: "RFID"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "firstname",
             header: "First Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "lastname",
             header: "Last Name"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "date_created",
-            header: "Date Registered"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "id",
             header: "Actions"
@@ -23785,7 +23739,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Paginator, {
         rows: $options.pagination.per_page,
         totalRecords: $options.pagination.total,
-        onPage: _cache[7] || (_cache[7] = function ($event) {
+        onPage: _cache[6] || (_cache[6] = function ($event) {
           return $options.fetchVehicles($event);
         })
       }, null, 8

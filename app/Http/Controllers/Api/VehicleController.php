@@ -75,7 +75,7 @@ class VehicleController extends Controller
             $wheres[] = [DB::raw("CONCAT(firstname, ' ', lastname)"),'like',"%{$name}%"];
         }
 
-        $vehicles = Vehicle::where($wheres)->paginate(10);
+        $vehicles = Vehicle::where($wheres)->orderByDesc('created_at')->paginate(10);
 
         $data = new VehiclesListResourceCollection($vehicles);
 

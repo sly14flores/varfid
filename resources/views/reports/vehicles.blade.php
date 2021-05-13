@@ -85,8 +85,8 @@
 		</script>
 		<div class="wrapper">
 			<header>
-				<img class="logo" src="{{ $logo }}" />
-				<p style="float: right">Vehicles Report</p>
+				<div style="width: 100%; text-align: center;"><img class="logo" src="{{ $logo }}" /></div>
+				<p style="position: absolute; top: 0; left: 0;">Vehicles Report</p>
 			</header>
 			<main>
 				<div class="coverage">
@@ -97,12 +97,12 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>No</th>
+							<!-- <th>No</th> -->
 							<th>Type</th>
 							<th>Brand</th>
 							<th>Model</th>
 							<th>Plate No</th>
-							<th>RFID</th>
+							<!-- <th>RFID</th> -->
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Date Registered</th>
@@ -111,12 +111,12 @@
 					<tbody>
 						@foreach($vehicles as $vehicle)
 							<tr>
-								<td>{{ $vehicle['no'] }}</td>
+								<!-- <td>{{ $vehicle['no'] }}</td> -->
 								<td>{{ $vehicle['type_name'] }}</td>
 								<td>{{ $vehicle['brand_name'] }}</td>
 								<td>{{ $vehicle['model'] }}</td>
 								<td>{{ $vehicle['plate_no'] }}</td>
-								<td>{{ $vehicle['rfid'] }}</td>
+								<!-- <td>{{ $vehicle['rfid'] }}</td> -->
 								<td>{{ $vehicle['firstname'] }}</td>
 								<td>{{ $vehicle['lastname'] }}</td>
 								<td>{{ $vehicle['date_created'] }}</td>

@@ -85,8 +85,8 @@
 		</script>
 		<div class="wrapper">
 			<header>
-				<img class="logo" src="{{ $logo }}" />
-				<p style="float: right">{{ $title }}</p>
+				<div style="width: 100%; text-align: center;"><img class="logo" src="{{ $logo }}" /></div>
+				<p style="position: absolute; top: 0; left: 0;">{{ $title }}</p>
 			</header>
 			<main>
 				<div class="coverage">
@@ -97,8 +97,8 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>No</th>
-							<th>RFID</th>
+							<!-- <th>No</th> -->
+							<!-- <th>RFID</th> -->
 							<th>Plate No</th>
 							<th>Vehicle Type</th>
 							<th>Brand</th>
@@ -110,8 +110,8 @@
 					<tbody>
 						@foreach($logs as $log)
 							<tr>
-								<td>{{ $log['no'] }}</td>
-								<td>{{ $log['rfid'] }}</td>
+								<!-- <td>{{ $log['no'] }}</td> -->
+								<!-- <td>{{ $log['rfid'] }}</td> -->
 								<td>{{ $log['plateNo'] }}</td>
 								<td>{{ $log['type'] }}</td>
 								<td>{{ $log['brand'] }}</td>

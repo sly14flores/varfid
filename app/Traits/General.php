@@ -105,7 +105,7 @@ trait General {
                 $wheres[] = [DB::raw("CONCAT(vehicles.firstname, ' ', vehicles.lastname)"),'like',"%{$name}%"];
             }
             return $query->where($wheres);
-        });
+        })->orderByDesc('created_at');
 
         return $logs;
     }
