@@ -305,10 +305,14 @@ export default {
             return this.$store.state.selections.types
         },
         brands() {
-            return this.$store.state.selections.brands
+            return this.$store.state.selections.brands.filter(brand => {
+                return brand.vehicle_type_id == this.type_id
+            })
         },
         models() {
-            return this.$store.state.selections.models
+            return this.$store.state.selections.models.filter(model => {
+                return model.brand_id == this.brand_id
+            })
         },                 
         picture: {
             get() {

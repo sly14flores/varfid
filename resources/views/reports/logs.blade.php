@@ -103,7 +103,7 @@
 							<th>Vehicle Type</th>
 							<th>Brand</th>
 							<th>Model</th>
-							<th>Owner' Name</th>
+							<th>Owner's Name</th>
 							<th>DateTime</th>
 						</tr>
 					</thead>
