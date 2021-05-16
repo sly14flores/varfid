@@ -19356,10 +19356,18 @@ function checkPlateNo(payload) {
       return this.$store.state.selections.types;
     },
     brands: function brands() {
-      return this.$store.state.selections.brands;
+      var _this = this;
+
+      return this.$store.state.selections.brands.filter(function (brand) {
+        return brand.vehicle_type_id == _this.type_id;
+      });
     },
     models: function models() {
-      return this.$store.state.selections.models;
+      var _this2 = this;
+
+      return this.$store.state.selections.models.filter(function (model) {
+        return model.brand_id == _this2.brand_id;
+      });
     },
     picture: {
       get: function get() {
@@ -19387,18 +19395,18 @@ function checkPlateNo(payload) {
       this.writeOn = !this.writeOn;
     },
     getBase64: function getBase64(file) {
-      var _this = this;
+      var _this3 = this;
 
       var reader = new FileReader();
       reader.readAsDataURL(file);
 
       reader.onload = function () {
         // console.log(reader.result)
-        _this.picture = reader.result;
+        _this3.picture = reader.result;
 
-        _this.$nextTick(function () {
-          _this.profileUpload = true;
-          _this.pictureReplace = true;
+        _this3.$nextTick(function () {
+          _this3.profileUpload = true;
+          _this3.pictureReplace = true;
         });
       };
 
@@ -28027,7 +28035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "apiUrl": () => (/* binding */ apiUrl)
 /* harmony export */ });
-var prodUrl = "https://varfid.herokuapp.com";
+var prodUrl = "https://varfid.online";
 var localUrl = "http://varfid.local";
 var ENV = "local" || 0;
 var apiUrl = ENV === 'local' ? localUrl : prodUrl;
