@@ -8,7 +8,9 @@
 				<span class="layout-topbar-item-text">User</span>
 				<span class="layout-topbar-icon pi pi-user"></span>
 			</Button>
-			<TieredMenu id="overlay_menu" ref="menu" :model="menu" :popup="true" />
+			<div style="position: absolute;">
+				<TieredMenu id="overlay_menu" ref="menu" :model="menu" :popup="true" />
+			</div>
 		</div>
 		<ConfirmDialog></ConfirmDialog>
 	</div>
@@ -84,27 +86,41 @@ export default {
 <style scoped>
 
 .p-tieredmenu-overlay {
-	left: 65vw!important;
+	position: absolute!important;
+	top: 0!important;
+	left: -10vw!important;
 }
 
 @media only screen and (max-width: 1200px) {
 	.p-tieredmenu-overlay {
-		left: 60vw!important;
+		position: absolute!important;
+		top: 0!important;
+		left: -10vw!important;
 	}
 }
 
 @media only screen and (max-width: 922px) {
 	.p-tieredmenu-overlay {
-		left: 75vw!important;
+		position: absolute!important;
+		top: 0!important;
+		left: -15vw!important;
 	}
 }
 
 @media only screen and (max-width: 768px) {
-
+	.p-tieredmenu-overlay {
+		position: absolute!important;
+		top: 0!important;
+		left: -20vw!important;
+	}
 }
 
 @media only screen and (max-width: 576px) {
-
+	.p-tieredmenu-overlay {
+		position: absolute!important;
+		top: 0!important;
+		left: -25vw!important;
+	}
 }
 
 </style>

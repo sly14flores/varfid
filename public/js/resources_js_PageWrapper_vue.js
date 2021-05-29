@@ -683,6 +683,12 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
+var _hoisted_6 = {
+  style: {
+    "position": "absolute"
+  }
+};
+
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
@@ -711,14 +717,14 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   }, 8
   /* PROPS */
-  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TieredMenu, {
+  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TieredMenu, {
     id: "overlay_menu",
     ref: "menu",
     model: $data.menu,
     popup: true
   }, null, 8
   /* PROPS */
-  , ["model"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog)]);
+  , ["model"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ConfirmDialog)]);
 });
 
 /***/ }),
@@ -1055,7 +1061,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\tleft: 65vw!important;\n}\n@media only screen and (max-width: 1200px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tleft: 60vw!important;\n}\n}\n@media only screen and (max-width: 922px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tleft: 75vw!important;\n}\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 576px) {\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\tposition: absolute!important;\r\n\ttop: 0!important;\r\n\tleft: -10vw!important;\n}\n@media only screen and (max-width: 1200px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tposition: absolute!important;\r\n\t\ttop: 0!important;\r\n\t\tleft: -10vw!important;\n}\n}\n@media only screen and (max-width: 922px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tposition: absolute!important;\r\n\t\ttop: 0!important;\r\n\t\tleft: -15vw!important;\n}\n}\n@media only screen and (max-width: 768px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tposition: absolute!important;\r\n\t\ttop: 0!important;\r\n\t\tleft: -20vw!important;\n}\n}\n@media only screen and (max-width: 576px) {\n.p-tieredmenu-overlay[data-v-52f9f7f1] {\r\n\t\tposition: absolute!important;\r\n\t\ttop: 0!important;\r\n\t\tleft: -25vw!important;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
