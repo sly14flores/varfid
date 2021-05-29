@@ -16,6 +16,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $picture = (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image);
+        if (Storage::disk('local')->missing($this->image)) {
+            $picture = '/img/avatar.png';
+        }
+
         return [
             'id' => $this->id,
             'firstname' => $this->firstname,
@@ -24,7 +30,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'group' => $this->group,
             'image' => null,
-            'picture' => (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image)
+            'picture' => $picture,
         ];
     }
 }

@@ -11,6 +11,14 @@
 				font-size: 1em;
 			}
 
+			header {
+				font-size: 14px;
+			}
+
+			main {
+				padding-top: 30px;
+			}
+
 			.logo {
 				width: 100px;
 			}
@@ -34,7 +42,7 @@
 			}
 
 			.coverage {
-				margin-bottom: 10px;
+				margin-bottom: 3px;				
 				font-size: 0.75em;
 			}
 
@@ -85,8 +93,11 @@
 		</script>
 		<div class="wrapper">
 			<header>
-				<div style="width: 100%; text-align: center;"><img class="logo" src="{{ $logo }}" /></div>
-				<p style="position: absolute; top: 0; left: 0;">Vehicles Report</p>
+				<div style="width: 100%; position: absolute: left: 0; top: 0;"><img class="logo" src="{{ $logo }}" /></div>
+				<p style="text-align: center; margin-top: -100px; font-weight: bold;">{{ $title }}</p>
+				<p style="text-align: center; margin-top: -12px">DON MARIANO MARCOS MEMORIAL STATE UNIVERSITY</p>
+				<p style="text-align: center; margin-top: -12px">NORTH LA UNION CAMPUS</p>
+				<p style="text-align: center; margin-top: -12px"">Bacnotan, La Union</p>				
 			</header>
 			<main>
 				<div class="coverage">
@@ -97,29 +108,29 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<th>Date Registered</th>						
 							<!-- <th>No</th> -->
 							<th>Type</th>
 							<th>Brand</th>
 							<th>Model</th>
-							<th>Plate No</th>
+							<!-- <th>Plate No</th> -->
 							<!-- <th>RFID</th> -->
 							<th>First Name</th>
 							<th>Last Name</th>
-							<th>Date Registered</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($vehicles as $vehicle)
 							<tr>
+								<td>{{ $vehicle['date_created'] }}</td>							
 								<!-- <td>{{ $vehicle['no'] }}</td> -->
 								<td>{{ $vehicle['type_name'] }}</td>
 								<td>{{ $vehicle['brand_name'] }}</td>
 								<td>{{ $vehicle['model'] }}</td>
-								<td>{{ $vehicle['plate_no'] }}</td>
+								<!-- <td>{{ $vehicle['plate_no'] }}</td> -->
 								<!-- <td>{{ $vehicle['rfid'] }}</td> -->
 								<td>{{ $vehicle['firstname'] }}</td>
 								<td>{{ $vehicle['lastname'] }}</td>
-								<td>{{ $vehicle['date_created'] }}</td>
 							</tr>
 						@endforeach
 					</tbody>

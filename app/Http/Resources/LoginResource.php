@@ -19,6 +19,11 @@ class LoginResource extends JsonResource
      */
     public function toArray($request)
     {
+        $picture = (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image);
+        if (Storage::disk('local')->missing($this->image)) {
+            $picture = '/img/avatar.png';
+        }
+
         return [
             'id' => $this->id,
             'firstname' => $this->firstname,
@@ -26,7 +31,7 @@ class LoginResource extends JsonResource
             'token' => $this->api_token,
             'group' => $this->group,
             'groupName' => $this->getGroupName($this->group),
-            'picture' => (is_null($this->image))?null:config('profile.users_url').Storage::url($this->image),            
+            'picture' => $picture,       
         ];
     }
 }

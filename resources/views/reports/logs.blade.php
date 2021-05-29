@@ -11,6 +11,14 @@
 				font-size: 1em;
 			}
 
+			header {
+				font-size: 14px;
+			}
+
+			main {
+				padding-top: 30px;
+			}			
+
 			.logo {
 				width: 100px;
 			}
@@ -34,7 +42,7 @@
 			}
 
 			.coverage {
-				margin-bottom: 10px;
+				margin-bottom: 3px;
 				font-size: 0.75em;
 			}
 
@@ -85,8 +93,11 @@
 		</script>
 		<div class="wrapper">
 			<header>
-				<div style="width: 100%; text-align: center;"><img class="logo" src="{{ $logo }}" /></div>
-				<p style="position: absolute; top: 0; left: 0;">{{ $title }}</p>
+			<div style="width: 100%; position: absolute: left: 0; top: 0;"><img class="logo" src="{{ $logo }}" /></div>
+				<p style="text-align: center; margin-top: -100px; font-weight: bold;">{{ $title }}</p>
+				<p style="text-align: center; margin-top: -12px">DON MARIANO MARCOS MEMORIAL STATE UNIVERSITY</p>
+				<p style="text-align: center; margin-top: -12px">NORTH LA UNION CAMPUS</p>
+				<p style="text-align: center; margin-top: -12px"">Bacnotan, La Union</p>								
 			</header>
 			<main>
 				<div class="coverage">
@@ -97,27 +108,27 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<th>DateTime</th>						
 							<!-- <th>No</th> -->
 							<!-- <th>RFID</th> -->
-							<th>Plate No</th>
+							<!-- <th>Plate No</th> -->
 							<th>Vehicle Type</th>
 							<th>Brand</th>
 							<th>Model</th>
 							<th>Owner's Name</th>
-							<th>DateTime</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($logs as $log)
 							<tr>
+								<td>{{ $log['dateTime'] }}</td>							
 								<!-- <td>{{ $log['no'] }}</td> -->
 								<!-- <td>{{ $log['rfid'] }}</td> -->
-								<td>{{ $log['plateNo'] }}</td>
+								<!-- <td>{{ $log['plateNo'] }}</td> -->
 								<td>{{ $log['type'] }}</td>
 								<td>{{ $log['brand'] }}</td>
 								<td>{{ $log['model'] }}</td>
 								<td>{{ $log['owner'] }}</td>
-								<td>{{ $log['dateTime'] }}</td>
 							</tr>
 						@endforeach
 					</tbody>
