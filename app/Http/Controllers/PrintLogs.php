@@ -63,30 +63,30 @@ class PrintLogs extends Controller
             $startDate = Carbon::parse($filters['startDate'])->format("Y-m-d 00:00:00");
             $endDate = Carbon::parse($filters['endDate'])->addDays(1)->format("Y-m-d 00:00:00");
         }
-        if ($filters['type']==0) {
-            $coverage[] = "Type: All";
-        } else {
-            $coverage[] = "Type: {$this->getType($filters['type'])}";
-        }
-        if ($filters['brand']==0) {
-            $coverage[] = "Brand: All";
-        } else {
-            $coverage[] = "Brand: {$this->getBrand($filters['brand'])}";
-        }
-        if ($filters['model']==0) {
-            $coverage[] = "Model: All";
-        } else {
-            $coverage[] = "Model: {$this->getModel($filters['model'])}";
-        }
-        if ($filters['plate_no']!=null) {
-            $coverage[] = "Plate No: {$filters['plate_no']}";
-        }
-        if ($filters['rfid']!=null) {
-            $coverage[] = "RFID: {$filters['rfid']}";
-        }
-        if ($filters['name']!=null) {
-            $coverage[] = "Name: {$filters['name']}";
-        }
+        // if ($filters['type']==0) {
+        //     $coverage[] = "Type: All";
+        // } else {
+        //     $coverage[] = "Type: {$this->getType($filters['type'])}";
+        // }
+        // if ($filters['brand']==0) {
+        //     $coverage[] = "Brand: All";
+        // } else {
+        //     $coverage[] = "Brand: {$this->getBrand($filters['brand'])}";
+        // }
+        // if ($filters['model']==0) {
+        //     $coverage[] = "Model: All";
+        // } else {
+        //     $coverage[] = "Model: {$this->getModel($filters['model'])}";
+        // }
+        // if ($filters['plate_no']!=null) {
+        //     $coverage[] = "Plate No: {$filters['plate_no']}";
+        // }
+        // if ($filters['rfid']!=null) {
+        //     $coverage[] = "RFID: {$filters['rfid']}";
+        // }
+        // if ($filters['name']!=null) {
+        //     $coverage[] = "Name: {$filters['name']}";
+        // }
 
         $wheres = [];
         $type = $filters['type'];
